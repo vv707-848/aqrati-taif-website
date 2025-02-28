@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title> منصة عقارك   - اختر عقارك</title>
+  <title>منصّة عقارك - الصفحة الرئيسية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- استخدام خط Cairo -->
+  <!-- خط Cairo -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -15,15 +15,16 @@
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
-
+  
   <style>
     :root {
       --font-family: 'Cairo', sans-serif;
-      --primary-color: #2c3e50;
-      --secondary-color: #ecf0f1;
-      --accent-color: #1abc9c;
-      --header-gradient: linear-gradient(135deg, #2c3e50, #34495e);
+      --primary-color: #2B2D42;
+      --secondary-color: #F8F9FA;
+      --accent-color: #EF233C;
+      --header-gradient: linear-gradient(135deg, #2B2D42, #3C4059);
       --header-text-color: #fff;
+      --radius: 10px;
     }
     body {
       font-family: var(--font-family);
@@ -32,6 +33,7 @@
       padding: 0;
       color: var(--primary-color);
     }
+    /* الهيدر الثابت */
     .header {
       position: fixed;
       top: 0;
@@ -67,88 +69,178 @@
     .login-btn:hover {
       background-color: rgba(255,255,255,0.2);
     }
-    /* تباعد المحتوى عن الهيدر */
-    #contentWrapper, #publicContent, #adminPanel {
-      margin-top: 80px;
-    }
-    /* لوحة تسجيل الدخول */
+    /* نموذج تسجيل الدخول داخل الصفحة */
     #loginPanel {
       display: none;
       position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 500px;
-      width: 90%;
+      top: 70px;
+      right: 20px;
+      width: 300px;
       background: #fff;
       border: 1px solid #ddd;
       padding: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 1090;
+      z-index: 2000;
+      border-radius: var(--radius);
     }
-    /* لوحة الإدارة */
+    #loginPanel h5 {
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    /* لوحة الإدارة: تم نقلها لتظهر بعد نموذج الدخول وبالقرب من الهيدر */
     #adminPanel {
       display: none;
       background: #fff;
       padding: 20px;
       border: 2px solid var(--accent-color);
-      border-radius: 8px;
-      margin: 20px auto;
+      border-radius: var(--radius);
       max-width: 1200px;
+      margin: 80px auto 40px; /* تأكد من ظهورها في أعلى الصفحة */
     }
-    /* شريط التصنيفات */
-    .category-row {
+    #adminPanel h3 {
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .action-badge {
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 5px;
+      margin: 2px;
+    }
+    .action-badge.edit {
+      background-color: #0d6efd;
+      color: #fff;
+    }
+    .action-badge.delete {
+      background-color: #dc3545;
+      color: #fff;
+    }
+    /* قسم Hero مع صورة خلفية تخص العقارات */
+    .hero-section {
+      background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
+      position: relative;
+      min-height: 400px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin: 20px 0;
+      text-align: center;
+      color: #fff;
+      margin-top: 60px;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      padding: 20px;
+    }
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .btn-hero {
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 30px;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+    .btn-hero:hover {
+      background-color: #fff;
+      color: var(--accent-color);
+    }
+    /* أقسام العقارات: 8 أقسام (4 أعمدة لكل صف) */
+    .category-title {
+      color: var(--accent-color);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
     }
     .category-card {
       background: #fff;
       border: 1px solid #ddd;
-      border-radius: 8px;
-      width: 120px;
-      height: 120px;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      will-change: transform;
+      text-align: center;
     }
     .category-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .category-icon {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       color: var(--accent-color);
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
     .category-text {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--primary-color);
-      text-align: center;
+      margin: 0;
     }
-    /* واجهة الزبون */
-    #publicContent {
-      padding: 20px;
+    /* قائمة العقارات */
+    .property-list-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      text-align: center;
     }
     .property-card {
       border: 1px solid #ccc;
-      border-radius: 10px;
+      border-radius: var(--radius);
       overflow: hidden;
       background: #fff;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      will-change: transform;
     }
     .property-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
     .property-card img {
-      transition: opacity 0.3s;
+      transition: opacity 0.2s;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      height: 230px;
+      object-fit: cover;
+      width: 100%;
+    }
+    /* صفحة تفاصيل العقار */
+    #propertyDetailPage {
+      display: none;
+      padding: 20px;
+    }
+    .carousel-item img {
+      border-radius: var(--radius);
     }
     /* Toast Notification */
     #toastContainer {
@@ -157,15 +249,6 @@
       right: 20px;
       z-index: 1300;
     }
-    /* معاينة الصور الإضافية */
-    #additionalImagesPreview img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      margin-right: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
     .spin {
       animation: spin 1s linear infinite;
     }
@@ -173,177 +256,206 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+    /* معاينة الصور الإضافية */
+    #additionalImagesPreview img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
   </style>
-  
-  <!-- Firebase Initialization -->
+
   <script>
-    // Firebase configuration (نسخ الإعدادات التي زودتك بها)
+    // حدث إعدادات Firebase (حدثها حسب بيانات مشروعك)
     const firebaseConfig = {
-      apiKey: "AIzaSyCiNJYUT06jZrlzn_Q7LXmkStTgVbeRk0U",
+      apiKey: "AIza...",
       authDomain: "aqrati-taif.firebaseapp.com",
       databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "aqrati-taif",
-      storageBucket: "aqrati-taif.firebasestorage.app",
+      storageBucket: "aqrati-taif.appspot.com",
       messagingSenderId: "729968735852",
       appId: "1:729968735852:web:4779366823353325efca49",
       measurementId: "G-37C6RY0378"
     };
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-    // الحصول على مرجع لقاعدة بيانات Realtime Database
-    const dbRef = firebase.database().ref("properties");
+
+    // مراجع قاعدة البيانات
+    const propertiesRef = firebase.database().ref("properties");
+    const nextIdRef = firebase.database().ref("nextId");
   </script>
-  
 </head>
 <body>
   <!-- الهيدر -->
   <header class="header">
     <div class="header-container">
-      <h1>عقارات الطائف</h1>
-      <button class="login-btn" id="loginLogoutBtn">تسجيل دخول</button>
+      <h1>منصّة عقارك</h1>
+      <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
     </div>
   </header>
 
-  <!-- لوحة تسجيل الدخول -->
+  <!-- نموذج تسجيل الدخول -->
   <div id="loginPanel">
-    <h5 class="mb-3">تسجيل الدخول</h5>
+    <h5>تسجيل الدخول</h5>
     <label for="usernameInput" class="form-label">اسم المستخدم</label>
     <input type="text" id="usernameInput" class="form-control" placeholder="اكتب اسم المستخدم">
     <label for="passwordInput" class="form-label mt-2">كلمة المرور</label>
     <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
-    <button class="btn btn-primary mt-3" onclick="performLogin()">دخول</button>
+    <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
   </div>
 
-  <!-- المحتوى الرئيسي -->
-  <div id="contentWrapper">
-    <!-- لوحة الإدارة -->
-    <div class="container" id="adminPanel">
-      <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
-      <!-- نموذج الإضافة/التعديل -->
-      <form id="propertyForm" class="mb-4">
-        <input type="hidden" id="propertyId">
-        <div class="mb-3">
-          <label for="title" class="form-label">العنوان</label>
-          <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
-        </div>
-        <div class="mb-3">
-          <label for="location" class="form-label">الموقع</label>
-          <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي الرواد" required>
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">السعر</label>
-          <input type="text" id="price" class="form-control" placeholder="مثلاً: 1,500,000 ريال" required>
-        </div>
-        <div class="mb-3">
-          <label for="category" class="form-label">التصنيف</label>
-          <select id="category" class="form-select" required>
-            <option value="">اختر التصنيف</option>
-            <option value="عمائر سكنية">عمائر سكنية</option>
-            <option value="عمائر تجارية">عمائر تجارية</option>
-            <option value="أراضي سكنية">أراضي سكنية</option>
-            <option value="أراضي تجارية">أراضي تجارية</option>
-            <option value="أدوار مستقلة">أدوار مستقلة</option>
-            <option value="أدوار في عمائر">أدوار في عمائر</option>
-            <option value="استراحات">استراحات</option>
-            <option value="شقق تمليك">شقق تمليك</option>
-            <option value="فلل">فلل</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="mainImageFile" class="form-label">رفع الصورة الرئيسية</label>
-          <input type="file" id="mainImageFile" class="form-control" accept="image/*">
-        </div>
-        <div class="mb-3">
-          <label for="additionalImages" class="form-label">رفع الصور الإضافية (يمكن اختيار أكثر من ملف)</label>
-          <input type="file" id="additionalImages" class="form-control" accept="image/*" multiple>
-          <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">الوصف</label>
-          <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
-        </div>
-        <div class="d-flex align-items-center flex-wrap gap-2">
-          <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
-          <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
-          <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
-          <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
-        </div>
-      </form>
-
-      <!-- جدول إدارة العقارات -->
-      <h4>العقارات المُضافة</h4>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped" id="propertiesTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>العنوان</th>
-              <th>الموقع</th>
-              <th>السعر</th>
-              <th>التصنيف</th>
-              <th>الإجراءات</th>
-            </tr>
-          </thead>
-          <tbody id="adminTableBody">
-            <!-- سيتم تعبئة جدول الإدارة هنا -->
-          </tbody>
-        </table>
+  <!-- لوحة الإدارة: ستظهر في بداية الصفحة عند تسجيل الدخول -->
+  <div id="adminPanel">
+    <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
+    <form id="propertyForm" class="mb-4">
+      <input type="hidden" id="propertyId">
+      <div class="mb-3">
+        <label for="title" class="form-label">العنوان</label>
+        <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
       </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">الموقع</label>
+        <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي ..." required>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">السعر</label>
+        <input type="text" id="price" class="form-control" placeholder="مثلاً: 1,500,000 ريال" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">التصنيف</label>
+        <select id="category" class="form-select" required>
+          <option value="">اختر التصنيف</option>
+          <option value="عمائر">عمائر</option>
+          <option value="فلل">فلل</option>
+          <option value="شقق">شقق</option>
+          <option value="استراحات">استراحات</option>
+          <option value="أدوار مستقلة">أدوار مستقلة</option>
+          <option value="أراضي">أراضي</option>
+          <option value="دوبلكس">دوبلكس</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="mainImageFile" class="form-label">الصورة الرئيسية</label>
+        <input type="file" id="mainImageFile" class="form-control" accept="image/*">
+      </div>
+      <div class="mb-3">
+        <label for="additionalImages" class="form-label">الصور الإضافية (يمكن اختيار أكثر من ملف)</label>
+        <input type="file" id="additionalImages" class="form-control" accept="image/*" multiple>
+        <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">الوصف</label>
+        <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
+      </div>
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
+        <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
+        <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
+        <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
+      </div>
+    </form>
+    <h4>العقارات المُضافة</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle" id="propertiesTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>العنوان</th>
+            <th>الموقع</th>
+            <th>السعر</th>
+            <th>التصنيف</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <!-- سيتم تعبئة الجدول هنا -->
+        </tbody>
+      </table>
     </div>
+    <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
+  </div>
 
-    <!-- واجهة الزبون -->
-    <div class="container" id="publicContent">
-      <div class="category-row">
-        <div class="category-card" onclick="filterProperties('عمائر سكنية')">
+  <!-- قسم Hero -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>أهلاً بك في منصّة عقارك</h2>
+      <p>ابحث عن أفضل العقارات المناسبة لاحتياجاتك بسهولة ويسر</p>
+      <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
+    </div>
+  </section>
+
+  <!-- أقسام العقارات -->
+  <section class="container my-5">
+    <h2 class="category-title">الأقسام العقارية</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-3">
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('all')">
+          <i class="bi bi-card-list category-icon"></i>
+          <span class="category-text">عرض الكل</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('عمائر')">
           <i class="bi bi-building category-icon"></i>
-          <span class="category-text">عمائر سكنية</span>
+          <span class="category-text">عمائر</span>
         </div>
-        <div class="category-card" onclick="filterProperties('عمائر تجارية')">
-          <i class="bi bi-building-down category-icon"></i>
-          <span class="category-text">عمائر تجارية</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('أراضي سكنية')">
-          <i class="bi bi-geo-alt category-icon"></i>
-          <span class="category-text">أراضي سكنية</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('أراضي تجارية')">
-          <i class="bi bi-geo-alt-fill category-icon"></i>
-          <span class="category-text">أراضي تجارية</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
-          <i class="bi bi-layers category-icon"></i>
-          <span class="category-text">أدوار مستقلة</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('أدوار في عمائر')">
-          <i class="bi bi-building-check category-icon"></i>
-          <span class="category-text">أدوار في عمائر</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('استراحات')">
-          <i class="bi bi-house-door category-icon"></i>
-          <span class="category-text">استراحات</span>
-        </div>
-        <div class="category-card" onclick="filterProperties('شقق تمليك')">
-          <i class="bi bi-houses category-icon"></i>
-          <span class="category-text">شقق تمليك</span>
-        </div>
+      </div>
+      <div class="col">
         <div class="category-card" onclick="filterProperties('فلل')">
           <i class="bi bi-house category-icon"></i>
           <span class="category-text">فلل</span>
         </div>
       </div>
-      <div id="propertiesContainer" class="row">
-        <!-- بطاقات العقارات ستعرض هنا -->
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('شقق')">
+          <i class="bi bi-houses category-icon"></i>
+          <span class="category-text">شقق</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('استراحات')">
+          <i class="bi bi-tree category-icon"></i>
+          <span class="category-text">استراحات</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
+          <i class="bi bi-layers category-icon"></i>
+          <span class="category-text">أدوار مستقلة</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أراضي')">
+          <i class="bi bi-geo-alt category-icon"></i>
+          <span class="category-text">أراضي</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('دوبلكس')">
+          <i class="bi bi-building-check category-icon"></i>
+          <span class="category-text">دوبلكس</span>
+        </div>
       </div>
     </div>
-    
-    <!-- صفحة تفاصيل العقار -->
-    <div id="propertyDetailPage" style="display:none;">
-      <div class="container mt-4">
-        <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
-        <div id="detailContent">
-          <!-- تفاصيل العقار ستعرض هنا -->
-        </div>
+  </section>
+
+  <!-- قائمة العقارات -->
+  <section class="container" id="publicContent">
+    <h2 class="property-list-title">العقارات المتاحة</h2>
+    <div id="propertiesContainer" class="row">
+      <!-- بطاقات العقارات ستظهر هنا -->
+    </div>
+  </section>
+
+  <!-- صفحة تفاصيل العقار -->
+  <div id="propertyDetailPage">
+    <div class="container mt-4">
+      <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
+      <div id="detailContent">
+        <!-- تفاصيل العقار ستظهر هنا -->
       </div>
     </div>
   </div>
@@ -351,13 +463,15 @@
   <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
   
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
-    /*************** إدارة تسجيل الدخول والإشعارات ***************/
+    /*************** بيانات الدخول للإدارة ***************/
     const ADMIN_USERNAME = "ivl511";
     const ADMIN_PASSWORD = "Wa@055364";
-    
+
+    /*************** دالة عرض Toast ***************/
     function showToast(message) {
       const container = document.getElementById("toastContainer");
       const toast = document.createElement("div");
@@ -366,12 +480,22 @@
       container.appendChild(toast);
       setTimeout(() => { toast.remove(); }, 3000);
     }
-    
+
+    /*************** دالة toggle لنموذج تسجيل الدخول ***************/
+    function toggleLoginPanel() {
+      if(localStorage.getItem("adminLoggedIn") === "true"){
+        performLogout();
+      } else {
+        document.getElementById("loginPanel").style.display = "block";
+        window.scrollTo(0,0);
+      }
+    }
+
+    /*************** إدارة تسجيل الدخول ***************/
     function performLogin() {
       const user = document.getElementById("usernameInput").value.trim();
       const pass = document.getElementById("passwordInput").value.trim();
       if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
-        firebase.database().ref("admin").set({ loggedIn: true }); // optional: تسجيل الدخول في قاعدة البيانات
         localStorage.setItem("adminLoggedIn", "true");
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
@@ -379,36 +503,57 @@
         alert("بيانات الدخول غير صحيحة!");
       }
     }
-    
     function performLogout() {
       localStorage.removeItem("adminLoggedIn");
-      hideAdminPanel();
+      location.reload();
     }
-    
     function showAdminPanel() {
       document.getElementById("adminPanel").style.display = "block";
-      document.getElementById("loginLogoutBtn").textContent = "تسجيل خروج";
+      // نقوم بالتمرير تلقائيًا إلى لوحة الإدارة عند تسجيل الدخول
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    
-    function hideAdminPanel() {
-      document.getElementById("adminPanel").style.display = "none";
-      document.getElementById("loginLogoutBtn").textContent = "تسجيل دخول";
-    }
-    
-    document.getElementById("loginLogoutBtn").addEventListener("click", function(){
-      if(localStorage.getItem("adminLoggedIn") === "true") {
-        performLogout();
-      } else {
-        document.getElementById("loginPanel").style.display = "block";
-        window.scrollTo(0,0);
+
+    /*************** عند تحميل الصفحة ***************/
+    document.addEventListener("DOMContentLoaded", function(){
+      if(localStorage.getItem("adminLoggedIn") === "true"){
+        document.getElementById("loginPanel").style.display = "none";
+        showAdminPanel();
+      }
+      loadProperties();
+      // استرجاع المسودة إذا وُجدت
+      const savedDraft = localStorage.getItem("propertyDraft");
+      if (savedDraft) {
+        const draft = JSON.parse(savedDraft);
+        document.getElementById("propertyId").value = draft.propertyId || "";
+        document.getElementById("title").value = draft.title || "";
+        document.getElementById("location").value = draft.location || "";
+        document.getElementById("price").value = draft.price || "";
+        document.getElementById("category").value = draft.category || "";
+        document.getElementById("description").value = draft.description || "";
       }
     });
-    
-    /*************** إدارة بيانات العقارات باستخدام Firebase Realtime Database ***************/
-    
-    // قراءة العقارات من قاعدة بيانات Firebase
+
+    /*************** المتغيرات العالمية ***************/
+    let properties = [];
+    let filteredList = [];
+
+    /*******************************************************
+     * دالة لجلب الرقم التالي (Auto-Increment) من Firebase
+     *******************************************************/
+    async function getNextId() {
+      const result = await nextIdRef.transaction(currentValue => {
+        return (currentValue || 0) + 1;
+      });
+      if (result.committed) {
+        return result.snapshot.val();
+      } else {
+        throw new Error("Transaction not committed");
+      }
+    }
+
+    /*************** تحميل العقارات من Firebase ***************/
     function loadProperties() {
-      firebase.database().ref("properties").once("value").then(snapshot => {
+      propertiesRef.once("value").then(snapshot => {
         const data = snapshot.val();
         if(data) {
           properties = Object.values(data);
@@ -422,42 +567,13 @@
         console.error("Error loading properties:", err);
       });
     }
-    
-    // حفظ العقار في Firebase
-    function saveProperty(propertyData) {
-      firebase.database().ref("properties/" + propertyData.id).set(propertyData)
-      .then(() => {
-        loadProperties();
-      })
-      .catch(err => {
-        console.error("Error saving property:", err);
-      });
-    }
-    
-    // المتغيرات العالمية
-    let properties = [];
-    let filteredList = [];
-    
-    // تحويل الملف إلى Base64
-    function getFileDataURL(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          resolve(e.target.result);
-        };
-        reader.onerror = function(e) {
-          reject(e);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-    
-    // إنشاء بطاقات العقارات للعرض العام
+
+    /*************** إنشاء بطاقات العقارات للعرض العام ***************/
     function generatePropertyCards(list = filteredList) {
       const container = document.getElementById("propertiesContainer");
       container.innerHTML = "";
       if(list.length === 0) {
-        container.innerHTML = '<p class="text-center py-3">لا توجد عقارات مطابقة للبحث</p>';
+        container.innerHTML = '<p class="text-center py-3">لا توجد عقارات متاحة</p>';
         return;
       }
       list.forEach(prop => {
@@ -466,179 +582,27 @@
         col.className = "col-md-4 mb-4";
         col.innerHTML = `
           <div class="property-card">
-            <img src="${mainSrc}" class="w-100" style="height:280px; object-fit:cover;" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+            <img src="${mainSrc}" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
             <div class="p-3">
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
-              <p>${prop.location}</p>
-              <p style="font-size:1.3rem; color: var(--accent-color);">${prop.price}</p>
-              <button class="btn btn-dark w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">عرض الوصف</button>
+              <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
+              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">${prop.price}</p>
+              <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
             </div>
           </div>
         `;
         container.appendChild(col);
       });
     }
-    
-    // تحديث جدول الإدارة
-    function updateAdminTable() {
-      const tbody = document.getElementById("adminTableBody");
-      tbody.innerHTML = "";
-      properties.forEach(prop => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${prop.id}</td>
-          <td>${prop.title}</td>
-          <td>${prop.location}</td>
-          <td>${prop.price}</td>
-          <td>${prop.category}</td>
-          <td>
-            <span class="badge bg-primary" style="cursor:pointer;" onclick="editProperty('${prop.id}')">تعديل</span>
-            <span class="badge bg-danger" style="cursor:pointer;" onclick="deleteProperty('${prop.id}')">حذف</span>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-    
-    // دالة حذف العقار
-    function deleteProperty(id) {
-      if(confirm("هل أنت متأكد من حذف هذا الإعلان؟")) {
-        firebase.database().ref("properties/" + id).remove()
-        .then(() => {
-          showToast("تم حذف الإعلان بنجاح");
-          loadProperties();
-        })
-        .catch(err => {
-          console.error("Error deleting property:", err);
-        });
-      }
-    }
-    
-    // حفظ أو تحديث العقار عند تقديم النموذج
-    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
-      
-      try {
-        const idField = document.getElementById("propertyId").value;
-        let propertyId;
-        if(idField) {
-          propertyId = idField;
-        } else {
-          // إذا كان جديدًا، نستخدم الوقت الحالي كمعرف
-          propertyId = Date.now().toString();
-        }
-        
-        const title = document.getElementById("title").value;
-        const location = document.getElementById("location").value;
-        const price = document.getElementById("price").value;
-        const category = document.getElementById("category").value;
-        const description = document.getElementById("description").value;
-        
-        let mainImageURL = "";
-        const mainFile = document.getElementById("mainImageFile").files[0];
-        if(mainFile) {
-          mainImageURL = await getFileDataURL(mainFile);
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) mainImageURL = existing.mainImage;
-        }
-        
-        let additionalImagesURL = [];
-        const additionalFiles = document.getElementById("additionalImages").files;
-        if(additionalFiles.length) {
-          for(const file of additionalFiles) {
-            const url = await getFileDataURL(file);
-            additionalImagesURL.push(url);
-          }
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) additionalImagesURL = existing.images || [];
-        }
-        
-        const propertyData = {
-          id: propertyId,
-          title,
-          location,
-          price,
-          category,
-          mainImage: mainImageURL,
-          images: additionalImagesURL,
-          description,
-          updatedAt: Date.now()
-        };
-        
-        saveProperty(propertyData);
-        showToast("تم حفظ التعديلات بنجاح");
-        document.getElementById("propertyForm").reset();
-        document.getElementById("propertyId").value = "";
-        document.getElementById("additionalImagesPreview").innerHTML = "";
-        localStorage.removeItem("propertyDraft");
-      } catch (error) {
-        console.error("خطأ في الحفظ:", error);
-        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
-      }
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = 'حفظ التعديلات';
-    });
-    
-    // حفظ البيانات تلقائيًا (Auto-save) إلى مسودة في localStorage
-    document.getElementById("propertyForm").addEventListener("input", function() {
-      const draft = {
-        propertyId: document.getElementById("propertyId").value,
-        title: document.getElementById("title").value,
-        location: document.getElementById("location").value,
-        price: document.getElementById("price").value,
-        category: document.getElementById("category").value,
-        description: document.getElementById("description").value
-      };
-      localStorage.setItem("propertyDraft", JSON.stringify(draft));
-    });
-    
-    // زر "إضافة عقار جديد"
-    document.getElementById("newPropertyBtn").addEventListener("click", function() {
-      document.getElementById("propertyForm").reset();
-      document.getElementById("propertyId").value = "";
-      document.getElementById("additionalImagesPreview").innerHTML = "";
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    });
-    
-    // دالة تعديل العقار: تعبئة النموذج ببيانات العقار
-    function editProperty(id) {
-      const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      document.getElementById("propertyId").value = prop.id;
-      document.getElementById("title").value = prop.title;
-      document.getElementById("location").value = prop.location;
-      document.getElementById("price").value = prop.price;
-      document.getElementById("category").value = prop.category;
-      document.getElementById("description").value = prop.description;
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    }
-    
-    // معاينة الصور الإضافية عند اختيار الملفات
-    document.getElementById("additionalImages").addEventListener("change", function() {
-      const preview = document.getElementById("additionalImagesPreview");
-      preview.innerHTML = "";
-      const files = this.files;
-      if(files) {
-        Array.from(files).forEach(file => {
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(file);
-          preview.appendChild(img);
-        });
-      }
-    });
-    
-    // عرض تفاصيل العقار
+
+    /*************** عرض تفاصيل العقار ***************/
     function showPropertyDetail(id) {
       const prop = properties.find(p => p.id == id);
       if(!prop) return;
       document.getElementById("publicContent").style.display = "none";
       document.getElementById("propertyDetailPage").style.display = "block";
       const detail = document.getElementById("detailContent");
+      
       let allImages = [];
       if(prop.mainImage) allImages.push(prop.mainImage);
       if(prop.images && prop.images.length) allImages.push(...prop.images);
@@ -651,6 +615,12 @@
                     <img src="${img}" class="d-block w-100" style="height:400px; object-fit:cover;" alt="Slide ${index+1}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
                   </div>`;
       });
+      if(allImages.length === 0) {
+        indicators = "";
+        items = `<div class="carousel-item active">
+                   <img src="https://via.placeholder.com/500x280?text=No+Image" class="d-block w-100" style="height:400px; object-fit:cover;" alt="No Image">
+                 </div>`;
+      }
       detail.innerHTML = `
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
           <div class="carousel-indicators">${indicators}</div>
@@ -665,48 +635,194 @@
           </button>
         </div>
         <div class="card p-3">
-          <h3 class="card-title" style="color: var(--accent-color);">${prop.title}</h3>
+          <h3 class="card-title mb-3" style="color: var(--accent-color);">${prop.title}</h3>
           <p class="card-text"><strong>الموقع:</strong> ${prop.location}</p>
           <p class="card-text"><strong>السعر:</strong> ${prop.price}</p>
-          <p class="card-text">${prop.description}</p>
-          <a href="https://wa.me/966535342404?text=أهلا، لدي استفسار عن العقار: ${encodeURIComponent(prop.title)}" target="_blank" class="btn btn-success">
+          <p class="card-text">${prop.description || ''}</p>
+          <a href="https://wa.me/966535342404?text=مرحبًا%20أرغب%20بمعرفة%20مزيد%20من%20التفاصيل%20عن%20العقار:%20${encodeURIComponent(prop.title)}" target="_blank" class="btn btn-success">
             تواصل عبر واتساب
           </a>
         </div>
       `;
     }
-    
-    // العودة للقائمة الرئيسية
     function backToListing() {
       document.getElementById("propertyDetailPage").style.display = "none";
       document.getElementById("publicContent").style.display = "block";
     }
-    
-    // تصفية العقارات حسب التصنيف
+
+    /*************** تصفية العقارات ***************/
     function filterProperties(category) {
-      filteredList = properties.filter(p => p.category === category);
+      if(category === 'all') {
+        filteredList = [...properties];
+      } else {
+        filteredList = properties.filter(p => p.category === category);
+      }
       generatePropertyCards(filteredList);
     }
-    
-    // عند تحميل الصفحة: قراءة البيانات من Firebase وملء الواجهة
-    document.addEventListener("DOMContentLoaded", function() {
-      loadProperties();
-      // استرجاع حالة تسجيل الدخول
-      if(localStorage.getItem("adminLoggedIn") === "true") {
-        showAdminPanel();
+
+    /*************** التمرير إلى قسم العقارات ***************/
+    function scrollToProperties() {
+      document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
+    }
+
+    /*************** جدول الإدارة ***************/
+    function updateAdminTable() {
+      const tbody = document.getElementById("adminTableBody");
+      tbody.innerHTML = "";
+      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
+      sortedProps.forEach((prop, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${prop.title}</td>
+          <td>${prop.location}</td>
+          <td>${prop.price}</td>
+          <td>${prop.category}</td>
+          <td>
+            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
+            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    /*************** حفظ العقار في Firebase ***************/
+    function saveProperty(propertyData) {
+      return propertiesRef.child(propertyData.id).set(propertyData)
+      .then(() => {
+        loadProperties();
+      })
+      .catch(err => {
+        console.error("Error saving property:", err);
+      });
+    }
+
+    /*************** إضافة/تحديث العقار ***************/
+    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const saveBtn = document.getElementById("saveBtn");
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
+      try {
+        const idField = document.getElementById("propertyId").value;
+        let propertyId;
+        if(!idField) {
+          propertyId = await getNextId();
+        } else {
+          propertyId = parseInt(idField, 10);
+        }
+        const title = document.getElementById("title").value;
+        const location = document.getElementById("location").value;
+        const price = document.getElementById("price").value;
+        const category = document.getElementById("category").value;
+        const description = document.getElementById("description").value;
+        let mainImageURL = "";
+        const mainFile = document.getElementById("mainImageFile").files[0];
+        if(mainFile) {
+          mainImageURL = await getFileDataURL(mainFile);
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) mainImageURL = existing.mainImage;
+        }
+        let additionalImagesURL = [];
+        const additionalFiles = document.getElementById("additionalImages").files;
+        if(additionalFiles.length) {
+          for(const file of additionalFiles) {
+            const url = await getFileDataURL(file);
+            additionalImagesURL.push(url);
+          }
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) additionalImagesURL = existing.images || [];
+        }
+        const propertyData = {
+          id: propertyId,
+          title,
+          location,
+          price,
+          category,
+          mainImage: mainImageURL,
+          images: additionalImagesURL,
+          description,
+          updatedAt: Date.now()
+        };
+        await saveProperty(propertyData);
+        showToast("تم حفظ التعديلات بنجاح");
+        document.getElementById("propertyForm").reset();
+        document.getElementById("propertyId").value = "";
+        document.getElementById("additionalImagesPreview").innerHTML = "";
+        localStorage.removeItem("propertyDraft");
+      } catch (error) {
+        console.error("خطأ في الحفظ:", error);
+        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
       }
-      // استرجاع المسودة إذا وُجدت
-      const savedDraft = localStorage.getItem("propertyDraft");
-      if (savedDraft) {
-        const draft = JSON.parse(savedDraft);
-        document.getElementById("propertyId").value = draft.propertyId || "";
-        document.getElementById("title").value = draft.title || "";
-        document.getElementById("location").value = draft.location || "";
-        document.getElementById("price").value = draft.price || "";
-        document.getElementById("category").value = draft.category || "";
-        document.getElementById("description").value = draft.description || "";
-      }
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = 'حفظ التعديلات';
     });
+
+    // تحويل الملف إلى Base64
+    function getFileDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          resolve(e.target.result);
+        };
+        reader.onerror = function(e) {
+          reject(e);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    /*************** حفظ مسودة أثناء الكتابة ***************/
+    document.getElementById("propertyForm").addEventListener("input", function() {
+      const draft = {
+        propertyId: document.getElementById("propertyId").value,
+        title: document.getElementById("title").value,
+        location: document.getElementById("location").value,
+        price: document.getElementById("price").value,
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value
+      };
+      localStorage.setItem("propertyDraft", JSON.stringify(draft));
+    });
+
+    /*************** زر "إضافة عقار جديد" ***************/
+    document.getElementById("newPropertyBtn").addEventListener("click", function() {
+      document.getElementById("propertyForm").reset();
+      document.getElementById("propertyId").value = "";
+      document.getElementById("additionalImagesPreview").innerHTML = "";
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    });
+
+    /*************** تعديل العقار ***************/
+    function editProperty(id) {
+      const prop = properties.find(p => p.id == id);
+      if(!prop) return;
+      document.getElementById("propertyId").value = prop.id;
+      document.getElementById("title").value = prop.title;
+      document.getElementById("location").value = prop.location;
+      document.getElementById("price").value = prop.price;
+      document.getElementById("category").value = prop.category;
+      document.getElementById("description").value = prop.description;
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    }
+
+    /*************** حذف العقار ***************/
+    function deleteProperty(id) {
+      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
+        propertiesRef.child(id).remove()
+        .then(() => {
+          showToast("تم حذف العقار بنجاح");
+          loadProperties();
+        })
+        .catch(err => {
+          console.error("Error deleting property:", err);
+        });
+      }
+    }
   </script>
 </body>
 </html>
+
