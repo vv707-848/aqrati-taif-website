@@ -130,12 +130,13 @@
       color: #fff;
       margin-top: 60px;
     }
+    /* تم تعديل الطبقة السوداء لتكون نصف الشاشة فقط */
     .hero-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 50%;
       background-color: rgba(0,0,0,0.5);
       z-index: 1;
     }
@@ -276,6 +277,10 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
+    /* قسم "المضاف حديثاً" – يتموضع على اليمين */
+    #newPropertiesSection .category-title {
+      text-align: end;
+    }
   </style>
 
   <script>
@@ -296,186 +301,40 @@
     // مراجع قاعدة البيانات
     const propertiesRef = firebase.database().ref("properties");
     const nextIdRef = firebase.database().ref("nextId");
-  </script>
-</head>
-<body>
-  <!-- الهيدر -->
-  <header class="header">
-    <div class="header-container">
-      <h1>منصّة عقارك</h1>
-      <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
-    </div>
-  </header>
 
-  <!-- نموذج تسجيل الدخول -->
-  <div id="loginPanel">
-    <h5>تسجيل الدخول</h5>
-    <label for="usernameInput" class="form-label">اسم المستخدم</label>
-    <input type="text" id="usernameInput" class="form-control" placeholder="اكتب اسم المستخدم">
-    <label for="passwordInput" class="form-label mt-2">كلمة المرور</label>
-    <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
-    <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
-  </div>
+    /***************** دوال تحويل السعر *****************/
+    function numberToArabicWords(num) {
+      const units = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
+      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
+      const tens = ["", "", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+      const hundreds = ["", "مئة", "مئتان", "ثلاثمئة", "أربعمئة", "خمسمئة", "ستمئة", "سبعمئة", "ثمانمئة", "تسعمئة"];
 
-  <!-- لوحة الإدارة -->
-  <div id="adminPanel">
-    <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
-    <form id="propertyForm" class="mb-4">
-      <input type="hidden" id="propertyId">
-      <div class="mb-3">
-        <label for="title" class="form-label">العنوان</label>
-        <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
-      </div>
-      <div class="mb-3">
-        <label for="location" class="form-label">الموقع</label>
-        <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي ..." required>
-      </div>
-      <div class="mb-3">
-        <label for="price" class="form-label">السعر</label>
-        <input type="text" id="price" class="form-control" placeholder="مثلاً: 1,500,000 ريال" required>
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">التصنيف</label>
-        <select id="category" class="form-select" required>
-          <option value="">اختر التصنيف</option>
-          <option value="عمائر">عمائر</option>
-          <option value="فلل">فلل</option>
-          <option value="شقق">شقق</option>
-          <option value="استراحات">استراحات</option>
-          <option value="أدوار مستقلة">أدوار مستقلة</option>
-          <option value="أراضي">أراضي</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="mainImageFile" class="form-label">الصورة الرئيسية</label>
-        <input type="file" id="mainImageFile" class="form-control" accept="image/*">
-      </div>
-      <div class="mb-3">
-        <label for="additionalImages" class="form-label">الصور الإضافية (يمكن اختيار أكثر من ملف)</label>
-        <input type="file" id="additionalImages" class="form-control" accept="image/*" multiple>
-        <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">
-          الوصف <i class="bi bi-whatsapp text-success"></i>
-        </label>
-        <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
-      </div>
-      <div class="d-flex align-items-center flex-wrap gap-2">
-        <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
-        <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
-        <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
-        <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
-      </div>
-    </form>
-    <h4>العقارات المُضافة</h4>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped align-middle" id="propertiesTable">
-        <thead class="table-dark">
-          <tr>
-            <th>#</th>
-            <th>العنوان</th>
-            <th>الموقع</th>
-            <th>السعر</th>
-            <th>التصنيف</th>
-            <th>الإجراءات</th>
-          </tr>
-        </thead>
-        <tbody id="adminTableBody">
-          <!-- سيتم تعبئة الجدول هنا -->
-        </tbody>
-      </table>
-    </div>
-    <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
-  </div>
+      if(num < 10) return units[num];
+      if(num < 20) return teens[num - 10];
+      if(num < 100) {
+        let ten = Math.floor(num / 10);
+        let unit = num % 10;
+        return (unit ? units[unit] + " و " : "") + tens[ten];
+      }
+      if(num < 1000) {
+        let hundred = Math.floor(num / 100);
+        let remainder = num % 100;
+        return hundreds[hundred] + (remainder ? " و " + numberToArabicWords(remainder) : "");
+      }
+      if(num < 10000) {
+        let thousand = Math.floor(num / 1000);
+        let remainder = num % 1000;
+        let thousandWord = thousand === 1 ? "ألف" : units[thousand] + " آلاف";
+        return thousandWord + (remainder ? " و " + numberToArabicWords(remainder) : "");
+      }
+      return num.toString();
+    }
+    function convertPriceText(price) {
+      const num = parseInt(price.replace(/,/g, ''), 10);
+      if(isNaN(num)) return price;
+      return numberToArabicWords(num) + " ريال";
+    }
 
-  <!-- قسم Hero -->
-  <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h2>أهلاً بك في منصّة عقارك</h2>
-      <p>ابحث عن أفضل العقارات المناسبة لاحتياجاتك بسهولة ويسر</p>
-      <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
-    </div>
-  </section>
-
-  <!-- أقسام العقارات مع خانة بحث متطورة -->
-  <section class="container my-5">
-    <h2 class="category-title">الأقسام العقارية</h2>
-    <div class="mb-4">
-      <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن عقار (عنوان، موقع، سعر، وصف أو تصنيف)...">
-    </div>
-    <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('all')">
-          <i class="bi bi-card-list category-icon"></i>
-          <span class="category-text">عرض الكل</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('عمائر')">
-          <i class="bi bi-building category-icon"></i>
-          <span class="category-text">عمائر</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('فلل')">
-          <i class="bi bi-house category-icon"></i>
-          <span class="category-text">فلل</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('شقق')">
-          <i class="bi bi-houses category-icon"></i>
-          <span class="category-text">شقق</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('استراحات')">
-          <i class="bi bi-tree category-icon"></i>
-          <span class="category-text">استراحات</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
-          <i class="bi bi-layers category-icon"></i>
-          <span class="category-text">أدوار مستقلة</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('أراضي')">
-          <i class="bi bi-geo-alt category-icon"></i>
-          <span class="category-text">أراضي</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- قائمة العقارات -->
-  <section class="container" id="publicContent">
-    <h2 class="property-list-title">العقارات المتاحة</h2>
-    <div id="propertiesContainer" class="row">
-      <!-- ستظهر بطاقات العقارات هنا -->
-    </div>
-  </section>
-
-  <!-- صفحة تفاصيل العقار -->
-  <div id="propertyDetailPage">
-    <div class="container mt-4">
-      <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
-      <div id="detailContent">
-        <!-- تفاصيل العقار ستظهر هنا -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification Container -->
-  <div id="toastContainer"></div>
-  
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
     /*************** بيانات الدخول للإدارة ***************/
     const ADMIN_USERNAME = "ivl511";
     const ADMIN_PASSWORD = "Wa@055364";
@@ -521,9 +380,9 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /*************** تحميل العقارات باستخدام once لتقليل التأخير ***************/
+    /*************** تحميل العقارات باستخدام مستمع لتقليل التأخير ***************/
     function loadProperties() {
-      propertiesRef.once("value").then(snapshot => {
+      propertiesRef.on("value", snapshot => {
         const data = snapshot.val();
         if(data) {
           properties = Object.values(data);
@@ -533,7 +392,8 @@
         filteredList = [...properties];
         updateAdminTable();
         generatePropertyCards();
-      }).catch(err => {
+        generateNewProperties();
+      }, err => {
         console.error("Error loading properties:", err);
       });
     }
@@ -574,7 +434,7 @@
             <div class="card-body">
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
               <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
-              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">${prop.price}</p>
+              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">${convertPriceText(prop.price)}</p>
               <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
             </div>
           </div>
@@ -609,6 +469,7 @@
                    <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
                  </div>`;
       }
+      // ترتيب العرض: صورة (سلايدر) > زر واتساب > العنوان > السعر (كنصي) > الوصف مع أسطر منفصلة
       detail.innerHTML = `
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
           <div class="carousel-indicators">${indicators}</div>
@@ -622,15 +483,12 @@
             <span class="visually-hidden">التالي</span>
           </button>
         </div>
-        <div class="card p-3">
-          <h3 class="card-title mb-3" style="color: var(--accent-color);">${prop.title}</h3>
-          <p class="card-text"><strong>الموقع:</strong> ${prop.location}</p>
-          <p class="card-text"><strong>السعر:</strong> ${prop.price}</p>
-          <p class="card-text">${prop.description || ''}</p>
-          <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالسعر: ' + prop.price + '\nالموقع: ' + prop.location)}" target="_blank" class="btn btn-success">
-            <i class="bi bi-whatsapp"></i> تواصل عبر واتساب
-          </a>
-        </div>
+        <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالسعر: ' + convertPriceText(prop.price) + '\nالموقع: ' + prop.location)}" target="_blank" class="btn btn-success mb-3">
+          <i class="bi bi-whatsapp"></i> تواصل عبر واتساب
+        </a>
+        <h3 style="color: var(--accent-color);">${prop.title}</h3>
+        <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">${convertPriceText(prop.price)}</p>
+        <p>${(prop.description || '').replace(/\n/g, '<br>')}</p>
       `;
     }
     function backToListing() {
@@ -693,6 +551,7 @@
     function saveProperty(propertyData) {
       return propertiesRef.child(propertyData.id).set(propertyData)
       .then(() => {
+        // تحديث البيانات المحلية دون إعادة تحميل كاملة
         const index = properties.findIndex(p => p.id == propertyData.id);
         if(index >= 0) {
           properties[index] = propertyData;
@@ -701,14 +560,15 @@
         }
         filteredList = [...properties];
         updateAdminTable();
-        generatePropertyCards(filteredList);
+        generatePropertyCards();
+        generateNewProperties();
       })
       .catch(err => {
         console.error("Error saving property:", err);
       });
     }
 
-    /*************** نموذج إضافة/تحديث العقار ***************/
+    /*************** إضافة/تحديث العقار ***************/
     document.getElementById("propertyForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const saveBtn = document.getElementById("saveBtn");
@@ -737,6 +597,7 @@
         }
         let additionalImagesURL = [];
         const additionalFiles = document.getElementById("additionalImages").files;
+        // استخدام Promise.all لمعالجة جميع الملفات معًا لتسريع العملية
         if(additionalFiles.length) {
           additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
         } else if(idField) {
@@ -813,6 +674,7 @@
       document.getElementById("price").value = prop.price;
       document.getElementById("category").value = prop.category;
       document.getElementById("description").value = prop.description;
+      // عرض الصور الإضافية الموجودة في المعاينة حتى تبقى مرئية أثناء التعديل
       const previewContainer = document.getElementById("additionalImagesPreview");
       previewContainer.innerHTML = "";
       if(prop.images && prop.images.length) {
@@ -835,7 +697,8 @@
           properties = properties.filter(p => p.id != id);
           filteredList = [...properties];
           updateAdminTable();
-          generatePropertyCards(filteredList);
+          generatePropertyCards();
+          generateNewProperties();
         })
         .catch(err => {
           console.error("Error deleting property:", err);
@@ -843,13 +706,46 @@
       }
     }
 
-    // بدء تحميل العقارات واسترجاع المسودة إن وُجدت
+    /*************** قسم "المضاف حديثاً" ***************/
+    function generateNewProperties() {
+      const container = document.getElementById("newPropertiesContainer");
+      if(!container) return;
+      container.innerHTML = "";
+      // تحديد الفترة: 3 أيام (بالمللي ثانية)
+      const threeDays = 3 * 24 * 60 * 60 * 1000;
+      const now = Date.now();
+      const newProps = properties.filter(p => now - p.updatedAt <= threeDays);
+      if(newProps.length === 0) {
+        container.innerHTML = '<p class="text-end">لا توجد عقارات مضافة حديثاً</p>';
+        return;
+      }
+      newProps.forEach(prop => {
+        const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-4";
+        col.innerHTML = `
+          <div class="property-card">
+            <img src="${mainSrc}" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+            <div class="card-body">
+              <h5 style="color: var(--accent-color);">${prop.title}</h5>
+              <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
+              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">${convertPriceText(prop.price)}</p>
+              <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    // بدء تحميل العقارات فور تحميل الصفحة
     document.addEventListener("DOMContentLoaded", function(){
       if(localStorage.getItem("adminLoggedIn") === "true"){
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
       }
       loadProperties();
+      // استرجاع المسودة إذا وُجدت
       const savedDraft = localStorage.getItem("propertyDraft");
       if (savedDraft) {
         const draft = JSON.parse(savedDraft);
@@ -862,22 +758,188 @@
       }
     });
   </script>
-  
-  <!-- نافذة منبثقة لعرض تفاصيل العقار باستخدام Bootstrap Modal -->
-  <div class="modal fade" id="propertyDetailModal" tabindex="-1" aria-labelledby="propertyDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="propertyDetailModalLabel">تفاصيل العقار</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+</head>
+<body>
+  <!-- الهيدر -->
+  <header class="header">
+    <div class="header-container">
+      <h1>منصّة عقارك</h1>
+      <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
+    </div>
+  </header>
+
+  <!-- نموذج تسجيل الدخول -->
+  <div id="loginPanel">
+    <h5>تسجيل الدخول</h5>
+    <label for="usernameInput" class="form-label">اسم المستخدم</label>
+    <input type="text" id="usernameInput" class="form-control" placeholder="اكتب اسم المستخدم">
+    <label for="passwordInput" class="form-label mt-2">كلمة المرور</label>
+    <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
+    <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
+  </div>
+
+  <!-- لوحة الإدارة -->
+  <div id="adminPanel">
+    <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
+    <form id="propertyForm" class="mb-4">
+      <input type="hidden" id="propertyId">
+      <div class="mb-3">
+        <label for="title" class="form-label">العنوان</label>
+        <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">الموقع</label>
+        <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي ..." required>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">السعر</label>
+        <input type="text" id="price" class="form-control" placeholder="مثلاً: 1500000" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">التصنيف</label>
+        <select id="category" class="form-select" required>
+          <option value="">اختر التصنيف</option>
+          <option value="عمائر">عمائر</option>
+          <option value="فلل">فلل</option>
+          <option value="شقق">شقق</option>
+          <option value="استراحات">استراحات</option>
+          <option value="أدوار مستقلة">أدوار مستقلة</option>
+          <option value="أراضي">أراضي</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="mainImageFile" class="form-label">الصورة الرئيسية</label>
+        <input type="file" id="mainImageFile" class="form-control" accept="image/*">
+      </div>
+      <div class="mb-3">
+        <label for="additionalImages" class="form-label">الصور الإضافية (يمكن اختيار أكثر من ملف)</label>
+        <input type="file" id="additionalImages" class="form-control" accept="image/*" multiple>
+        <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">
+          الوصف <i class="bi bi-whatsapp text-success"></i>
+        </label>
+        <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
+      </div>
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
+        <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
+        <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
+        <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
+      </div>
+    </form>
+    <h4>العقارات المُضافة</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle" id="propertiesTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>العنوان</th>
+            <th>الموقع</th>
+            <th>السعر</th>
+            <th>التصنيف</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <!-- سيتم تعبئة الجدول هنا -->
+        </tbody>
+      </table>
+    </div>
+    <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
+  </div>
+
+  <!-- قسم Hero -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>أهلاً بك في منصّة عقارك</h2>
+      <p>ابحث عن أفضل العقارات المناسبة لاحتياجاتك بسهولة ويسر</p>
+      <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
+    </div>
+  </section>
+
+  <!-- أقسام العقارات مع خانة بحث متطورة -->
+  <section class="container my-5">
+    <h2 class="category-title">الأقسام العقارية</h2>
+    <!-- خانة البحث المتطورة -->
+    <div class="mb-4">
+      <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن عقار (عنوان، موقع، سعر، وصف أو تصنيف)...">
+    </div>
+    <!-- إضافة justify-content-center لضمان تمركز الصفوف في حالة عدم امتلاءها -->
+    <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('all')">
+          <i class="bi bi-card-list category-icon"></i>
+          <span class="category-text">عرض الكل</span>
         </div>
-        <div class="modal-body" id="detailContent">
-          <!-- سيتم تعبئة تفاصيل العقار هنا -->
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('عمائر')">
+          <i class="bi bi-building category-icon"></i>
+          <span class="category-text">عمائر</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('فلل')">
+          <i class="bi bi-house category-icon"></i>
+          <span class="category-text">فلل</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('شقق')">
+          <i class="bi bi-houses category-icon"></i>
+          <span class="category-text">شقق</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('استراحات')">
+          <i class="bi bi-tree category-icon"></i>
+          <span class="category-text">استراحات</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
+          <i class="bi bi-layers category-icon"></i>
+          <span class="category-text">أدوار مستقلة</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أراضي')">
+          <i class="bi bi-geo-alt category-icon"></i>
+          <span class="category-text">أراضي</span>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- قسم "المضاف حديثاً" -->
+  <section class="container my-5" id="newPropertiesSection">
+    <h2 class="category-title">المضاف حديثاً</h2>
+    <div class="row" id="newPropertiesContainer">
+      <!-- سيتم تعبئة العقارات المضافة خلال 3 أيام هنا -->
+    </div>
+  </section>
+
+  <!-- قائمة العقارات -->
+  <section class="container" id="publicContent">
+    <h2 class="property-list-title">العقارات المتاحة</h2>
+    <div id="propertiesContainer" class="row">
+      <!-- بطاقات العقارات ستظهر هنا -->
+    </div>
+  </section>
+
+  <!-- صفحة تفاصيل العقار -->
+  <div id="propertyDetailPage">
+    <div class="container mt-4">
+      <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
+      <div id="detailContent">
+        <!-- تفاصيل العقار ستظهر هنا -->
+      </div>
+    </div>
   </div>
-  
+
   <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
   
