@@ -11,10 +11,10 @@
   <!-- أيقونات Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDKs (compat) -->
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   
   <style>
     :root {
@@ -118,7 +118,7 @@
       background-color: #dc3545;
       color: #fff;
     }
-    /* قسم Hero مع صورة خلفية */
+    /* قسم Hero مع صورة خلفية وتأثير overlay */
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
@@ -253,14 +253,6 @@
       width: 100%;
       loading: lazy;
     }
-    /* تصميم تفاصيل العقار */
-    .property-description {
-      border-left: 4px solid var(--accent-color);
-      padding-left: 15px;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      border-radius: var(--radius);
-    }
     /* Toast Notification */
     #toastContainer {
       position: fixed;
@@ -285,29 +277,76 @@
       border-radius: 5px;
     }
   </style>
-  
+
   <script>
     // تأكد من تحديث إعدادات Firebase بمعلومات مشروعك الصحيحة
-    try {
-      const firebaseConfig = {
-        apiKey: "AIza...",
-        authDomain: "aqrati-taif.firebaseapp.com",
-        databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "aqrati-taif",
-        storageBucket: "aqrati-taif",
-        messagingSenderId: "729968735852",
-        appId: "1:729968735852:web:4779366823353325efca49",
-        measurementId: "G-37C6RY0378"
-      };
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    } catch (e) {
-      console.error("Firebase initialization error:", e);
-    }
-    
+    const firebaseConfig = {
+      apiKey: "AIza...",
+      authDomain: "aqrati-taif.firebaseapp.com",
+      databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "aqrati-taif",
+      storageBucket: "aqrati-taif",
+      messagingSenderId: "729968735852",
+      appId: "1:729968735852:web:4779366823353325efca49",
+      measurementId: "G-37C6RY0378"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
     // مراجع قاعدة البيانات
     const propertiesRef = firebase.database().ref("properties");
     const nextIdRef = firebase.database().ref("nextId");
+
+    /* دالة تحويل الأرقام إلى نص عربي */
+    function numberToArabicWords(num) {
+      if (num === 0) return "صفر";
+      const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
+      const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
+      const hundreds = ["", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
+      let result = "";
+      if (num >= 1000000) {
+        let millions = Math.floor(num / 1000000);
+        result += numberToArabicWords(millions) + " مليون";
+        num %= 1000000;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 1000) {
+        let thousands = Math.floor(num / 1000);
+        if (thousands === 1) result += "ألف";
+        else if (thousands === 2) result += "ألفان";
+        else if (thousands < 11) result += numberToArabicWords(thousands) + " آلاف";
+        else result += numberToArabicWords(thousands) + " ألف";
+        num %= 1000;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 100) {
+        let h = Math.floor(num / 100);
+        result += hundreds[h];
+        num %= 100;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 20) {
+        let t = Math.floor(num / 10);
+        result += tens[t];
+        num %= 10;
+        if (num > 0) result += " و " + ones[num];
+      } else if (num >= 10) {
+        result += teens[num - 10];
+      } else if (num > 0) {
+        result += ones[num];
+      }
+      return result;
+    }
+
+    /* دالة debounce */
+    function debounce(func, delay) {
+      let timer;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
   </script>
 </head>
 <body>
@@ -368,7 +407,9 @@
         <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
       </div>
       <div class="mb-3">
-        <label for="description" class="form-label">الوصف <i class="bi bi-whatsapp text-success"></i></label>
+        <label for="description" class="form-label">
+          الوصف <i class="bi bi-whatsapp text-success"></i>
+        </label>
         <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
       </div>
       <div class="d-flex align-items-center flex-wrap gap-2">
@@ -409,7 +450,7 @@
     </div>
   </section>
 
-  <!-- أقسام العقارات -->
+  <!-- أقسام العقارات مع خانة بحث متطورة -->
   <section class="container my-5">
     <h2 class="category-title">الأقسام العقارية</h2>
     <div class="mb-4">
@@ -465,7 +506,7 @@
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
     <div id="propertiesContainer" class="row">
-      <!-- ستظهر بطاقات العقارات هنا -->
+      <!-- بطاقات العقارات ستظهر هنا -->
     </div>
   </section>
 
@@ -479,7 +520,7 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
   
   <!-- Bootstrap JS -->
@@ -502,7 +543,7 @@
 
     /*************** دالة toggle لنموذج تسجيل الدخول ***************/
     function toggleLoginPanel() {
-      if(localStorage.getItem("adminLoggedIn") === "true") {
+      if(localStorage.getItem("adminLoggedIn") === "true"){
         performLogout();
       } else {
         document.getElementById("loginPanel").style.display = "block";
@@ -537,11 +578,7 @@
     function loadProperties() {
       propertiesRef.on("value", snapshot => {
         const data = snapshot.val();
-        if(data) {
-          properties = Object.values(data);
-        } else {
-          properties = [];
-        }
+        properties = data ? Object.values(data) : [];
         filteredList = [...properties];
         updateAdminTable();
         generatePropertyCards(filteredList);
@@ -550,7 +587,7 @@
       });
     }
 
-    /*************** دالة للحصول على الرقم التالي ***************/
+    /*************** دالة الحصول على الرقم التالي ***************/
     async function getNextId() {
       const result = await nextIdRef.transaction(currentValue => (currentValue || 0) + 1);
       if(result.committed) {
@@ -558,6 +595,57 @@
       } else {
         throw new Error("Transaction not committed");
       }
+    }
+
+    /*************** دالة تحويل السعر إلى نص عربي ***************/
+    function numberToArabicWords(num) {
+      if (num === 0) return "صفر";
+      const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
+      const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
+      const hundreds = ["", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
+      let result = "";
+      if (num >= 1000000) {
+        let millions = Math.floor(num / 1000000);
+        result += numberToArabicWords(millions) + " مليون";
+        num %= 1000000;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 1000) {
+        let thousands = Math.floor(num / 1000);
+        if (thousands === 1) result += "ألف";
+        else if (thousands === 2) result += "ألفان";
+        else if (thousands < 11) result += numberToArabicWords(thousands) + " آلاف";
+        else result += numberToArabicWords(thousands) + " ألف";
+        num %= 1000;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 100) {
+        let h = Math.floor(num / 100);
+        result += hundreds[h];
+        num %= 100;
+        if (num > 0) result += " و ";
+      }
+      if (num >= 20) {
+        let t = Math.floor(num / 10);
+        result += tens[t];
+        num %= 10;
+        if (num > 0) result += " و " + ones[num];
+      } else if (num >= 10) {
+        result += teens[num - 10];
+      } else if (num > 0) {
+        result += ones[num];
+      }
+      return result;
+    }
+
+    /*************** دالة debounce ***************/
+    function debounce(func, delay) {
+      let timer;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+      };
     }
 
     /*************** إنشاء بطاقات العقارات ***************/
@@ -569,10 +657,9 @@
         return;
       }
       list.forEach(prop => {
-        // عرض السعر كأرقام ونص
         const numericPrice = parseInt(prop.price);
         const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
-        const mainSrc = prop.mainImage || "https://via.placeholder.com/500x280?text=No+Image";
+        const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
         const col = document.createElement("div");
         col.className = "col-md-4 mb-4";
         col.innerHTML = `
@@ -597,10 +684,13 @@
       document.getElementById("publicContent").style.display = "none";
       document.getElementById("propertyDetailPage").style.display = "block";
       const detail = document.getElementById("detailContent");
+      
       let allImages = [];
       if(prop.mainImage) allImages.push(prop.mainImage);
       if(prop.images && prop.images.length) allImages.push(...prop.images);
-      let indicators = "", items = "";
+      
+      let indicators = "";
+      let items = "";
       allImages.forEach((img, index) => {
         indicators += `<button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="${index}" ${index===0?'class="active" aria-current="true"':''} aria-label="Slide ${index+1}"></button>`;
         items += `<div class="carousel-item ${index===0?'active':''}">
@@ -613,7 +703,6 @@
                    <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
                  </div>`;
       }
-      // عرض السعر بشكل مماثل
       const numericPrice = parseInt(prop.price);
       const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
       detail.innerHTML = `
@@ -656,7 +745,7 @@
     }
 
     /*************** البحث في العقارات ***************/
-    document.getElementById("searchInput")?.addEventListener("input", function() {
+    document.getElementById("searchInput")?.addEventListener("input", debounce(function() {
       const query = this.value.trim().toLowerCase();
       if(query === "") {
         filteredList = [...properties];
@@ -667,7 +756,7 @@
         });
       }
       generatePropertyCards(filteredList);
-    });
+    }, 300));
 
     /*************** التمرير إلى قسم العقارات ***************/
     function scrollToProperties() {
@@ -698,7 +787,7 @@
       });
     }
 
-    /*************** حفظ العقار في Firebase مع تحديث البيانات المحلية ***************/
+    /*************** حفظ العقار في Firebase وتحديث البيانات محلياً ***************/
     function saveProperty(propertyData) {
       return propertiesRef.child(propertyData.id).set(propertyData)
       .then(() => {
@@ -758,6 +847,7 @@
           title,
           location,
           price: numericPrice,
+          priceText: numberToArabicWords(numericPrice),
           category,
           mainImage: mainImageURL,
           images: additionalImagesURL,
@@ -782,8 +872,12 @@
     function getFileDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = e => resolve(e.target.result);
-        reader.onerror = e => reject(e);
+        reader.onload = function(e) {
+          resolve(e.target.result);
+        };
+        reader.onerror = function(e) {
+          reject(e);
+        };
         reader.readAsDataURL(file);
       });
     }
@@ -849,15 +943,16 @@
       }
     }
 
-    // بدء تشغيل تحميل العقارات عند تحميل الصفحة
+    // بدء تحميل العقارات عند تحميل الصفحة
     document.addEventListener("DOMContentLoaded", function(){
       if(localStorage.getItem("adminLoggedIn") === "true"){
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
       }
       loadProperties();
+      // استرجاع المسودة إن وُجدت
       const savedDraft = localStorage.getItem("propertyDraft");
-      if(savedDraft) {
+      if (savedDraft) {
         const draft = JSON.parse(savedDraft);
         document.getElementById("propertyId").value = draft.propertyId || "";
         document.getElementById("title").value = draft.title || "";
