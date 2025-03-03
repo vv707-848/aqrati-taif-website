@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- خط Cairo -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS (نسخة RTL) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- أيقونات Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -33,14 +33,14 @@
       padding: 0;
       color: var(--primary-color);
     }
-    /* الهيدر الثابت */
+    /* الهيدر الثابت مع تحسين التصميم */
     .header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       background: var(--header-gradient);
-      padding: 15px;
+      padding: 15px 20px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       z-index: 1100;
       color: var(--header-text-color);
@@ -118,11 +118,11 @@
       background-color: #dc3545;
       color: #fff;
     }
-    /* قسم Hero مع صورة خلفية */
+    /* قسم Hero مع صورة خلفية مع تصميم أفضل */
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
-      min-height: 400px;
+      min-height: 450px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -145,9 +145,11 @@
       z-index: 2;
       max-width: 600px;
       padding: 20px;
+      background-color: rgba(0,0,0,0.4);
+      border-radius: var(--radius);
     }
     .hero-content h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 15px;
       font-weight: 700;
     }
@@ -214,7 +216,7 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    /* تحسين قالب العقار ليكون موحد الطول */
+    /* تصميم بطاقات العقارات بتنسيق أفضل */
     .property-card {
       border: 1px solid #ccc;
       border-radius: var(--radius);
@@ -286,7 +288,7 @@
   <script>
     /********************** إعدادات Firebase **********************/
     const firebaseConfig = {
-      apiKey: "AIza...", // تأكد من وضع بيانات مشروعك الصحيحة
+      apiKey: "AIza...", // استبدل ببيانات مشروعك
       authDomain: "aqrati-taif.firebaseapp.com",
       databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "aqrati-taif",
@@ -327,13 +329,11 @@
         let thousandWord = thousand === 1 ? "ألف" : units[thousand] + " آلاف";
         return thousandWord + (remainder ? " و " + numberToArabicWords(remainder) : "");
       }
-      // يمكن التوسع مستقبلاً
       return num.toString();
     }
     function convertPriceText(price) {
-      // إزالة الفواصل وتحويلها لعدد صحيح
       const num = parseInt(price.replace(/,/g, ''), 10);
-      if(isNaN(num)) return price; // إذا لم يكن رقماً، نعيده كما هو
+      if(isNaN(num)) return price;
       return numberToArabicWords(num) + " ريال";
     }
 
@@ -386,9 +386,8 @@
     let properties = [];
     let filteredList = [];
 
-    /***************** تحميل العقارات (حل مشكلة التأخير) *****************/
+    /***************** تحميل العقارات (مع تقليل التأخير) *****************/
     function loadProperties() {
-      // باستخدام on("value") للتحميل الفوري
       propertiesRef.on("value", snapshot => {
         const data = snapshot.val();
         if(data) {
@@ -396,7 +395,6 @@
         } else {
           properties = [];
         }
-        // نحدّث القوائم فورًا
         filteredList = [...properties];
         updateAdminTable();
         generatePropertyCards();
@@ -406,7 +404,7 @@
       });
     }
 
-    /***************** دالة لجلب الرقم التالي (Auto-Increment) من Firebase *****************/
+    /***************** دالة لجلب الرقم التالي (Auto-Increment) *****************/
     async function getNextId() {
       const result = await nextIdRef.transaction(currentValue => {
         return (currentValue || 0) + 1;
@@ -436,9 +434,8 @@
             <div class="card-body">
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
               <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
-              <!-- عرض السعر رقمياً ونصياً معاً -->
               <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">
-                ${prop.price} ريال 
+                ${prop.price} ريال
                 <br><span style="font-size:0.9rem; color:#666;">(${convertPriceText(prop.price)})</span>
               </p>
               <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
@@ -475,8 +472,6 @@
                    <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
                  </div>`;
       }
-
-      // الترتيب: صورة (سلايدر) -> زر واتساب -> العنوان -> السعر نصي واضح -> الوصف
       detail.innerHTML = `
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
           <div class="carousel-indicators">${indicators}</div>
@@ -543,7 +538,6 @@
     function updateAdminTable() {
       const tbody = document.getElementById("adminTableBody");
       tbody.innerHTML = "";
-      // ترتيب حسب ID
       const sortedProps = [...properties].sort((a, b) => a.id - b.id);
       sortedProps.forEach((prop, index) => {
         const tr = document.createElement("tr");
@@ -566,7 +560,6 @@
     function saveProperty(propertyData) {
       return propertiesRef.child(propertyData.id).set(propertyData)
       .then(() => {
-        // تحديث البيانات محلياً
         const index = properties.findIndex(p => p.id == propertyData.id);
         if(index >= 0) {
           properties[index] = propertyData;
@@ -593,7 +586,6 @@
         const idField = document.getElementById("propertyId").value;
         let propertyId;
         if(!idField) {
-          // عقار جديد
           propertyId = await getNextId();
         } else {
           propertyId = parseInt(idField, 10);
@@ -604,7 +596,6 @@
         const category = document.getElementById("category").value;
         const description = document.getElementById("description").value;
         
-        // الصور
         let mainImageURL = "";
         const mainFile = document.getElementById("mainImageFile").files[0];
         if(mainFile) {
@@ -621,8 +612,6 @@
           const existing = properties.find(p => p.id == idField);
           if(existing) additionalImagesURL = existing.images || [];
         }
-
-        // البيانات النهائية
         const propertyData = {
           id: propertyId,
           title,
@@ -693,7 +682,6 @@
       document.getElementById("price").value = prop.price;
       document.getElementById("category").value = prop.category;
       document.getElementById("description").value = prop.description;
-      // عرض الصور الإضافية في المعاينة
       const previewContainer = document.getElementById("additionalImagesPreview");
       previewContainer.innerHTML = "";
       if(prop.images && prop.images.length) {
@@ -730,7 +718,6 @@
       const container = document.getElementById("newPropertiesContainer");
       if(!container) return;
       container.innerHTML = "";
-      // 3 أيام بالمللي ثانية
       const threeDays = 3 * 24 * 60 * 60 * 1000;
       const now = Date.now();
       const newProps = properties.filter(p => (now - p.updatedAt) <= threeDays);
@@ -749,7 +736,7 @@
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
               <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
               <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">
-                ${prop.price} ريال 
+                ${prop.price} ريال
                 <br><span style="font-size:0.9rem; color:#666;">(${convertPriceText(prop.price)})</span>
               </p>
               <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
@@ -762,14 +749,11 @@
 
     /***************** عند تحميل الصفحة *****************/
     document.addEventListener("DOMContentLoaded", function(){
-      // فحص حالة تسجيل الدخول
       if(localStorage.getItem("adminLoggedIn") === "true"){
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
       }
-      // تحميل العقارات
       loadProperties();
-      // استرجاع المسودة إذا وُجدت
       const savedDraft = localStorage.getItem("propertyDraft");
       if (savedDraft) {
         const draft = JSON.parse(savedDraft);
@@ -887,7 +871,6 @@
   <!-- أقسام العقارات مع خانة بحث متطورة -->
   <section class="container my-5">
     <h2 class="category-title">الأقسام العقارية</h2>
-    <!-- خانة البحث المتطورة -->
     <div class="mb-4">
       <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن عقار (عنوان، موقع، سعر، وصف أو تصنيف)...">
     </div>
@@ -969,4 +952,6 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
+
 </html>
