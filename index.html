@@ -207,6 +207,13 @@
       margin-bottom: 20px;
       text-align: center;
     }
+    /* مؤشر تحميل العقارات */
+    #loadingProperties {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
     /* بطاقة العقار */
     .property-card {
       border: 1px solid #ccc;
@@ -247,14 +254,12 @@
       width: 100%;
       loading: lazy;
     }
-    /* دعم الوصف للانتقال للسطر */
+    /* نص الوصف (المواصفات) */
     .description-text {
       white-space: pre-line;
-      font-size: 0.9rem;
-    }
-    .small-text {
-      font-size: 0.8rem;
-      color: #6c757d;
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.5;
     }
     /* Toast Notification */
     #toastContainer {
@@ -277,6 +282,12 @@
       object-fit: cover;
       margin-right: 5px;
       border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    /* زر واتساب أكبر */
+    .btn-whatsapp {
+      font-size: 1.3rem;
+      padding: 12px 25px;
       border-radius: 5px;
     }
   </style>
@@ -382,7 +393,7 @@
             <th>#</th>
             <th>العنوان</th>
             <th>الموقع</th>
-            <th>السعر (أرقام + نص)</th>
+            <th>السعر (أرقام)</th>
             <th>التصنيف</th>
             <th>الإجراءات</th>
           </tr>
@@ -460,6 +471,8 @@
   <!-- قائمة العقارات العامة -->
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
+    <!-- مؤشر تحميل يظهر حتى يتم جلب العقارات -->
+    <div id="loadingProperties">جارٍ تحميل العقارات...</div>
     <div id="propertiesContainer" class="row">
       <!-- بطاقات العقارات ستظهر هنا -->
     </div>
@@ -530,15 +543,17 @@
     let properties = [];
     let filteredList = [];
     function loadProperties() {
+      document.getElementById("loadingProperties").style.display = "block";
       propertiesRef.on("value", snapshot => {
         const data = snapshot.val();
-        // نتوقع أن يحتوي Firebase على 42 عقاراً
         properties = data ? Object.values(data) : [];
         filteredList = [...properties];
         updateAdminTable();
         generatePropertyCards(filteredList);
+        document.getElementById("loadingProperties").style.display = "none";
       }, err => {
         console.error("Error loading properties:", err);
+        document.getElementById("loadingProperties").style.display = "none";
       });
     }
 
@@ -594,7 +609,7 @@
       return result;
     }
 
-    /*************** دالة debounce (بتأخير منخفض جداً لتقليل التأخير) ***************/
+    /*************** دالة debounce (لتقليل التأخير عند البحث) ***************/
     function debounce(func, delay) {
       let timer;
       return function(...args) {
@@ -613,7 +628,7 @@
       }
       list.forEach(prop => {
         const numericPrice = parseInt(prop.price);
-        const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
         const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
         const col = document.createElement("div");
         col.className = "col-md-4 mb-4";
@@ -659,7 +674,7 @@
                  </div>`;
       }
       const numericPrice = parseInt(prop.price);
-      const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
+      const numericPriceDisplay = numericPrice.toLocaleString() + " ريال";
       detail.innerHTML = `
         <!-- الكاروسيل للصور -->
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
@@ -676,14 +691,14 @@
         </div>
         <!-- زر الواتساب للتواصل -->
         <div class="d-flex justify-content-end mb-2">
-          <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + priceDisplay)}" target="_blank" class="btn btn-success">
+          <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + numericPriceDisplay)}" target="_blank" class="btn btn-success fw-bold btn-whatsapp">
             <i class="bi bi-whatsapp"></i> واتساب
           </a>
         </div>
-        <!-- عرض العنوان، الموقع، السعر والوصف -->
+        <!-- عرض العنوان، الموقع، والسعر مع الوصف -->
         <h3 class="mb-1 text-primary fw-bold">${prop.title}</h3>
-        <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${prop.price.toLocaleString()} ريال</span></p>
-        <p class="description-text">${prop.description}<br><span class="small-text">(السعر كتابة: ${numberToArabicWords(numericPrice)})</span></p>
+        <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${numericPriceDisplay}</span></p>
+        <p class="description-text">${prop.description}</p>
       `;
     }
     function backToListing() {
@@ -713,7 +728,7 @@
         });
       }
       generatePropertyCards(filteredList);
-    }, 50)); // تقليل التأخير إلى 50 مللي ثانية
+    }, 10)); // تقليل التأخير إلى 10 مللي ثانية
 
     /*************** التمرير إلى قسم العقارات ***************/
     function scrollToProperties() {
@@ -727,7 +742,7 @@
       const sortedProps = [...properties].sort((a, b) => a.id - b.id);
       sortedProps.forEach((prop, index) => {
         const numericPrice = parseInt(prop.price);
-        const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${index + 1}</td>
@@ -804,7 +819,7 @@
           title,
           location,
           price: numericPrice,
-          priceText: numberToArabicWords(numericPrice),
+          priceText: "",  // تم حذف النص الكتابي
           category,
           mainImage: mainImageURL,
           images: additionalImagesURL,
