@@ -6,16 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- خط Cairo -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS (نسخة RTL) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- أيقونات Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  
-  <!-- Firebase SDKs (compat) -->
-  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
-  
   <style>
     :root {
       --font-family: 'Cairo', sans-serif;
@@ -118,7 +112,7 @@
       background-color: #dc3545;
       color: #fff;
     }
-    /* قسم Hero مع صورة خلفية وتأثير overlay */
+    /* قسم Hero */
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
@@ -253,6 +247,15 @@
       width: 100%;
       loading: lazy;
     }
+    /* دعم الوصف للانتقال للسطر */
+    .description-text {
+      white-space: pre-line;
+      font-size: 0.9rem;
+    }
+    .small-text {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
     /* Toast Notification */
     #toastContainer {
       position: fixed;
@@ -277,9 +280,13 @@
       border-radius: 5px;
     }
   </style>
-
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   <script>
-    // تأكد من تحديث إعدادات Firebase بمعلومات مشروعك الصحيحة
+    // تأكد من تحديث إعدادات Firebase بمعلومات مشروعك
     const firebaseConfig = {
       apiKey: "AIza...",
       authDomain: "aqrati-taif.firebaseapp.com",
@@ -292,61 +299,9 @@
     };
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-
     // مراجع قاعدة البيانات
     const propertiesRef = firebase.database().ref("properties");
     const nextIdRef = firebase.database().ref("nextId");
-
-    /* دالة تحويل الأرقام إلى نص عربي */
-    function numberToArabicWords(num) {
-      if (num === 0) return "صفر";
-      const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
-      const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
-      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
-      const hundreds = ["", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
-      let result = "";
-      if (num >= 1000000) {
-        let millions = Math.floor(num / 1000000);
-        result += numberToArabicWords(millions) + " مليون";
-        num %= 1000000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 1000) {
-        let thousands = Math.floor(num / 1000);
-        if (thousands === 1) result += "ألف";
-        else if (thousands === 2) result += "ألفان";
-        else if (thousands < 11) result += numberToArabicWords(thousands) + " آلاف";
-        else result += numberToArabicWords(thousands) + " ألف";
-        num %= 1000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 100) {
-        let h = Math.floor(num / 100);
-        result += hundreds[h];
-        num %= 100;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 20) {
-        let t = Math.floor(num / 10);
-        result += tens[t];
-        num %= 10;
-        if (num > 0) result += " و " + ones[num];
-      } else if (num >= 10) {
-        result += teens[num - 10];
-      } else if (num > 0) {
-        result += ones[num];
-      }
-      return result;
-    }
-
-    /* دالة debounce */
-    function debounce(func, delay) {
-      let timer;
-      return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => func.apply(this, args), delay);
-      };
-    }
   </script>
 </head>
 <body>
@@ -357,7 +312,7 @@
       <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
     </div>
   </header>
-
+  
   <!-- نموذج تسجيل الدخول -->
   <div id="loginPanel">
     <h5>تسجيل الدخول</h5>
@@ -367,7 +322,7 @@
     <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
     <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
   </div>
-
+  
   <!-- لوحة الإدارة -->
   <div id="adminPanel">
     <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
@@ -439,7 +394,7 @@
     </div>
     <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
   </div>
-
+  
   <!-- قسم Hero -->
   <section class="hero-section">
     <div class="hero-overlay"></div>
@@ -449,8 +404,8 @@
       <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
     </div>
   </section>
-
-  <!-- أقسام العقارات مع خانة بحث متطورة -->
+  
+  <!-- أقسام العقارات مع خانة بحث -->
   <section class="container my-5">
     <h2 class="category-title">الأقسام العقارية</h2>
     <div class="mb-4">
@@ -501,15 +456,15 @@
       </div>
     </div>
   </section>
-
-  <!-- قائمة العقارات -->
+  
+  <!-- قائمة العقارات العامة -->
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
     <div id="propertiesContainer" class="row">
       <!-- بطاقات العقارات ستظهر هنا -->
     </div>
   </section>
-
+  
   <!-- صفحة تفاصيل العقار -->
   <div id="propertyDetailPage">
     <div class="container mt-4">
@@ -519,13 +474,12 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
   
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
   <script>
     /*************** بيانات الدخول للإدارة ***************/
     const ADMIN_USERNAME = "ivl511";
@@ -578,6 +532,7 @@
     function loadProperties() {
       propertiesRef.on("value", snapshot => {
         const data = snapshot.val();
+        // نتوقع أن يحتوي Firebase على 42 عقاراً
         properties = data ? Object.values(data) : [];
         filteredList = [...properties];
         updateAdminTable();
@@ -639,7 +594,7 @@
       return result;
     }
 
-    /*************** دالة debounce ***************/
+    /*************** دالة debounce (بتأخير منخفض جداً لتقليل التأخير) ***************/
     function debounce(func, delay) {
       let timer;
       return function(...args) {
@@ -706,6 +661,7 @@
       const numericPrice = parseInt(prop.price);
       const priceDisplay = numericPrice.toLocaleString() + " ريال (" + numberToArabicWords(numericPrice) + ")";
       detail.innerHTML = `
+        <!-- الكاروسيل للصور -->
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
           <div class="carousel-indicators">${indicators}</div>
           <div class="carousel-inner">${items}</div>
@@ -718,15 +674,16 @@
             <span class="visually-hidden">التالي</span>
           </button>
         </div>
-        <div class="card p-3">
-          <h3 class="card-title mb-3" style="color: var(--accent-color);">${prop.title}</h3>
-          <p class="card-text"><strong>الموقع:</strong> ${prop.location}</p>
-          <p class="card-text"><strong>السعر:</strong> ${priceDisplay}</p>
-          <p class="card-text">${prop.description || ''}</p>
+        <!-- زر الواتساب للتواصل -->
+        <div class="d-flex justify-content-end mb-2">
           <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + priceDisplay)}" target="_blank" class="btn btn-success">
-            <i class="bi bi-whatsapp"></i> تواصل عبر واتساب
+            <i class="bi bi-whatsapp"></i> واتساب
           </a>
         </div>
+        <!-- عرض العنوان، الموقع، السعر والوصف -->
+        <h3 class="mb-1 text-primary fw-bold">${prop.title}</h3>
+        <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${prop.price.toLocaleString()} ريال</span></p>
+        <p class="description-text">${prop.description}<br><span class="small-text">(السعر كتابة: ${numberToArabicWords(numericPrice)})</span></p>
       `;
     }
     function backToListing() {
@@ -756,7 +713,7 @@
         });
       }
       generatePropertyCards(filteredList);
-    }, 300));
+    }, 50)); // تقليل التأخير إلى 50 مللي ثانية
 
     /*************** التمرير إلى قسم العقارات ***************/
     function scrollToProperties() {
@@ -787,7 +744,7 @@
       });
     }
 
-    /*************** حفظ العقار في Firebase وتحديث البيانات محلياً ***************/
+    /*************** حفظ العقار في Firebase ***************/
     function saveProperty(propertyData) {
       return propertiesRef.child(propertyData.id).set(propertyData)
       .then(() => {
