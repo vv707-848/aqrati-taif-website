@@ -20,11 +20,15 @@
       --header-text-color: #fff;
       --radius: 10px;
     }
+    html {
+      scroll-behavior: smooth;
+    }
+    /* التأكد من عدم تغطية المحتوى بواسطة الهيدر الثابت */
     body {
       font-family: var(--font-family);
       background-color: var(--secondary-color);
       margin: 0;
-      padding: 0;
+      padding-top: 100px; /* زيادة المساحة لتفادي تغطية المحتوى */
       color: var(--primary-color);
     }
     /* الهيدر الثابت */
@@ -63,11 +67,18 @@
     .login-btn:hover {
       background-color: rgba(255,255,255,0.2);
     }
+    /* عداد الزائرين */
+    #visitorCount {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-right: auto;
+      margin-left: 15px;
+    }
     /* نموذج تسجيل الدخول */
     #loginPanel {
       display: none;
       position: fixed;
-      top: 70px;
+      top: 100px;
       right: 20px;
       width: 300px;
       background: #fff;
@@ -216,11 +227,13 @@
     }
     /* بطاقة العقار */
     .property-card {
-      border: 1px solid #ccc;
+      border: none;
       border-radius: var(--radius);
       overflow: hidden;
       background: #fff;
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -230,17 +243,36 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
     .property-card img {
-      transition: opacity 0.2s;
       border-top-left-radius: var(--radius);
       border-top-right-radius: var(--radius);
-      height: 230px;
+      height: 300px; /* زيادة ارتفاع الصورة لتحسين الوضوح */
       object-fit: cover;
       width: 100%;
-      loading: lazy;
+    }
+    /* شريط التصنيف في بطاقة العقار */
+    .badge-category {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--accent-color);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      z-index: 2;
     }
     .property-card .card-body {
       padding: 15px;
       flex-grow: 1;
+    }
+    /* تحسين الخطوط داخل بطاقة العقار */
+    .property-card h5 {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .property-card p {
+      font-weight: 700;
+      font-size: 1rem;
     }
     /* صفحة تفاصيل العقار */
     #propertyDetailPage {
@@ -252,7 +284,6 @@
       height: 400px;
       object-fit: cover;
       width: 100%;
-      loading: lazy;
     }
     /* نص الوصف (المواصفات) */
     .description-text {
@@ -260,6 +291,12 @@
       font-size: 1rem;
       font-weight: bold;
       line-height: 1.5;
+    }
+    /* زر واتساب للتواصل في تفاصيل العقار */
+    .btn-whatsapp {
+      font-size: 1.5rem; /* تكبير الخط */
+      padding: 15px 30px;
+      border-radius: 5px;
     }
     /* Toast Notification */
     #toastContainer {
@@ -284,11 +321,14 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
-    /* زر واتساب أكبر */
-    .btn-whatsapp {
-      font-size: 1.3rem;
-      padding: 12px 25px;
-      border-radius: 5px;
+    /* تحسين العرض على الجوال */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 110px;
+      }
+      .property-card img {
+        height: 300px;
+      }
     }
   </style>
   
@@ -297,7 +337,7 @@
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   <script>
-    // تأكد من تحديث إعدادات Firebase بمعلومات مشروعك
+    // تحديث إعدادات Firebase بمعلومات مشروعك
     const firebaseConfig = {
       apiKey: "AIza...",
       authDomain: "aqrati-taif.firebaseapp.com",
@@ -320,6 +360,7 @@
   <header class="header">
     <div class="header-container">
       <h1>منصّة عقارك</h1>
+      <div id="visitorCount">عدد الزائرين: 0</div>
       <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
     </div>
   </header>
@@ -618,6 +659,21 @@
       };
     }
 
+    /*************** دالة تحميل الصور بشكل Lazy باستخدام IntersectionObserver ***************/
+    function lazyLoadImages() {
+      const images = document.querySelectorAll('img[loading="lazy"][data-src]');
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            observer.unobserve(img);
+          }
+        });
+      });
+      images.forEach(img => observer.observe(img));
+    }
+
     /*************** إنشاء بطاقات العقارات ***************/
     function generatePropertyCards(list = filteredList) {
       const container = document.getElementById("propertiesContainer");
@@ -634,23 +690,38 @@
         col.className = "col-md-4 mb-4";
         col.innerHTML = `
           <div class="property-card">
-            <img src="${mainSrc}" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+            <span class="badge-category">${prop.category}</span>
+            <img data-src="${mainSrc}" loading="lazy" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
             <div class="card-body">
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
               <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
               <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">السعر: ${priceDisplay}</p>
-              <button class="btn btn-outline-danger w-100 mb-2" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
+              <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-outline-danger" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
+                <span class="badge bg-secondary">${prop.viewCount || 0} مشاهدة</span>
+              </div>
             </div>
           </div>
         `;
         container.appendChild(col);
       });
+      // استدعاء دالة تحميل الصور بشكل lazy بعد إنشاء البطاقات
+      lazyLoadImages();
+    }
+
+    /*************** دالة زيادة عدد مشاهدات العقار ***************/
+    function incrementViewCount(propertyId) {
+      const viewCountRef = firebase.database().ref(`properties/${propertyId}/viewCount`);
+      viewCountRef.transaction(current => (current || 0) + 1)
+        .catch(err => console.error("Error updating view count:", err));
     }
 
     /*************** عرض تفاصيل العقار ***************/
     function showPropertyDetail(id) {
       const prop = properties.find(p => p.id == id);
       if(!prop) return;
+      // زيادة العداد عند عرض تفاصيل العقار
+      incrementViewCount(id);
       document.getElementById("publicContent").style.display = "none";
       document.getElementById("propertyDetailPage").style.display = "block";
       const detail = document.getElementById("detailContent");
@@ -728,7 +799,7 @@
         });
       }
       generatePropertyCards(filteredList);
-    }, 10)); // تقليل التأخير إلى 10 مللي ثانية
+    }, 300)); // زيادة مهلة debounce إلى 300 مللي ثانية لتخفيف استدعاء الدالة
 
     /*************** التمرير إلى قسم العقارات ***************/
     function scrollToProperties() {
@@ -819,7 +890,7 @@
           title,
           location,
           price: numericPrice,
-          priceText: "",  // تم حذف النص الكتابي
+          priceText: "",
           category,
           mainImage: mainImageURL,
           images: additionalImagesURL,
@@ -915,12 +986,24 @@
       }
     }
 
-    // بدء تحميل العقارات عند تحميل الصفحة
+    /*************** دالة تحديث عداد الزائرين ***************/
+    function updateVisitorCount() {
+      const visitorCountRef = firebase.database().ref("visitorCount");
+      visitorCountRef.transaction(current => (current || 0) + 1)
+        .then(result => {
+          const count = result.snapshot.val();
+          document.getElementById("visitorCount").textContent = `عدد الزائرين: ${count}`;
+        })
+        .catch(err => console.error("Error updating visitor count:", err));
+    }
+
+    // بدء تحميل العقارات عند تحميل الصفحة واسترجاع المسودة
     document.addEventListener("DOMContentLoaded", function(){
       if(localStorage.getItem("adminLoggedIn") === "true"){
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
       }
+      updateVisitorCount();
       loadProperties();
       // استرجاع المسودة إن وُجدت
       const savedDraft = localStorage.getItem("propertyDraft");
