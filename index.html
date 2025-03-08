@@ -1,4 +1,4 @@
-‏‏‏‎‏‏‏<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -493,7 +493,7 @@
     <h2 class="property-list-title">العقارات المتاحة</h2>
     <div id="loadingProperties" class="mb-3">جارٍ تحميل العقارات...</div>
     <div id="propertiesContainer" class="row">
-      <!-- سيتم عرض العقارات هنا باستخدام DocumentFragment -->
+      <!-- سيتم عرض العقارات هنا بشكل تدريجي -->
     </div>
   </section>
   
@@ -559,58 +559,25 @@
     let properties = [];
     let filteredList = [];
 
-    // تحميل العقارات: أولاً تحميل الكاش إن وُجد ثم تحديث البيانات من Firebase
+    // تحميل العقارات باستخدام "child_added" مع استعلام يحد من عدد السجلات إلى 20
     function loadProperties() {
-      loadCachedProperties();
-      updatePropertiesFromFirebase();
-    }
-
-    function loadCachedProperties() {
-      const cachedData = localStorage.getItem("cachedProperties");
-      if(cachedData) {
-        try {
-          const parsed = JSON.parse(cachedData);
-          if(parsed && parsed.timestamp && (Date.now() - parsed.timestamp) < 5 * 60 * 1000) {
-            properties = parsed.data;
-            filteredList = [...properties];
-            updateAdminTable();
-            displayAllCards(filteredList);
-            console.log("تم تحميل البيانات من الكاش");
-          }
-        } catch(e) {
-          console.error("خطأ في قراءة الكاش:", e);
-        }
-      }
-    }
-
-    function cacheProperties(data) {
-      const cacheData = {
-        timestamp: Date.now(),
-        data: data
-      };
-      localStorage.setItem("cachedProperties", JSON.stringify(cacheData));
-    }
-
-    // تحديث العقارات من Firebase دون استخدام ترتيب خاص (للتحقق)
-    function updatePropertiesFromFirebase() {
       document.getElementById("loadingProperties").style.display = "block";
-      const startTime = performance.now();
-      propertiesRef.once("value")
-      .then(snapshot => {
-        console.log("البيانات المسترجعة:", snapshot.val());
-        const data = snapshot.val();
-        properties = data ? Object.values(data) : [];
+      // إزالة أي مستمع سابق لتجنب التكرار
+      propertiesRef.orderByChild("updatedAt").limitToLast(20).off();
+      properties = [];
+      filteredList = [];
+      document.getElementById("propertiesContainer").innerHTML = "";
+      // استمع لكل حدث "child_added" من آخر 20 سجل
+      propertiesRef.orderByChild("updatedAt").limitToLast(20).on("child_added", function(snapshot) {
+        let property = snapshot.val();
+        property.id = snapshot.key;
+        properties.push(property);
+        // فرز العقارات بحيث يكون الأحدث أولاً
+        properties.sort((a, b) => b.updatedAt - a.updatedAt);
         filteredList = [...properties];
         updateAdminTable();
         displayAllCards(filteredList);
-        cacheProperties(properties);
         document.getElementById("loadingProperties").style.display = "none";
-        const endTime = performance.now();
-        console.log(`Firebase data loaded in ${(endTime - startTime).toFixed(2)} ms`);
-      })
-      .catch(err => {
-        console.error("Error loading properties:", err);
-        document.getElementById("loadingProperties").textContent = "حدث خطأ أثناء تحميل البيانات.";
       });
     }
 
@@ -647,6 +614,29 @@
         fragment.appendChild(col);
       });
       container.appendChild(fragment);
+    }
+
+    function updateAdminTable() {
+      const tbody = document.getElementById("adminTableBody");
+      tbody.innerHTML = "";
+      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
+      sortedProps.forEach((prop, index) => {
+        const numericPrice = parseInt(prop.price);
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${prop.title}</td>
+          <td>${prop.location}</td>
+          <td>${priceDisplay}</td>
+          <td>${prop.category}</td>
+          <td>
+            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
+            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
     function incrementViewCount(propertyId) {
@@ -743,187 +733,6 @@
 
     function scrollToProperties() {
       document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function updateAdminTable() {
-      const tbody = document.getElementById("adminTableBody");
-      tbody.innerHTML = "";
-      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
-      sortedProps.forEach((prop, index) => {
-        const numericPrice = parseInt(prop.price);
-        const priceDisplay = numericPrice.toLocaleString() + " ريال";
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${prop.title}</td>
-          <td>${prop.location}</td>
-          <td>${priceDisplay}</td>
-          <td>${prop.category}</td>
-          <td>
-            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
-            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function saveProperty(propertyData) {
-      return propertiesRef.child(propertyData.id).set(propertyData)
-      .then(() => {
-        const index = properties.findIndex(p => p.id == propertyData.id);
-        if(index >= 0) {
-          properties[index] = propertyData;
-        } else {
-          properties.push(propertyData);
-        }
-        filteredList = [...properties];
-        updateAdminTable();
-        displayAllCards(filteredList);
-      })
-      .catch(err => {
-        console.error("Error saving property:", err);
-      });
-    }
-
-    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
-      try {
-        const idField = document.getElementById("propertyId").value;
-        let propertyId;
-        if(!idField) {
-          propertyId = await getNextId();
-        } else {
-          propertyId = parseInt(idField, 10);
-        }
-        const title = document.getElementById("title").value;
-        const location = document.getElementById("location").value;
-        const price = document.getElementById("price").value;
-        const category = document.getElementById("category").value;
-        const description = document.getElementById("description").value;
-        let mainImageURL = "";
-        const mainFile = document.getElementById("mainImageFile").files[0];
-        if(mainFile) {
-          mainImageURL = await getFileDataURL(mainFile);
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) mainImageURL = existing.mainImage;
-        }
-        let additionalImagesURL = [];
-        const additionalFiles = document.getElementById("additionalImages").files;
-        if(additionalFiles.length) {
-          additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) additionalImagesURL = existing.images || [];
-        }
-        const numericPrice = parseInt(price.toString().replace(/,/g, ''));
-        const propertyData = {
-          id: propertyId,
-          title,
-          location,
-          price: numericPrice,
-          priceText: "",
-          category,
-          mainImage: mainImageURL,
-          images: additionalImagesURL,
-          description,
-          updatedAt: Date.now()
-        };
-        await saveProperty(propertyData);
-        showToast("تم حفظ التعديلات بنجاح");
-        document.getElementById("propertyForm").reset();
-        document.getElementById("propertyId").value = "";
-        document.getElementById("additionalImagesPreview").innerHTML = "";
-        localStorage.removeItem("propertyDraft");
-      } catch (error) {
-        console.error("خطأ في الحفظ:", error);
-        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
-      }
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = 'حفظ التعديلات';
-    });
-
-    function getFileDataURL(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) { resolve(e.target.result); };
-        reader.onerror = function(e) { reject(e); };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    document.getElementById("propertyForm").addEventListener("input", function() {
-      const draft = {
-        propertyId: document.getElementById("propertyId").value,
-        title: document.getElementById("title").value,
-        location: document.getElementById("location").value,
-        price: document.getElementById("price").value,
-        category: document.getElementById("category").value,
-        description: document.getElementById("description").value
-      };
-      localStorage.setItem("propertyDraft", JSON.stringify(draft));
-    });
-
-    document.getElementById("newPropertyBtn").addEventListener("click", function() {
-      document.getElementById("propertyForm").reset();
-      document.getElementById("propertyId").value = "";
-      document.getElementById("additionalImagesPreview").innerHTML = "";
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    });
-
-    function editProperty(id) {
-      const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      document.getElementById("propertyId").value = prop.id;
-      document.getElementById("title").value = prop.title;
-      document.getElementById("location").value = prop.location;
-      document.getElementById("price").value = prop.price;
-      document.getElementById("category").value = prop.category;
-      document.getElementById("description").value = prop.description;
-      const previewContainer = document.getElementById("additionalImagesPreview");
-      previewContainer.innerHTML = "";
-      if(prop.images && prop.images.length) {
-        prop.images.forEach(img => {
-          const imageElem = document.createElement("img");
-          imageElem.src = img;
-          imageElem.alt = "صورة العقار";
-          previewContainer.appendChild(imageElem);
-        });
-      }
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    }
-
-    function deleteProperty(id) {
-      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
-        propertiesRef.child(id).remove()
-        .then(() => {
-          showToast("تم حذف العقار بنجاح");
-          properties = properties.filter(p => p.id != id);
-          filteredList = [...properties];
-          updateAdminTable();
-          displayAllCards(filteredList);
-        })
-        .catch(err => console.error("Error deleting property:", err));
-      }
-    }
-
-    function updateVisitorCount() {
-      const visitorCountRef = firebase.database().ref("visitorCount");
-      visitorCountRef.transaction(current => (current || 0) + 1)
-      .then(result => {
-        const count = result.snapshot.val();
-        document.getElementById("visitorCount").textContent = `عدد الزائرين: ${count}`;
-      })
-      .catch(err => console.error("Error updating visitor count:", err));
-    }
-
-    function openImageModal(src) {
-      // يمكنك تعديل هذه الدالة لعرض الصورة داخل Modal إذا رغبت
-      alert("الصورة: " + src);
     }
 
     // تعريف دالة getNextId لتوليد معرف جديد باستخدام Firebase
