@@ -20,9 +20,7 @@
       --header-text-color: #fff;
       --radius: 10px;
     }
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-family);
       background-color: var(--secondary-color);
@@ -31,200 +29,8 @@
       color: var(--primary-color);
       overflow-x: auto;
     }
-    /* الهيدر الثابت */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--header-gradient);
-      padding: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-      z-index: 1100;
-      color: var(--header-text-color);
-    }
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .header-container h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-    .login-btn {
-      background-color: transparent;
-      border: 1px solid var(--header-text-color);
-      color: var(--header-text-color);
-      border-radius: 5px;
-      padding: 5px 15px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .login-btn:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-    /* عداد الزائرين */
-    #visitorCount {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-right: auto;
-      margin-left: 15px;
-    }
-    /* نموذج تسجيل الدخول */
-    #loginPanel {
-      display: none;
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      width: 300px;
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 2000;
-      border-radius: var(--radius);
-    }
-    #loginPanel h5 {
-      color: var(--accent-color);
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    /* لوحة الإدارة */
-    #adminPanel {
-      display: none;
-      background: #fff;
-      padding: 20px;
-      border: 2px solid var(--accent-color);
-      border-radius: var(--radius);
-      max-width: 1200px;
-      margin: 80px auto 40px;
-    }
-    #adminPanel h3 {
-      color: var(--accent-color);
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-    .action-badge {
-      cursor: pointer;
-      padding: 6px 10px;
-      border-radius: 5px;
-      margin: 2px;
-    }
-    .action-badge.edit {
-      background-color: #0d6efd;
-      color: #fff;
-    }
-    .action-badge.delete {
-      background-color: #dc3545;
-      color: #fff;
-    }
-    /* قسم Hero */
-    .hero-section {
-      background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
-      position: relative;
-      min-height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      margin-top: 60px;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-      padding: 20px;
-    }
-    .hero-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .btn-hero {
-      background-color: var(--accent-color);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 30px;
-      font-size: 1.1rem;
-      transition: 0.3s;
-    }
-    .btn-hero:hover {
-      background-color: #fff;
-      color: var(--accent-color);
-    }
-    /* الأقسام العقارية */
-    .category-title {
-      color: var(--accent-color);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .category-card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-align: center;
-    }
-    .category-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .category-icon {
-      font-size: 1.8rem;
-      color: var(--accent-color);
-      margin-bottom: 5px;
-    }
-    .category-text {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--primary-color);
-      margin: 0;
-    }
-    /* قائمة العقارات */
-    .property-list-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    /* مؤشر تحميل العقارات */
-    #loadingProperties {
-      text-align: center;
-      margin: 20px 0;
-      font-size: 1.2rem;
-      color: var(--primary-color);
-    }
+    /* باقي التنسيقات كما في الكود السابق */
+    /* ... */
     /* بطاقة العقار – تصميم عصري وجذاب */
     .property-card {
       border: 1px solid #e0e0e0;
@@ -249,89 +55,10 @@
       height: 300px;
       object-fit: cover;
       width: 100%;
-      /* استخدام src مباشرةً لضمان ظهور الصورة فوراً */
       cursor: pointer;
     }
-    .badge-category {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: var(--accent-color);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      z-index: 2;
-    }
-    .property-card .card-body {
-      padding: 15px;
-      flex-grow: 1;
-    }
-    .property-card h5 {
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-    .property-card p {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-    /* صفحة تفاصيل العقار */
-    #propertyDetailPage {
-      display: none;
-      padding: 20px;
-    }
-    .carousel-item img {
-      border-radius: var(--radius);
-      height: 400px;
-      object-fit: cover;
-      width: 100%;
-      cursor: pointer;
-    }
-    .description-text {
-      white-space: pre-line;
-      font-size: 1rem;
-      font-weight: bold;
-      line-height: 1.5;
-    }
-    .btn-whatsapp {
-      font-size: 1.5rem;
-      padding: 15px 30px;
-      border-radius: 5px;
-    }
-    /* Toast Notification */
-    #toastContainer {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1300;
-    }
-    .spin {
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    /* معاينة الصور الإضافية في لوحة التحكم */
-    #additionalImagesPreview img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      margin-right: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    /* إزالة تأثيرات الأنيميشن لتسريع العرض */
-    .animate-card {
-      /* يمكن تعطيل الأنيميشن مؤقتاً */
-    }
-    /* تحسين العرض على الجوال */
-    @media (max-width: 768px) {
-      body { padding-top: 110px; }
-      .property-card img { height: 300px; }
-    }
+    /* باقي التنسيقات كما في الكود السابق */
+    /* ... */
   </style>
   
   <!-- Firebase SDKs -->
@@ -357,199 +84,25 @@
   </script>
 </head>
 <body>
-  <!-- الهيدر -->
-  <header class="header">
-    <div class="header-container">
-      <h1>منصّة عقارك</h1>
-      <div id="visitorCount">عدد الزائرين: 0</div>
-      <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
-    </div>
-  </header>
-  
-  <!-- نموذج تسجيل الدخول -->
-  <div id="loginPanel">
-    <h5>تسجيل الدخول</h5>
-    <label for="usernameInput" class="form-label">اسم المستخدم</label>
-    <input type="text" id="usernameInput" class="form-control" placeholder="اكتب اسم المستخدم">
-    <label for="passwordInput" class="form-label mt-2">كلمة المرور</label>
-    <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
-    <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
-  </div>
-  
-  <!-- لوحة الإدارة -->
-  <div id="adminPanel">
-    <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
-    <form id="propertyForm" class="mb-4">
-      <input type="hidden" id="propertyId">
-      <div class="mb-3">
-        <label for="title" class="form-label">العنوان</label>
-        <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
-      </div>
-      <div class="mb-3">
-        <label for="location" class="form-label">الموقع</label>
-        <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي ..." required>
-      </div>
-      <div class="mb-3">
-        <label for="price" class="form-label">السعر (مثال: 1500000)</label>
-        <input type="text" id="price" class="form-control" placeholder="اكتب السعر بالأرقام" required>
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">التصنيف</label>
-        <select id="category" class="form-select" required>
-          <option value="">اختر التصنيف</option>
-          <option value="عمائر">عمائر</option>
-          <option value="فلل">فلل</option>
-          <option value="شقق">شقق</option>
-          <option value="استراحات">استراحات</option>
-          <option value="أدوار مستقلة">أدوار مستقلة</option>
-          <option value="أراضي">أراضي</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="mainImageFile" class="form-label">الصورة الرئيسية</label>
-        <input type="file" id="mainImageFile" class="form-control" accept="image/*">
-      </div>
-      <div class="mb-3">
-        <label for="additionalImages" class="form-label">الصور الإضافية (يمكن اختيار أكثر من ملف)</label>
-        <input type="file" id="additionalImages" class="form-control" accept="image/*" multiple>
-        <div id="additionalImagesPreview" class="mt-2 d-flex"></div>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">
-          الوصف <i class="bi bi-whatsapp text-success"></i>
-        </label>
-        <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
-      </div>
-      <div class="d-flex align-items-center flex-wrap gap-2">
-        <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
-        <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
-        <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
-        <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
-      </div>
-    </form>
-    <h4>العقارات المُضافة</h4>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped align-middle" id="propertiesTable">
-        <thead class="table-dark">
-          <tr>
-            <th>#</th>
-            <th>العنوان</th>
-            <th>الموقع</th>
-            <th>السعر (أرقام)</th>
-            <th>التصنيف</th>
-            <th>الإجراءات</th>
-          </tr>
-        </thead>
-        <tbody id="adminTableBody">
-          <!-- سيملأ الجدول بيانات العقارات -->
-        </tbody>
-      </table>
-    </div>
-    <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
-  </div>
-  
-  <!-- قسم Hero -->
-  <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h2>أهلاً بك في منصّة عقارك</h2>
-      <p>ابحث عن أفضل العقارات المناسبة لاحتياجاتك بسهولة ويسر</p>
-      <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
-    </div>
-  </section>
-  
-  <!-- الأقسام العقارية -->
-  <section class="container my-5">
-    <h2 class="category-title">الأقسام العقارية</h2>
-    <div class="mb-4">
-      <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن عقار (عنوان، موقع، سعر، وصف أو تصنيف)...">
-    </div>
-    <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('all')">
-          <i class="bi bi-card-list category-icon"></i>
-          <span class="category-text">عرض الكل</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('عمائر')">
-          <i class="bi bi-building category-icon"></i>
-          <span class="category-text">عمائر</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('فلل')">
-          <i class="bi bi-house category-icon"></i>
-          <span class="category-text">فلل</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('شقق')">
-          <i class="bi bi-houses category-icon"></i>
-          <span class="category-text">شقق</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('استراحات')">
-          <i class="bi bi-tree category-icon"></i>
-          <span class="category-text">استراحات</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
-          <i class="bi bi-layers category-icon"></i>
-          <span class="category-text">أدوار مستقلة</span>
-        </div>
-      </div>
-      <div class="col">
-        <div class="category-card" onclick="filterProperties('أراضي')">
-          <i class="bi bi-geo-alt category-icon"></i>
-          <span class="category-text">أراضي</span>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- قائمة العقارات العامة -->
+  <!-- هنا يأتي الكود الأساسي (الهيدر، النموذج، الأقسام، قائمة العقارات، التفاصيل، المودال، إلخ) كما هو في كودك السابق -->
+  <!-- ... -->
+
+  <!-- على سبيل المثال، الجزء الخاص بعرض العقارات -->
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
     <div id="loadingProperties" class="mb-3">جارٍ تحميل العقارات...</div>
-    <div id="propertiesContainer" class="row">
-      <!-- سيتم عرض العقارات هنا دفعة واحدة باستخدام DocumentFragment -->
-    </div>
+    <div id="propertiesContainer" class="row"></div>
   </section>
-  
-  <!-- صفحة تفاصيل العقار -->
-  <div id="propertyDetailPage">
-    <div class="container mt-4">
-      <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
-      <div id="detailContent">
-        <!-- سيتم عرض تفاصيل العقار هنا -->
-      </div>
-    </div>
-  </div>
-  
-  <!-- مودال لتكبير الصورة -->
-  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <img id="modalImage" src="" alt="تكبير الصورة" class="img-fluid w-100">
-        </div>
-      </div>
-    </div>
-  </div>
-  
+
   <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
-  
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    /* بيانات الدخول للإدارة */
+    /* بيانات الدخول والإدارة كما في كودك */
     const ADMIN_USERNAME = "ivl511";
     const ADMIN_PASSWORD = "Wa@055364";
-
     function showToast(message) {
       const container = document.getElementById("toastContainer");
       const toast = document.createElement("div");
@@ -558,52 +111,69 @@
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 3000);
     }
+    function toggleLoginPanel() { /* ... */ }
+    function performLogin() { /* ... */ }
+    function performLogout() { /* ... */ }
+    function showAdminPanel() { /* ... */ }
 
-    function toggleLoginPanel() {
-      if (localStorage.getItem("adminLoggedIn") === "true") {
-        performLogout();
-      } else {
-        document.getElementById("loginPanel").style.display = "block";
-        window.scrollTo(0, 0);
+    /* --- حلول تحسين الأداء --- */
+
+    // دالة تحميل من localStorage (التخزين المؤقت)
+    function loadCachedProperties() {
+      const cachedData = localStorage.getItem("cachedProperties");
+      if (cachedData) {
+        try {
+          const parsed = JSON.parse(cachedData);
+          if (parsed && parsed.timestamp && (Date.now() - parsed.timestamp) < 5 * 60 * 1000) { // 5 دقائق كمثال
+            properties = parsed.data;
+            filteredList = [...properties];
+            updateAdminTable();
+            displayAllCards(filteredList);
+            console.log("تم تحميل البيانات من الكاش");
+            return true;
+          }
+        } catch (e) {
+          console.error("خطأ في قراءة الكاش:", e);
+        }
       }
+      return false;
     }
 
-    function performLogin() {
-      const user = document.getElementById("usernameInput").value.trim();
-      const pass = document.getElementById("passwordInput").value.trim();
-      if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
-        localStorage.setItem("adminLoggedIn", "true");
-        document.getElementById("loginPanel").style.display = "none";
-        showAdminPanel();
-      } else {
-        alert("بيانات الدخول غير صحيحة!");
-      }
+    // دالة حفظ البيانات في localStorage
+    function cacheProperties(data) {
+      const cacheData = {
+        timestamp: Date.now(),
+        data: data
+      };
+      localStorage.setItem("cachedProperties", JSON.stringify(cacheData));
     }
 
-    function performLogout() {
-      localStorage.removeItem("adminLoggedIn");
-      location.reload();
-    }
-
-    function showAdminPanel() {
-      document.getElementById("adminPanel").style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    /* تحميل العقارات باستخدام once() */
-    let properties = [];
-    let filteredList = [];
+    // تحميل العقارات باستخدام once() مع التخزين المؤقت
     function loadProperties() {
+      // أولاً: حاول تحميل من الكاش
+      if (loadCachedProperties()) {
+        // بعد ذلك، نحدث البيانات في الخلفية
+        updatePropertiesFromFirebase();
+      } else {
+        updatePropertiesFromFirebase();
+      }
+    }
+
+    // دالة جلب البيانات من Firebase وتحديث الكاش
+    function updatePropertiesFromFirebase() {
       document.getElementById("loadingProperties").style.display = "block";
+      const startTime = performance.now();
       propertiesRef.once("value")
         .then(snapshot => {
           const data = snapshot.val();
           properties = data ? Object.values(data) : [];
           filteredList = [...properties];
           updateAdminTable();
-          // استخدام دالة عرض البطاقات دفعة واحدة عبر DocumentFragment
           displayAllCards(filteredList);
+          cacheProperties(properties);
           document.getElementById("loadingProperties").style.display = "none";
+          const endTime = performance.now();
+          console.log(`Firebase data loaded in ${(endTime - startTime).toFixed(2)} ms`);
         })
         .catch(err => {
           console.error("Error loading properties:", err);
@@ -611,24 +181,7 @@
         });
     }
 
-    async function getNextId() {
-      const result = await nextIdRef.transaction(current => (current || 0) + 1);
-      if (result.committed) {
-        return result.snapshot.val();
-      } else {
-        throw new Error("Transaction not committed");
-      }
-    }
-
-    function debounce(func, delay) {
-      let timer;
-      return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => func.apply(this, args), delay);
-      };
-    }
-
-    /* عرض كل البطاقات دفعة واحدة باستخدام DocumentFragment لتحسين الأداء */
+    // تحسين عرض جميع البطاقات دفعة واحدة باستخدام DocumentFragment
     function displayAllCards(list = filteredList) {
       const container = document.getElementById("propertiesContainer");
       container.innerHTML = "";
