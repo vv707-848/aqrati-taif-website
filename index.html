@@ -23,13 +23,13 @@
     html {
       scroll-behavior: smooth;
     }
-    /* التأكد من عدم تغطية المحتوى بواسطة الهيدر الثابت */
     body {
       font-family: var(--font-family);
       background-color: var(--secondary-color);
       margin: 0;
-      padding-top: 100px; /* زيادة المساحة لتفادي تغطية المحتوى */
+      padding-top: 100px;
       color: var(--primary-color);
+      overflow-x: auto;
     }
     /* الهيدر الثابت */
     .header {
@@ -172,7 +172,7 @@
       background-color: #fff;
       color: var(--accent-color);
     }
-    /* أقسام العقارات */
+    /* الأقسام العقارية */
     .category-title {
       color: var(--accent-color);
       font-size: 1.8rem;
@@ -225,18 +225,19 @@
       font-size: 1.2rem;
       color: var(--primary-color);
     }
-    /* بطاقة العقار */
+    /* بطاقة العقار – تصميم عصري وجذاب */
     .property-card {
-      border: none;
+      border: 1px solid #e0e0e0;
       border-radius: var(--radius);
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.3s, box-shadow 0.3s;
       position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
+      margin-bottom: 20px;
     }
     .property-card:hover {
       transform: translateY(-5px);
@@ -245,11 +246,12 @@
     .property-card img {
       border-top-left-radius: var(--radius);
       border-top-right-radius: var(--radius);
-      height: 300px; /* زيادة ارتفاع الصورة لتحسين الوضوح */
+      height: 300px;
       object-fit: cover;
       width: 100%;
+      /* استخدام src مباشرةً لضمان ظهور الصورة فوراً */
+      cursor: pointer;
     }
-    /* شريط التصنيف في بطاقة العقار */
     .badge-category {
       position: absolute;
       top: 10px;
@@ -265,14 +267,15 @@
       padding: 15px;
       flex-grow: 1;
     }
-    /* تحسين الخطوط داخل بطاقة العقار */
     .property-card h5 {
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
     }
     .property-card p {
-      font-weight: 700;
+      font-weight: 600;
       font-size: 1rem;
+      margin-bottom: 8px;
     }
     /* صفحة تفاصيل العقار */
     #propertyDetailPage {
@@ -284,17 +287,16 @@
       height: 400px;
       object-fit: cover;
       width: 100%;
+      cursor: pointer;
     }
-    /* نص الوصف (المواصفات) */
     .description-text {
       white-space: pre-line;
       font-size: 1rem;
       font-weight: bold;
       line-height: 1.5;
     }
-    /* زر واتساب للتواصل في تفاصيل العقار */
     .btn-whatsapp {
-      font-size: 1.5rem; /* تكبير الخط */
+      font-size: 1.5rem;
       padding: 15px 30px;
       border-radius: 5px;
     }
@@ -321,14 +323,14 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
+    /* إزالة تأثيرات الأنيميشن لتسريع العرض */
+    .animate-card {
+      /* يمكن تعطيل الأنيميشن مؤقتاً */
+    }
     /* تحسين العرض على الجوال */
     @media (max-width: 768px) {
-      body {
-        padding-top: 110px;
-      }
-      .property-card img {
-        height: 300px;
-      }
+      body { padding-top: 110px; }
+      .property-card img { height: 300px; }
     }
   </style>
   
@@ -337,9 +339,9 @@
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   <script>
-    // تحديث إعدادات Firebase بمعلومات مشروعك
+    // إعدادات Firebase – استبدل هذه القيم ببيانات مشروعك
     const firebaseConfig = {
-      apiKey: "AIza...",
+      apiKey: "AIza...", 
       authDomain: "aqrati-taif.firebaseapp.com",
       databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "aqrati-taif",
@@ -350,7 +352,6 @@
     };
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-    // مراجع قاعدة البيانات
     const propertiesRef = firebase.database().ref("properties");
     const nextIdRef = firebase.database().ref("nextId");
   </script>
@@ -440,7 +441,7 @@
           </tr>
         </thead>
         <tbody id="adminTableBody">
-          <!-- سيتم تعبئة الجدول هنا -->
+          <!-- سيملأ الجدول بيانات العقارات -->
         </tbody>
       </table>
     </div>
@@ -457,7 +458,7 @@
     </div>
   </section>
   
-  <!-- أقسام العقارات مع خانة بحث -->
+  <!-- الأقسام العقارية -->
   <section class="container my-5">
     <h2 class="category-title">الأقسام العقارية</h2>
     <div class="mb-4">
@@ -512,10 +513,9 @@
   <!-- قائمة العقارات العامة -->
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
-    <!-- مؤشر تحميل يظهر حتى يتم جلب العقارات -->
-    <div id="loadingProperties">جارٍ تحميل العقارات...</div>
+    <div id="loadingProperties" class="mb-3">جارٍ تحميل العقارات...</div>
     <div id="propertiesContainer" class="row">
-      <!-- بطاقات العقارات ستظهر هنا -->
+      <!-- سيتم عرض العقارات هنا دفعة واحدة باستخدام DocumentFragment -->
     </div>
   </section>
   
@@ -524,7 +524,18 @@
     <div class="container mt-4">
       <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
       <div id="detailContent">
-        <!-- تفاصيل العقار ستظهر هنا -->
+        <!-- سيتم عرض تفاصيل العقار هنا -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- مودال لتكبير الصورة -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <img id="modalImage" src="" alt="تكبير الصورة" class="img-fluid w-100">
+        </div>
       </div>
     </div>
   </div>
@@ -535,35 +546,32 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    /*************** بيانات الدخول للإدارة ***************/
+    /* بيانات الدخول للإدارة */
     const ADMIN_USERNAME = "ivl511";
     const ADMIN_PASSWORD = "Wa@055364";
 
-    /*************** دالة عرض Toast ***************/
     function showToast(message) {
       const container = document.getElementById("toastContainer");
       const toast = document.createElement("div");
       toast.className = "alert alert-success";
       toast.textContent = message;
       container.appendChild(toast);
-      setTimeout(() => { toast.remove(); }, 3000);
+      setTimeout(() => toast.remove(), 3000);
     }
 
-    /*************** دالة toggle لنموذج تسجيل الدخول ***************/
     function toggleLoginPanel() {
-      if(localStorage.getItem("adminLoggedIn") === "true"){
+      if (localStorage.getItem("adminLoggedIn") === "true") {
         performLogout();
       } else {
         document.getElementById("loginPanel").style.display = "block";
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
       }
     }
 
-    /*************** إدارة تسجيل الدخول ***************/
     function performLogin() {
       const user = document.getElementById("usernameInput").value.trim();
       const pass = document.getElementById("passwordInput").value.trim();
-      if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+      if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
         localStorage.setItem("adminLoggedIn", "true");
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
@@ -571,86 +579,47 @@
         alert("بيانات الدخول غير صحيحة!");
       }
     }
+
     function performLogout() {
       localStorage.removeItem("adminLoggedIn");
       location.reload();
     }
+
     function showAdminPanel() {
       document.getElementById("adminPanel").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /*************** تحميل العقارات من Firebase ***************/
+    /* تحميل العقارات باستخدام once() */
     let properties = [];
     let filteredList = [];
     function loadProperties() {
       document.getElementById("loadingProperties").style.display = "block";
-      propertiesRef.on("value", snapshot => {
-        const data = snapshot.val();
-        properties = data ? Object.values(data) : [];
-        filteredList = [...properties];
-        updateAdminTable();
-        generatePropertyCards(filteredList);
-        document.getElementById("loadingProperties").style.display = "none";
-      }, err => {
-        console.error("Error loading properties:", err);
-        document.getElementById("loadingProperties").style.display = "none";
-      });
+      propertiesRef.once("value")
+        .then(snapshot => {
+          const data = snapshot.val();
+          properties = data ? Object.values(data) : [];
+          filteredList = [...properties];
+          updateAdminTable();
+          // استخدام دالة عرض البطاقات دفعة واحدة عبر DocumentFragment
+          displayAllCards(filteredList);
+          document.getElementById("loadingProperties").style.display = "none";
+        })
+        .catch(err => {
+          console.error("Error loading properties:", err);
+          document.getElementById("loadingProperties").textContent = "حدث خطأ أثناء تحميل البيانات.";
+        });
     }
 
-    /*************** دالة الحصول على الرقم التالي ***************/
     async function getNextId() {
-      const result = await nextIdRef.transaction(currentValue => (currentValue || 0) + 1);
-      if(result.committed) {
+      const result = await nextIdRef.transaction(current => (current || 0) + 1);
+      if (result.committed) {
         return result.snapshot.val();
       } else {
         throw new Error("Transaction not committed");
       }
     }
 
-    /*************** دالة تحويل السعر إلى نص عربي ***************/
-    function numberToArabicWords(num) {
-      if (num === 0) return "صفر";
-      const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
-      const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
-      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
-      const hundreds = ["", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
-      let result = "";
-      if (num >= 1000000) {
-        let millions = Math.floor(num / 1000000);
-        result += numberToArabicWords(millions) + " مليون";
-        num %= 1000000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 1000) {
-        let thousands = Math.floor(num / 1000);
-        if (thousands === 1) result += "ألف";
-        else if (thousands === 2) result += "ألفان";
-        else if (thousands < 11) result += numberToArabicWords(thousands) + " آلاف";
-        else result += numberToArabicWords(thousands) + " ألف";
-        num %= 1000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 100) {
-        let h = Math.floor(num / 100);
-        result += hundreds[h];
-        num %= 100;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 20) {
-        let t = Math.floor(num / 10);
-        result += tens[t];
-        num %= 10;
-        if (num > 0) result += " و " + ones[num];
-      } else if (num >= 10) {
-        result += teens[num - 10];
-      } else if (num > 0) {
-        result += ones[num];
-      }
-      return result;
-    }
-
-    /*************** دالة debounce (لتقليل التأخير عند البحث) ***************/
     function debounce(func, delay) {
       let timer;
       return function(...args) {
@@ -659,29 +628,15 @@
       };
     }
 
-    /*************** دالة تحميل الصور بشكل Lazy باستخدام IntersectionObserver ***************/
-    function lazyLoadImages() {
-      const images = document.querySelectorAll('img[loading="lazy"][data-src]');
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            observer.unobserve(img);
-          }
-        });
-      });
-      images.forEach(img => observer.observe(img));
-    }
-
-    /*************** إنشاء بطاقات العقارات ***************/
-    function generatePropertyCards(list = filteredList) {
+    /* عرض كل البطاقات دفعة واحدة باستخدام DocumentFragment لتحسين الأداء */
+    function displayAllCards(list = filteredList) {
       const container = document.getElementById("propertiesContainer");
       container.innerHTML = "";
-      if(list.length === 0) {
+      if (list.length === 0) {
         container.innerHTML = '<p class="text-center py-3">لا توجد عقارات متاحة</p>';
         return;
       }
+      const fragment = document.createDocumentFragment();
       list.forEach(prop => {
         const numericPrice = parseInt(prop.price);
         const priceDisplay = numericPrice.toLocaleString() + " ريال";
@@ -691,7 +646,7 @@
         col.innerHTML = `
           <div class="property-card">
             <span class="badge-category">${prop.category}</span>
-            <img data-src="${mainSrc}" loading="lazy" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+            <img src="${mainSrc}" alt="العقار ${prop.id}" onclick="openImageModal('${mainSrc}')" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
             <div class="card-body">
               <h5 style="color: var(--accent-color);">${prop.title}</h5>
               <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
@@ -703,42 +658,36 @@
             </div>
           </div>
         `;
-        container.appendChild(col);
+        fragment.appendChild(col);
       });
-      // استدعاء دالة تحميل الصور بشكل lazy بعد إنشاء البطاقات
-      lazyLoadImages();
+      container.appendChild(fragment);
     }
 
-    /*************** دالة زيادة عدد مشاهدات العقار ***************/
     function incrementViewCount(propertyId) {
       const viewCountRef = firebase.database().ref(`properties/${propertyId}/viewCount`);
       viewCountRef.transaction(current => (current || 0) + 1)
         .catch(err => console.error("Error updating view count:", err));
     }
 
-    /*************** عرض تفاصيل العقار ***************/
     function showPropertyDetail(id) {
       const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      // زيادة العداد عند عرض تفاصيل العقار
+      if (!prop) return;
       incrementViewCount(id);
       document.getElementById("publicContent").style.display = "none";
       document.getElementById("propertyDetailPage").style.display = "block";
       const detail = document.getElementById("detailContent");
-      
       let allImages = [];
-      if(prop.mainImage) allImages.push(prop.mainImage);
-      if(prop.images && prop.images.length) allImages.push(...prop.images);
-      
+      if (prop.mainImage) allImages.push(prop.mainImage);
+      if (prop.images && prop.images.length) allImages.push(...prop.images);
       let indicators = "";
       let items = "";
       allImages.forEach((img, index) => {
         indicators += `<button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="${index}" ${index===0?'class="active" aria-current="true"':''} aria-label="Slide ${index+1}"></button>`;
         items += `<div class="carousel-item ${index===0?'active':''}">
-                    <img src="${img}" alt="Slide ${index+1}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+                    <img src="${img}" alt="Slide ${index+1}" onclick="openImageModal('${img}')" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
                   </div>`;
       });
-      if(allImages.length === 0) {
+      if (allImages.length === 0) {
         indicators = "";
         items = `<div class="carousel-item active">
                    <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
@@ -747,7 +696,6 @@
       const numericPrice = parseInt(prop.price);
       const numericPriceDisplay = numericPrice.toLocaleString() + " ريال";
       detail.innerHTML = `
-        <!-- الكاروسيل للصور -->
         <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
           <div class="carousel-indicators">${indicators}</div>
           <div class="carousel-inner">${items}</div>
@@ -760,37 +708,34 @@
             <span class="visually-hidden">التالي</span>
           </button>
         </div>
-        <!-- زر الواتساب للتواصل -->
         <div class="d-flex justify-content-end mb-2">
           <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + numericPriceDisplay)}" target="_blank" class="btn btn-success fw-bold btn-whatsapp">
             <i class="bi bi-whatsapp"></i> واتساب
           </a>
         </div>
-        <!-- عرض العنوان، الموقع، والسعر مع الوصف -->
         <h3 class="mb-1 text-primary fw-bold">${prop.title}</h3>
         <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${numericPriceDisplay}</span></p>
         <p class="description-text">${prop.description}</p>
       `;
     }
+
     function backToListing() {
       document.getElementById("propertyDetailPage").style.display = "none";
       document.getElementById("publicContent").style.display = "block";
     }
 
-    /*************** تصفية العقارات ***************/
     function filterProperties(category) {
-      if(category === 'all') {
+      if (category === 'all') {
         filteredList = [...properties];
       } else {
         filteredList = properties.filter(p => p.category === category);
       }
-      generatePropertyCards(filteredList);
+      displayAllCards(filteredList);
     }
 
-    /*************** البحث في العقارات ***************/
     document.getElementById("searchInput")?.addEventListener("input", debounce(function() {
       const query = this.value.trim().toLowerCase();
-      if(query === "") {
+      if (query === "") {
         filteredList = [...properties];
       } else {
         filteredList = properties.filter(p => {
@@ -798,15 +743,13 @@
           return searchable.includes(query);
         });
       }
-      generatePropertyCards(filteredList);
-    }, 300)); // زيادة مهلة debounce إلى 300 مللي ثانية لتخفيف استدعاء الدالة
+      displayAllCards(filteredList);
+    }, 300));
 
-    /*************** التمرير إلى قسم العقارات ***************/
     function scrollToProperties() {
       document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
     }
 
-    /*************** تحديث جدول الإدارة ***************/
     function updateAdminTable() {
       const tbody = document.getElementById("adminTableBody");
       tbody.innerHTML = "";
@@ -830,26 +773,24 @@
       });
     }
 
-    /*************** حفظ العقار في Firebase ***************/
     function saveProperty(propertyData) {
       return propertiesRef.child(propertyData.id).set(propertyData)
       .then(() => {
         const index = properties.findIndex(p => p.id == propertyData.id);
-        if(index >= 0) {
+        if (index >= 0) {
           properties[index] = propertyData;
         } else {
           properties.push(propertyData);
         }
         filteredList = [...properties];
         updateAdminTable();
-        generatePropertyCards(filteredList);
+        displayAllCards(filteredList);
       })
       .catch(err => {
         console.error("Error saving property:", err);
       });
     }
 
-    /*************** إضافة/تحديث العقار ***************/
     document.getElementById("propertyForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const saveBtn = document.getElementById("saveBtn");
@@ -858,7 +799,7 @@
       try {
         const idField = document.getElementById("propertyId").value;
         let propertyId;
-        if(!idField) {
+        if (!idField) {
           propertyId = await getNextId();
         } else {
           propertyId = parseInt(idField, 10);
@@ -870,19 +811,19 @@
         const description = document.getElementById("description").value;
         let mainImageURL = "";
         const mainFile = document.getElementById("mainImageFile").files[0];
-        if(mainFile) {
+        if (mainFile) {
           mainImageURL = await getFileDataURL(mainFile);
-        } else if(idField) {
+        } else if (idField) {
           const existing = properties.find(p => p.id == idField);
-          if(existing) mainImageURL = existing.mainImage;
+          if (existing) mainImageURL = existing.mainImage;
         }
         let additionalImagesURL = [];
         const additionalFiles = document.getElementById("additionalImages").files;
-        if(additionalFiles.length) {
+        if (additionalFiles.length) {
           additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
-        } else if(idField) {
+        } else if (idField) {
           const existing = properties.find(p => p.id == idField);
-          if(existing) additionalImagesURL = existing.images || [];
+          if (existing) additionalImagesURL = existing.images || [];
         }
         const numericPrice = parseInt(price.toString().replace(/,/g, ''));
         const propertyData = {
@@ -911,21 +852,15 @@
       saveBtn.innerHTML = 'حفظ التعديلات';
     });
 
-    // تحويل الملف إلى Base64
     function getFileDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = function(e) {
-          resolve(e.target.result);
-        };
-        reader.onerror = function(e) {
-          reject(e);
-        };
+        reader.onload = function(e) { resolve(e.target.result); };
+        reader.onerror = function(e) { reject(e); };
         reader.readAsDataURL(file);
       });
     }
 
-    /*************** حفظ مسودة أثناء الكتابة ***************/
     document.getElementById("propertyForm").addEventListener("input", function() {
       const draft = {
         propertyId: document.getElementById("propertyId").value,
@@ -938,7 +873,6 @@
       localStorage.setItem("propertyDraft", JSON.stringify(draft));
     });
 
-    /*************** زر "إضافة عقار جديد" ***************/
     document.getElementById("newPropertyBtn").addEventListener("click", function() {
       document.getElementById("propertyForm").reset();
       document.getElementById("propertyId").value = "";
@@ -946,10 +880,9 @@
       window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
     });
 
-    /*************** تعديل العقار ***************/
     function editProperty(id) {
       const prop = properties.find(p => p.id == id);
-      if(!prop) return;
+      if (!prop) return;
       document.getElementById("propertyId").value = prop.id;
       document.getElementById("title").value = prop.title;
       document.getElementById("location").value = prop.location;
@@ -958,7 +891,7 @@
       document.getElementById("description").value = prop.description;
       const previewContainer = document.getElementById("additionalImagesPreview");
       previewContainer.innerHTML = "";
-      if(prop.images && prop.images.length) {
+      if (prop.images && prop.images.length) {
         prop.images.forEach(img => {
           const imageElem = document.createElement("img");
           imageElem.src = img;
@@ -969,24 +902,20 @@
       window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
     }
 
-    /*************** حذف العقار ***************/
     function deleteProperty(id) {
-      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
+      if (confirm("هل أنت متأكد من حذف هذا العقار؟")) {
         propertiesRef.child(id).remove()
-        .then(() => {
-          showToast("تم حذف العقار بنجاح");
-          properties = properties.filter(p => p.id != id);
-          filteredList = [...properties];
-          updateAdminTable();
-          generatePropertyCards(filteredList);
-        })
-        .catch(err => {
-          console.error("Error deleting property:", err);
-        });
+          .then(() => {
+            showToast("تم حذف العقار بنجاح");
+            properties = properties.filter(p => p.id != id);
+            filteredList = [...properties];
+            updateAdminTable();
+            displayAllCards(filteredList);
+          })
+          .catch(err => console.error("Error deleting property:", err));
       }
     }
 
-    /*************** دالة تحديث عداد الزائرين ***************/
     function updateVisitorCount() {
       const visitorCountRef = firebase.database().ref("visitorCount");
       visitorCountRef.transaction(current => (current || 0) + 1)
@@ -997,15 +926,20 @@
         .catch(err => console.error("Error updating visitor count:", err));
     }
 
-    // بدء تحميل العقارات عند تحميل الصفحة واسترجاع المسودة
+    function openImageModal(src) {
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = src;
+      const myModal = new bootstrap.Modal(document.getElementById("imageModal"));
+      myModal.show();
+    }
+
     document.addEventListener("DOMContentLoaded", function(){
-      if(localStorage.getItem("adminLoggedIn") === "true"){
+      if (localStorage.getItem("adminLoggedIn") === "true") {
         document.getElementById("loginPanel").style.display = "none";
         showAdminPanel();
       }
       updateVisitorCount();
       loadProperties();
-      // استرجاع المسودة إن وُجدت
       const savedDraft = localStorage.getItem("propertyDraft");
       if (savedDraft) {
         const draft = JSON.parse(savedDraft);
