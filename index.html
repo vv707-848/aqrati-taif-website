@@ -1,14 +1,14 @@
-‏‏‏<!DOCTYPE html>
+‏‏‏‎‏‏‏<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>منصّة عقارك - الصفحة الرئيسية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- خط Cairo -->
+‎  <!-- خط Cairo -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS (نسخة RTL) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-  <!-- أيقونات Bootstrap -->
+‎  <!-- أيقونات Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
     :root {
@@ -29,7 +29,7 @@
       color: var(--primary-color);
       overflow-x: auto;
     }
-    /* الهيدر الثابت */
+‎    /* الهيدر الثابت */
     .header {
       position: fixed;
       top: 0; left: 0;
@@ -62,14 +62,14 @@
       transition: background-color 0.3s;
     }
     .login-btn:hover { background-color: rgba(255,255,255,0.2); }
-    /* عداد الزائرين */
+‎    /* عداد الزائرين */
     #visitorCount {
       font-size: 0.9rem;
       opacity: 0.8;
       margin-right: auto;
       margin-left: 15px;
     }
-    /* نموذج تسجيل الدخول */
+‎    /* نموذج تسجيل الدخول */
     #loginPanel {
       display: none;
       position: fixed;
@@ -88,7 +88,7 @@
       margin-bottom: 15px;
       text-align: center;
     }
-    /* لوحة الإدارة */
+‎    /* لوحة الإدارة */
     #adminPanel {
       display: none;
       background: #fff;
@@ -111,7 +111,7 @@
     }
     .action-badge.edit { background-color: #0d6efd; color: #fff; }
     .action-badge.delete { background-color: #dc3545; color: #fff; }
-    /* قسم Hero */
+‎    /* قسم Hero */
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
@@ -153,7 +153,7 @@
       transition: 0.3s;
     }
     .btn-hero:hover { background-color: #fff; color: var(--accent-color); }
-    /* أقسام العقارات */
+‎    /* أقسام العقارات */
     .category-title {
       color: var(--accent-color);
       font-size: 1.8rem;
@@ -191,7 +191,7 @@
       color: var(--primary-color);
       margin: 0;
     }
-    /* قائمة العقارات */
+‎    /* قائمة العقارات */
     .property-list-title {
       font-size: 1.6rem;
       font-weight: 700;
@@ -199,14 +199,14 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    /* مؤشر تحميل العقارات */
+‎    /* مؤشر تحميل العقارات */
     #loadingProperties {
       text-align: center;
       margin: 20px 0;
       font-size: 1.2rem;
       color: var(--primary-color);
     }
-    /* بطاقة العقار – تصميم عصري وجذاب */
+‎    /* بطاقة العقار – تصميم عصري وجذاب */
     .property-card {
       border: 1px solid #e0e0e0;
       border-radius: var(--radius);
@@ -257,7 +257,7 @@
       font-size: 1rem;
       margin-bottom: 8px;
     }
-    /* صفحة تفاصيل العقار */
+‎    /* صفحة تفاصيل العقار */
     #propertyDetailPage {
       display: none;
       padding: 20px;
@@ -294,7 +294,7 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    /* معاينة الصور الإضافية في لوحة التحكم */
+‎    /* معاينة الصور الإضافية في لوحة التحكم */
     #additionalImagesPreview img {
       width: 60px;
       height: 60px;
@@ -303,26 +303,38 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
-    /* تحسين العرض على الجوال */
+‎    /* تحسين العرض على الجوال */
     @media (max-width: 768px) {
       body { padding-top: 110px; }
       .property-card img { height: 300px; }
     }
   </style>
   
-  <!-- تضمين مكتبة Supabase عبر CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-  
-  <!-- إعداد Supabase -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   <script>
-    // استبدل "your_supabase_key_here" بمفتاح Supabase العام الخاص بمشروعك
-    const supabaseUrl = 'https://bbcqmpvcvxveqyxovpdw.supabase.co';
-    const supabaseKey = 'your_supabase_key_here';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+‎    // إعدادات Firebase – استبدل هذه القيم ببيانات مشروعك
+    const firebaseConfig = {
+      apiKey: "AIza...", 
+      authDomain: "aqrati-taif.firebaseapp.com",
+      databaseURL: "https://aqrati-taif-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "aqrati-taif",
+      storageBucket: "aqrati-taif",
+      messagingSenderId: "729968735852",
+      appId: "1:729968735852:web:4779366823353325efca49",
+      measurementId: "G-37C6RY0378"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+‎    // مراجع قاعدة البيانات
+    const propertiesRef = firebase.database().ref("properties");
+    const nextIdRef = firebase.database().ref("nextId");
   </script>
 </head>
 <body>
-  <!-- الهيدر -->
+‎  <!-- الهيدر -->
   <header class="header">
     <div class="header-container">
       <h1>منصّة عقارك</h1>
@@ -331,7 +343,7 @@
     </div>
   </header>
   
-  <!-- نموذج تسجيل الدخول -->
+‎  <!-- نموذج تسجيل الدخول -->
   <div id="loginPanel">
     <h5>تسجيل الدخول</h5>
     <label for="usernameInput" class="form-label">اسم المستخدم</label>
@@ -341,7 +353,7 @@
     <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
   </div>
   
-  <!-- لوحة الإدارة -->
+‎  <!-- لوحة الإدارة -->
   <div id="adminPanel">
     <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
     <form id="propertyForm" class="mb-4">
@@ -404,14 +416,14 @@
           </tr>
         </thead>
         <tbody id="adminTableBody">
-          <!-- سيتم تعبئة الجدول هنا -->
+‎          <!-- سيتم تعبئة الجدول هنا -->
         </tbody>
       </table>
     </div>
     <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
   </div>
   
-  <!-- قسم Hero -->
+‎  <!-- قسم Hero -->
   <section class="hero-section">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -421,7 +433,7 @@
     </div>
   </section>
   
-  <!-- أقسام العقارات مع خانة بحث -->
+‎  <!-- أقسام العقارات مع خانة بحث -->
   <section class="container my-5">
     <h2 class="category-title">الأقسام العقارية</h2>
     <div class="mb-4">
@@ -473,21 +485,21 @@
     </div>
   </section>
   
-  <!-- قائمة العقارات العامة -->
+‎  <!-- قائمة العقارات العامة -->
   <section class="container" id="publicContent">
     <h2 class="property-list-title">العقارات المتاحة</h2>
     <div id="loadingProperties" class="mb-3">جارٍ تحميل العقارات...</div>
     <div id="propertiesContainer" class="row">
-      <!-- سيتم عرض العقارات هنا باستخدام DocumentFragment -->
+‎      <!-- سيتم عرض العقارات هنا باستخدام DocumentFragment -->
     </div>
   </section>
   
-  <!-- صفحة تفاصيل العقار -->
+‎  <!-- صفحة تفاصيل العقار -->
   <div id="propertyDetailPage">
     <div class="container mt-4">
       <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
       <div id="detailContent">
-        <!-- سيتم عرض تفاصيل العقار هنا -->
+‎        <!-- سيتم عرض تفاصيل العقار هنا -->
       </div>
     </div>
   </div>
@@ -497,9 +509,8 @@
   
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
   <script>
-    /* بيانات الدخول للإدارة */
+‎    /* بيانات الدخول للإدارة */
     const ADMIN_USERNAME = "ivl511";
     const ADMIN_PASSWORD = "Wa@055364";
 
@@ -541,261 +552,109 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /* --- استخدام Supabase لتحميل وحفظ العقارات --- */
+‎    /* --- حلول تحسين الأداء --- */
     let properties = [];
     let filteredList = [];
 
-    async function loadProperties() {
-      document.getElementById("loadingProperties").style.display = "block";
-      const { data, error } = await supabase
-        .from('properties')
-        .select('*')
-        .order('id', { ascending: true });
-      if(error){
-        console.error("Error loading properties:", error);
-        document.getElementById("loadingProperties").textContent = "حدث خطأ أثناء تحميل البيانات.";
+‎    // محاولة تحميل البيانات من الكاش (لـ 5 دقائق)
+    function loadCachedProperties() {
+      const cachedData = localStorage.getItem("cachedProperties");
+      if(cachedData) {
+        try {
+          const parsed = JSON.parse(cachedData);
+          if(parsed && parsed.timestamp && (Date.now() - parsed.timestamp) < 5 * 60 * 1000) {
+            properties = parsed.data;
+            filteredList = [...properties];
+            updateAdminTable();
+            displayAllCards(filteredList);
+            console.log("تم تحميل البيانات من الكاش");
+            return true;
+          }
+        } catch(e) {
+          console.error("خطأ في قراءة الكاش:", e);
+        }
+      }
+      return false;
+    }
+
+    function cacheProperties(data) {
+      const cacheData = {
+        timestamp: Date.now(),
+        data: data
+      };
+      localStorage.setItem("cachedProperties", JSON.stringify(cacheData));
+    }
+
+‎    // تحميل العقارات: أولاً يحاول تحميل من الكاش ثم يحدث من Firebase
+    function loadProperties() {
+      if(!loadCachedProperties()){
+        updatePropertiesFromFirebase();
       } else {
-        properties = data || [];
+‎        // تحديث البيانات في الخلفية
+        updatePropertiesFromFirebase();
+      }
+    }
+
+    function updatePropertiesFromFirebase() {
+      document.getElementById("loadingProperties").style.display = "block";
+      const startTime = performance.now();
+      propertiesRef.once("value")
+      .then(snapshot => {
+        const data = snapshot.val();
+        properties = data ? Object.values(data) : [];
         filteredList = [...properties];
         updateAdminTable();
         displayAllCards(filteredList);
+        cacheProperties(properties);
         document.getElementById("loadingProperties").style.display = "none";
-      }
-    }
-
-    async function saveProperty(propertyData) {
-      // إذا كان العقار موجود مسبقاً نقوم بتحديثه وإلا نقوم بإدراجه
-      let response;
-      const existing = properties.find(p => p.id == propertyData.id);
-      if(existing) {
-        response = await supabase
-          .from('properties')
-          .update(propertyData)
-          .eq('id', propertyData.id);
-      } else {
-        response = await supabase
-          .from('properties')
-          .insert(propertyData);
-      }
-      if(response.error){
-        console.error("Error saving property:", response.error);
-        throw response.error;
-      }
-      showToast("تم حفظ التعديلات بنجاح");
-      // إعادة تحميل العقارات لتحديث الواجهة
-      await loadProperties();
-    }
-
-    async function deleteProperty(id) {
-      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
-        const { error } = await supabase
-          .from('properties')
-          .delete()
-          .eq('id', id);
-        if(error){
-          console.error("Error deleting property:", error);
-        } else {
-          showToast("تم حذف العقار بنجاح");
-          await loadProperties();
-        }
-      }
-    }
-
-    async function incrementViewCount(propertyId) {
-      const prop = properties.find(p => p.id == propertyId);
-      const currentCount = prop ? (prop.viewCount || 0) : 0;
-      const { error } = await supabase
-        .from('properties')
-        .update({ viewCount: currentCount + 1 })
-        .eq('id', propertyId);
-      if(error){
-        console.error("Error updating view count:", error);
-      }
-    }
-
-    async function updateVisitorCount() {
-      console.log("تحديث عدد الزائرين باستخدام Supabase");
-      // مثال: يمكنك تخزين وتحديث عدد الزوار في جدول منفصل
-      // هنا نعرض رسالة توضيحية بدلاً من التحديث الحقيقي
-      document.getElementById("visitorCount").textContent = "عدد الزائرين: (تحديث من Supabase)";
-    }
-
-    async function getNextId() {
-      // افتراضياً: الرقم التالي هو آخر قيمة +1
-      return properties.length ? properties[properties.length - 1].id + 1 : 1;
-    }
-
-    function getFileDataURL(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) { resolve(e.target.result); };
-        reader.onerror = function(e) { reject(e); };
-        reader.readAsDataURL(file);
+        const endTime = performance.now();
+        console.log(`Firebase data loaded in ${(endTime - startTime).toFixed(2)} ms`);
+      })
+      .catch(err => {
+        console.error("Error loading properties:", err);
+        document.getElementById("loadingProperties").textContent = "حدث خطأ أثناء تحميل البيانات.";
       });
     }
 
-    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
-      try {
-        const idField = document.getElementById("propertyId").value;
-        let propertyId;
-        if(!idField) {
-          propertyId = await getNextId();
-        } else {
-          propertyId = parseInt(idField, 10);
-        }
-        const title = document.getElementById("title").value;
-        const location = document.getElementById("location").value;
-        const price = document.getElementById("price").value;
-        const category = document.getElementById("category").value;
-        const description = document.getElementById("description").value;
-        let mainImageURL = "";
-        const mainFile = document.getElementById("mainImageFile").files[0];
-        if(mainFile) {
-          mainImageURL = await getFileDataURL(mainFile);
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) mainImageURL = existing.mainImage;
-        }
-        let additionalImagesURL = [];
-        const additionalFiles = document.getElementById("additionalImages").files;
-        if(additionalFiles.length) {
-          additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) additionalImagesURL = existing.images || [];
-        }
-        const numericPrice = parseInt(price.toString().replace(/,/g, ''));
-        const propertyData = {
-          id: propertyId,
-          title,
-          location,
-          price: numericPrice,
-          priceText: "",
-          category,
-          mainImage: mainImageURL,
-          images: additionalImagesURL,
-          description,
-          updatedAt: Date.now()
-        };
-        await saveProperty(propertyData);
-        document.getElementById("propertyForm").reset();
-        document.getElementById("propertyId").value = "";
-        document.getElementById("additionalImagesPreview").innerHTML = "";
-        localStorage.removeItem("propertyDraft");
-      } catch (error) {
-        console.error("خطأ في الحفظ:", error);
-        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
+‎    // عرض كل البطاقات دفعة واحدة باستخدام DocumentFragment
+    function displayAllCards(list = filteredList) {
+      const container = document.getElementById("propertiesContainer");
+      container.innerHTML = "";
+      if(list.length === 0) {
+        container.innerHTML = '<p class="text-center py-3">لا توجد عقارات متاحة</p>';
+        return;
       }
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = 'حفظ التعديلات';
-    });
-
-    document.getElementById("propertyForm").addEventListener("input", function() {
-      const draft = {
-        propertyId: document.getElementById("propertyId").value,
-        title: document.getElementById("title").value,
-        location: document.getElementById("location").value,
-        price: document.getElementById("price").value,
-        category: document.getElementById("category").value,
-        description: document.getElementById("description").value
-      };
-      localStorage.setItem("propertyDraft", JSON.stringify(draft));
-    });
-
-    document.getElementById("newPropertyBtn").addEventListener("click", function() {
-      document.getElementById("propertyForm").reset();
-      document.getElementById("propertyId").value = "";
-      document.getElementById("additionalImagesPreview").innerHTML = "";
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    });
-
-    function editProperty(id) {
-      const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      document.getElementById("propertyId").value = prop.id;
-      document.getElementById("title").value = prop.title;
-      document.getElementById("location").value = prop.location;
-      document.getElementById("price").value = prop.price;
-      document.getElementById("category").value = prop.category;
-      document.getElementById("description").value = prop.description;
-      const previewContainer = document.getElementById("additionalImagesPreview");
-      previewContainer.innerHTML = "";
-      if(prop.images && prop.images.length) {
-        prop.images.forEach(img => {
-          const imageElem = document.createElement("img");
-          imageElem.src = img;
-          imageElem.alt = "صورة العقار";
-          previewContainer.appendChild(imageElem);
-        });
-      }
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    }
-
-    function backToListing() {
-      document.getElementById("propertyDetailPage").style.display = "none";
-      document.getElementById("publicContent").style.display = "block";
-    }
-
-    function filterProperties(category) {
-      if(category === 'all') {
-        filteredList = [...properties];
-      } else {
-        filteredList = properties.filter(p => p.category === category);
-      }
-      displayAllCards(filteredList);
-    }
-
-    // دالة debounce للتعامل مع البحث
-    function debounce(func, wait) {
-      let timeout;
-      return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-      };
-    }
-
-    document.getElementById("searchInput")?.addEventListener("input", debounce(function() {
-      const query = this.value.trim().toLowerCase();
-      if(query === "") {
-        filteredList = [...properties];
-      } else {
-        filteredList = properties.filter(p => {
-          const searchable = `${p.title || ""} ${p.location || ""} ${p.price || ""} ${p.description || ""} ${p.category || ""}`.toLowerCase();
-          return searchable.includes(query);
-        });
-      }
-      displayAllCards(filteredList);
-    }, 300));
-
-    function scrollToProperties() {
-      document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function updateAdminTable() {
-      const tbody = document.getElementById("adminTableBody");
-      tbody.innerHTML = "";
-      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
-      sortedProps.forEach((prop, index) => {
+      const fragment = document.createDocumentFragment();
+      list.forEach(prop => {
         const numericPrice = parseInt(prop.price);
         const priceDisplay = numericPrice.toLocaleString() + " ريال";
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${prop.title}</td>
-          <td>${prop.location}</td>
-          <td>${priceDisplay}</td>
-          <td>${prop.category}</td>
-          <td>
-            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
-            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
-          </td>
+        const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-4";
+        col.innerHTML = `
+          <div class="property-card">
+            <span class="badge-category">${prop.category}</span>
+            <img src="${mainSrc}" alt="العقار ${prop.id}" onclick="openImageModal('${mainSrc}')" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+            <div class="card-body">
+              <h5 style="color: var(--accent-color);">${prop.title}</h5>
+              <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
+              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">السعر: ${priceDisplay}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-outline-danger" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
+                <span class="badge bg-secondary">${prop.viewCount || 0} مشاهدة</span>
+              </div>
+            </div>
+          </div>
         `;
-        tbody.appendChild(tr);
+        fragment.appendChild(col);
       });
+      container.appendChild(fragment);
+    }
+
+    function incrementViewCount(propertyId) {
+      const viewCountRef = firebase.database().ref(`properties/${propertyId}/viewCount`);
+      viewCountRef.transaction(current => (current || 0) + 1)
+      .catch(err => console.error("Error updating view count:", err));
     }
 
     function showPropertyDetail(id) {
@@ -848,9 +707,218 @@
       `;
     }
 
+    function backToListing() {
+      document.getElementById("propertyDetailPage").style.display = "none";
+      document.getElementById("publicContent").style.display = "block";
+    }
+
+    function filterProperties(category) {
+      if(category === 'all') {
+        filteredList = [...properties];
+      } else {
+        filteredList = properties.filter(p => p.category === category);
+      }
+      displayAllCards(filteredList);
+    }
+
+    document.getElementById("searchInput")?.addEventListener("input", debounce(function() {
+      const query = this.value.trim().toLowerCase();
+      if(query === "") {
+        filteredList = [...properties];
+      } else {
+        filteredList = properties.filter(p => {
+          const searchable = `${p.title || ""} ${p.location || ""} ${p.price || ""} ${p.description || ""} ${p.category || ""}`.toLowerCase();
+          return searchable.includes(query);
+        });
+      }
+      displayAllCards(filteredList);
+    }, 300));
+
+    function scrollToProperties() {
+      document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function updateAdminTable() {
+      const tbody = document.getElementById("adminTableBody");
+      tbody.innerHTML = "";
+      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
+      sortedProps.forEach((prop, index) => {
+        const numericPrice = parseInt(prop.price);
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${prop.title}</td>
+          <td>${prop.location}</td>
+          <td>${priceDisplay}</td>
+          <td>${prop.category}</td>
+          <td>
+            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
+            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveProperty(propertyData) {
+      return propertiesRef.child(propertyData.id).set(propertyData)
+      .then(() => {
+        const index = properties.findIndex(p => p.id == propertyData.id);
+        if(index >= 0) {
+          properties[index] = propertyData;
+        } else {
+          properties.push(propertyData);
+        }
+        filteredList = [...properties];
+        updateAdminTable();
+        displayAllCards(filteredList);
+      })
+      .catch(err => {
+        console.error("Error saving property:", err);
+      });
+    }
+
+    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const saveBtn = document.getElementById("saveBtn");
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
+      try {
+        const idField = document.getElementById("propertyId").value;
+        let propertyId;
+        if(!idField) {
+          propertyId = await getNextId();
+        } else {
+          propertyId = parseInt(idField, 10);
+        }
+        const title = document.getElementById("title").value;
+        const location = document.getElementById("location").value;
+        const price = document.getElementById("price").value;
+        const category = document.getElementById("category").value;
+        const description = document.getElementById("description").value;
+        let mainImageURL = "";
+        const mainFile = document.getElementById("mainImageFile").files[0];
+        if(mainFile) {
+          mainImageURL = await getFileDataURL(mainFile);
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) mainImageURL = existing.mainImage;
+        }
+        let additionalImagesURL = [];
+        const additionalFiles = document.getElementById("additionalImages").files;
+        if(additionalFiles.length) {
+          additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) additionalImagesURL = existing.images || [];
+        }
+        const numericPrice = parseInt(price.toString().replace(/,/g, ''));
+        const propertyData = {
+          id: propertyId,
+          title,
+          location,
+          price: numericPrice,
+          priceText: "",
+          category,
+          mainImage: mainImageURL,
+          images: additionalImagesURL,
+          description,
+          updatedAt: Date.now()
+        };
+        await saveProperty(propertyData);
+        showToast("تم حفظ التعديلات بنجاح");
+        document.getElementById("propertyForm").reset();
+        document.getElementById("propertyId").value = "";
+        document.getElementById("additionalImagesPreview").innerHTML = "";
+        localStorage.removeItem("propertyDraft");
+      } catch (error) {
+        console.error("خطأ في الحفظ:", error);
+        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
+      }
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = 'حفظ التعديلات';
+    });
+
+    function getFileDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) { resolve(e.target.result); };
+        reader.onerror = function(e) { reject(e); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    document.getElementById("propertyForm").addEventListener("input", function() {
+      const draft = {
+        propertyId: document.getElementById("propertyId").value,
+        title: document.getElementById("title").value,
+        location: document.getElementById("location").value,
+        price: document.getElementById("price").value,
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value
+      };
+      localStorage.setItem("propertyDraft", JSON.stringify(draft));
+    });
+
+    document.getElementById("newPropertyBtn").addEventListener("click", function() {
+      document.getElementById("propertyForm").reset();
+      document.getElementById("propertyId").value = "";
+      document.getElementById("additionalImagesPreview").innerHTML = "";
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    });
+
+    function editProperty(id) {
+      const prop = properties.find(p => p.id == id);
+      if(!prop) return;
+      document.getElementById("propertyId").value = prop.id;
+      document.getElementById("title").value = prop.title;
+      document.getElementById("location").value = prop.location;
+      document.getElementById("price").value = prop.price;
+      document.getElementById("category").value = prop.category;
+      document.getElementById("description").value = prop.description;
+      const previewContainer = document.getElementById("additionalImagesPreview");
+      previewContainer.innerHTML = "";
+      if(prop.images && prop.images.length) {
+        prop.images.forEach(img => {
+          const imageElem = document.createElement("img");
+          imageElem.src = img;
+          imageElem.alt = "صورة العقار";
+          previewContainer.appendChild(imageElem);
+        });
+      }
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    }
+
+    function deleteProperty(id) {
+      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
+        propertiesRef.child(id).remove()
+        .then(() => {
+          showToast("تم حذف العقار بنجاح");
+          properties = properties.filter(p => p.id != id);
+          filteredList = [...properties];
+          updateAdminTable();
+          displayAllCards(filteredList);
+        })
+        .catch(err => console.error("Error deleting property:", err));
+      }
+    }
+
+    function updateVisitorCount() {
+      const visitorCountRef = firebase.database().ref("visitorCount");
+      visitorCountRef.transaction(current => (current || 0) + 1)
+      .then(result => {
+        const count = result.snapshot.val();
+        document.getElementById("visitorCount").textContent = `عدد الزائرين: ${count}`;
+      })
+      .catch(err => console.error("Error updating visitor count:", err));
+    }
+
     function openImageModal(src) {
-      // يمكنك إضافة كود لعرض الصورة في مودال إذا رغبت
-      window.open(src, '_blank');
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = src;
+      const myModal = new bootstrap.Modal(document.getElementById("imageModal"));
+      myModal.show();
     }
 
     document.addEventListener("DOMContentLoaded", function(){
