@@ -20,9 +20,7 @@
       --header-text-color: #fff;
       --radius: 10px;
     }
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-family);
       background-color: var(--secondary-color);
@@ -32,9 +30,7 @@
     }
     .header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: 0; left: 0; width: 100%;
       background: var(--header-gradient);
       padding: 15px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -48,11 +44,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    .header-container h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
+    .header-container h1 { margin: 0; font-size: 1.8rem; font-weight: 700; }
     .login-btn {
       background-color: transparent;
       border: 1px solid var(--header-text-color);
@@ -62,15 +54,8 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    .login-btn:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-    #visitorCount {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-right: auto;
-      margin-left: 15px;
-    }
+    .login-btn:hover { background-color: rgba(255,255,255,0.2); }
+    #visitorCount { font-size: 0.9rem; opacity: 0.8; margin-right: auto; margin-left: 15px; }
     #loginPanel {
       display: none;
       position: fixed;
@@ -110,14 +95,8 @@
       border-radius: 5px;
       margin: 2px;
     }
-    .action-badge.edit {
-      background-color: #0d6efd;
-      color: #fff;
-    }
-    .action-badge.delete {
-      background-color: #dc3545;
-      color: #fff;
-    }
+    .action-badge.edit { background-color: #0d6efd; color: #fff; }
+    .action-badge.delete { background-color: #dc3545; color: #fff; }
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
@@ -130,11 +109,8 @@
       margin-top: 60px;
     }
     .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.5);
       z-index: 1;
     }
@@ -144,15 +120,8 @@
       max-width: 600px;
       padding: 20px;
     }
-    .hero-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
+    .hero-content h2 { font-size: 2.5rem; margin-bottom: 15px; font-weight: 700; }
+    .hero-content p { font-size: 1.2rem; margin-bottom: 20px; }
     .btn-hero {
       background-color: var(--accent-color);
       color: #fff;
@@ -162,10 +131,7 @@
       font-size: 1.1rem;
       transition: 0.3s;
     }
-    .btn-hero:hover {
-      background-color: #fff;
-      color: var(--accent-color);
-    }
+    .btn-hero:hover { background-color: #fff; color: var(--accent-color); }
     .category-title {
       color: var(--accent-color);
       font-size: 1.8rem;
@@ -250,22 +216,10 @@
       font-size: 0.8rem;
       z-index: 2;
     }
-    .property-card .card-body {
-      padding: 15px;
-      flex-grow: 1;
-    }
-    .property-card h5 {
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-    .property-card p {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-    #propertyDetailPage {
-      display: none;
-      padding: 20px;
-    }
+    .property-card .card-body { padding: 15px; flex-grow: 1; }
+    .property-card h5 { font-weight: 700; font-size: 1.2rem; }
+    .property-card p { font-weight: 700; font-size: 1rem; }
+    #propertyDetailPage { display: none; padding: 20px; }
     .carousel-item img {
       border-radius: var(--radius);
       height: 400px;
@@ -289,13 +243,8 @@
       right: 20px;
       z-index: 1300;
     }
-    .spin {
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    .spin { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     #additionalImagesPreview img {
       width: 60px;
       height: 60px;
@@ -310,12 +259,12 @@
     }
   </style>
   
-  <!-- Firebase SDKs (استخدام النسخ compat لتسهيل التكامل مع الكود الحالي) -->
+  <!-- Firebase SDKs (نسخة compat للتوافق مع الكود الحالي) -->
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-database-compat.js"></script>
   <script>
-    // إعدادات Firebase (تأكد من مطابقتها لبيانات مشروعك)
+    // إعدادات Firebase (تأكد من مطابقتها لمشروعك)
     const firebaseConfig = {
       apiKey: "AIzaSyCiNJYUT06jZrlzn_Q7LXmkStTgVbeRk0U",
       authDomain: "aqrati-taif.firebaseapp.com",
@@ -328,8 +277,417 @@
     };
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
+    
+    // تعريف العقد المستخدمة
     const propertiesRef = firebase.database().ref("properties");
     const nextIdRef = firebase.database().ref("nextId");
+    
+    // مصفوفات لتخزين العقارات والفلترة
+    let properties = [];
+    let filteredList = [];
+    
+    // مستمعات التحديثات في الوقت الحقيقي لعقد العقارات
+    function initializePropertiesListeners() {
+      propertiesRef.on("child_added", snapshot => {
+        const prop = snapshot.val();
+        properties.push(prop);
+        filteredList.push(prop);
+        renderProperties();
+        renderAdminTable();
+        document.getElementById("loadingProperties").style.display = "none";
+      });
+      propertiesRef.on("child_changed", snapshot => {
+        const updatedProp = snapshot.val();
+        const index = properties.findIndex(p => p.id == updatedProp.id);
+        if(index > -1) { properties[index] = updatedProp; }
+        filteredList = properties.slice();
+        renderProperties();
+        renderAdminTable();
+      });
+      propertiesRef.on("child_removed", snapshot => {
+        const removedProp = snapshot.val();
+        properties = properties.filter(p => p.id != removedProp.id);
+        filteredList = properties.slice();
+        renderProperties();
+        renderAdminTable();
+      });
+    }
+    
+    // دالة لتوليد بطاقات العقارات (تحسين الأداء بتجميع الـ HTML دفعة واحدة)
+    function renderProperties() {
+      const container = document.getElementById("propertiesContainer");
+      if (!container) return;
+      if(filteredList.length === 0) {
+        container.innerHTML = '<p class="text-center py-3">لا توجد عقارات متاحة</p>';
+        return;
+      }
+      let html = "";
+      filteredList.forEach(prop => {
+        const numericPrice = parseInt(prop.price);
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
+        const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
+        html += `
+          <div class="col-md-4 mb-4">
+            <div class="property-card">
+              <span class="badge-category">${prop.category}</span>
+              <img data-src="${mainSrc}" loading="lazy" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+              <div class="card-body">
+                <h5 style="color: var(--accent-color);">${prop.title}</h5>
+                <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
+                <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">السعر: ${priceDisplay}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <button class="btn btn-outline-danger" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
+                  <span class="badge bg-secondary">${prop.viewCount || 0} مشاهدة</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      });
+      container.innerHTML = html;
+      lazyLoadImages();
+    }
+    
+    // دالة توليد جدول لوحة الإدارة
+    function renderAdminTable() {
+      const tbody = document.getElementById("adminTableBody");
+      if (!tbody) return;
+      let sortedProps = [...properties].sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      let html = "";
+      sortedProps.forEach((prop, index) => {
+        const numericPrice = parseInt(prop.price);
+        const priceDisplay = numericPrice.toLocaleString() + " ريال";
+        html += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${prop.title}</td>
+            <td>${prop.location}</td>
+            <td>${priceDisplay}</td>
+            <td>${prop.category}</td>
+            <td>
+              <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
+              <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
+            </td>
+          </tr>`;
+      });
+      tbody.innerHTML = html;
+    }
+    
+    // دالة تحميل الصور عند الاقتراب (Lazy Loading)
+    function lazyLoadImages() {
+      const images = document.querySelectorAll('img[loading="lazy"][data-src]');
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            observer.unobserve(img);
+          }
+        });
+      });
+      images.forEach(img => observer.observe(img));
+    }
+    
+    // دالة للحصول على معرف جديد باستخدام معاملة (Transaction)
+    async function getNextId() {
+      const result = await nextIdRef.transaction(currentValue => (currentValue || 0) + 1);
+      if(result.committed) {
+        return result.snapshot.val();
+      } else {
+        throw new Error("Transaction not committed");
+      }
+    }
+    
+    // تحويل الملف إلى DataURL لتحميل الصور
+    function getFileDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = e => reject(e);
+        reader.readAsDataURL(file);
+      });
+    }
+    
+    // حفظ أو تحديث بيانات العقار
+    async function saveProperty(propertyData) {
+      try {
+        await propertiesRef.child(propertyData.id.toString()).set(propertyData);
+        showToast("تم حفظ التعديلات بنجاح");
+      } catch(err) {
+        console.error("Error saving property:", err);
+        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
+      }
+    }
+    
+    // نموذج الحفظ في لوحة الإدارة
+    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const saveBtn = document.getElementById("saveBtn");
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
+      try {
+        const idField = document.getElementById("propertyId").value;
+        let propertyId = idField ? parseInt(idField, 10) : await getNextId();
+        const title = document.getElementById("title").value;
+        const location = document.getElementById("location").value;
+        const price = document.getElementById("price").value;
+        const category = document.getElementById("category").value;
+        const description = document.getElementById("description").value;
+        
+        let mainImageURL = "";
+        const mainFile = document.getElementById("mainImageFile").files[0];
+        if(mainFile) {
+          mainImageURL = await getFileDataURL(mainFile);
+        } else if (!idField) {
+          mainImageURL = "https://via.placeholder.com/500x280?text=No+Image";
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) mainImageURL = existing.mainImage;
+        }
+        
+        let additionalImagesURL = [];
+        const additionalFiles = document.getElementById("additionalImages").files;
+        if(additionalFiles.length) {
+          additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
+        } else if(idField) {
+          const existing = properties.find(p => p.id == idField);
+          if(existing) additionalImagesURL = existing.images || [];
+        }
+        
+        const numericPrice = parseInt(price.toString().replace(/,/g, ''));
+        const propertyData = {
+          id: propertyId,
+          title,
+          location,
+          price: numericPrice,
+          priceText: "",
+          category,
+          mainImage: mainImageURL,
+          images: additionalImagesURL,
+          description,
+          updatedAt: Date.now()
+        };
+        
+        await saveProperty(propertyData);
+        document.getElementById("propertyForm").reset();
+        document.getElementById("propertyId").value = "";
+        document.getElementById("additionalImagesPreview").innerHTML = "";
+        localStorage.removeItem("propertyDraft");
+      } catch (error) {
+        console.error("خطأ في الحفظ:", error);
+        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
+      }
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = 'حفظ التعديلات';
+    });
+    
+    // حفظ المسودة محلياً عند الإدخال
+    document.getElementById("propertyForm").addEventListener("input", function() {
+      const draft = {
+        propertyId: document.getElementById("propertyId").value,
+        title: document.getElementById("title").value,
+        location: document.getElementById("location").value,
+        price: document.getElementById("price").value,
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value
+      };
+      localStorage.setItem("propertyDraft", JSON.stringify(draft));
+    });
+    
+    document.getElementById("newPropertyBtn").addEventListener("click", function() {
+      document.getElementById("propertyForm").reset();
+      document.getElementById("propertyId").value = "";
+      document.getElementById("additionalImagesPreview").innerHTML = "";
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    });
+    
+    // تعديل العقار
+    function editProperty(id) {
+      const prop = properties.find(p => p.id == id);
+      if(!prop) return;
+      document.getElementById("propertyId").value = prop.id;
+      document.getElementById("title").value = prop.title;
+      document.getElementById("location").value = prop.location;
+      document.getElementById("price").value = prop.price;
+      document.getElementById("category").value = prop.category;
+      document.getElementById("description").value = prop.description;
+      const previewContainer = document.getElementById("additionalImagesPreview");
+      previewContainer.innerHTML = "";
+      if(prop.images && prop.images.length) {
+        prop.images.forEach(img => {
+          previewContainer.innerHTML += `<img src="${img}" alt="صورة العقار">`;
+        });
+      }
+      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
+    }
+    
+    // حذف العقار
+    function deleteProperty(id) {
+      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
+        propertiesRef.child(id.toString()).remove();
+      }
+    }
+    
+    // زيادة عدد المشاهدات عند فتح تفاصيل العقار
+    function incrementViewCount(propertyId) {
+      const viewCountRef = firebase.database().ref(`properties/${propertyId}/viewCount`);
+      viewCountRef.transaction(current => (current || 0) + 1)
+        .catch(err => console.error("Error updating view count:", err));
+    }
+    
+    // عرض تفاصيل العقار مع إنشاء Carousel للصور
+    function showPropertyDetail(id) {
+      const prop = properties.find(p => p.id == id);
+      if(!prop) return;
+      incrementViewCount(id);
+      document.getElementById("publicContent").style.display = "none";
+      document.getElementById("propertyDetailPage").style.display = "block";
+      const detail = document.getElementById("detailContent");
+      
+      let allImages = [];
+      if(prop.mainImage) allImages.push(prop.mainImage);
+      if(prop.images && prop.images.length) allImages.push(...prop.images);
+      
+      let indicators = "";
+      let items = "";
+      allImages.forEach((img, index) => {
+        indicators += `<button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="${index}" ${index===0?'class="active" aria-current="true"':''} aria-label="Slide ${index+1}"></button>`;
+        items += `<div class="carousel-item ${index===0?'active':''}">
+                    <img src="${img}" alt="Slide ${index+1}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
+                  </div>`;
+      });
+      if(allImages.length === 0) {
+        indicators = "";
+        items = `<div class="carousel-item active">
+                   <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
+                 </div>`;
+      }
+      const numericPrice = parseInt(prop.price);
+      const numericPriceDisplay = numericPrice.toLocaleString() + " ريال";
+      detail.innerHTML = `
+        <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+          <div class="carousel-indicators">${indicators}</div>
+          <div class="carousel-inner">${items}</div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">السابق</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">التالي</span>
+          </button>
+        </div>
+        <div class="d-flex justify-content-end mb-2">
+          <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + numericPriceDisplay)}" target="_blank" class="btn btn-success fw-bold btn-whatsapp">
+            <i class="bi bi-whatsapp"></i> واتساب
+          </a>
+        </div>
+        <h3 class="mb-1 text-primary fw-bold">${prop.title}</h3>
+        <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${numericPriceDisplay}</span></p>
+        <p class="description-text">${prop.description}</p>
+      `;
+    }
+    
+    function backToListing() {
+      document.getElementById("propertyDetailPage").style.display = "none";
+      document.getElementById("publicContent").style.display = "block";
+    }
+    
+    // دالة البحث مع استخدام debounce لتقليل عدد مرات إعادة التصفية
+    function debounce(func, delay) {
+      let timer;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+    
+    var searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("input", debounce(function() {
+        const query = this.value.trim().toLowerCase();
+        filteredList = query === "" ? properties.slice() : properties.filter(p => {
+          const searchable = `${p.title || ""} ${p.location || ""} ${p.price || ""} ${p.description || ""} ${p.category || ""}`.toLowerCase();
+          return searchable.includes(query);
+        });
+        renderProperties();
+      }, 300));
+    }
+    
+    function scrollToProperties() {
+      document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
+    }
+    
+    // Toast Notification
+    function showToast(message) {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = "alert alert-success";
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 3000);
+    }
+    
+    // وظائف الدخول/الخروج ولوحة الإدارة
+    const ADMIN_USERNAME = "ivl511";
+    const ADMIN_PASSWORD = "Wa@055364";
+    
+    function toggleLoginPanel() {
+      if(localStorage.getItem("adminLoggedIn") === "true"){
+        performLogout();
+      } else {
+        document.getElementById("loginPanel").style.display = "block";
+        window.scrollTo(0,0);
+      }
+    }
+    
+    function performLogin() {
+      const user = document.getElementById("usernameInput").value.trim();
+      const pass = document.getElementById("passwordInput").value.trim();
+      if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+        localStorage.setItem("adminLoggedIn", "true");
+        document.getElementById("loginPanel").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        alert("بيانات الدخول غير صحيحة!");
+      }
+    }
+    function performLogout() {
+      localStorage.removeItem("adminLoggedIn");
+      location.reload();
+    }
+    
+    // عند تحميل الصفحة، تهيئة المستمعين وتحميل المسودة (إن وجدت)
+    document.addEventListener("DOMContentLoaded", function(){
+      if(localStorage.getItem("adminLoggedIn") === "true"){
+        document.getElementById("loginPanel").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      initializePropertiesListeners();
+      updateVisitorCount();
+      const savedDraft = localStorage.getItem("propertyDraft");
+      if (savedDraft) {
+        const draft = JSON.parse(savedDraft);
+        document.getElementById("propertyId").value = draft.propertyId || "";
+        document.getElementById("title").value = draft.title || "";
+        document.getElementById("location").value = draft.location || "";
+        document.getElementById("price").value = draft.price || "";
+        document.getElementById("category").value = draft.category || "";
+        document.getElementById("description").value = draft.description || "";
+      }
+    });
+    
+    function updateVisitorCount() {
+      const visitorCountRef = firebase.database().ref("visitorCount");
+      visitorCountRef.transaction(current => (current || 0) + 1)
+        .then(result => {
+          const count = result.snapshot.val();
+          document.getElementById("visitorCount").textContent = `عدد الزائرين: ${count}`;
+        })
+        .catch(err => console.error("Error updating visitor count:", err));
+    }
+    
   </script>
 </head>
 <body>
@@ -442,43 +800,43 @@
     </div>
     <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
       <div class="col">
-        <div class="category-card" onclick="filterProperties('all')">
+        <div class="category-card" onclick="filteredList = properties.slice(); renderProperties();">
           <i class="bi bi-card-list category-icon"></i>
           <span class="category-text">عرض الكل</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('عمائر')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='عمائر'); renderProperties();">
           <i class="bi bi-building category-icon"></i>
           <span class="category-text">عمائر</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('فلل')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='فلل'); renderProperties();">
           <i class="bi bi-house category-icon"></i>
           <span class="category-text">فلل</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('شقق')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='شقق'); renderProperties();">
           <i class="bi bi-houses category-icon"></i>
           <span class="category-text">شقق</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('استراحات')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='استراحات'); renderProperties();">
           <i class="bi bi-tree category-icon"></i>
           <span class="category-text">استراحات</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='أدوار مستقلة'); renderProperties();">
           <i class="bi bi-layers category-icon"></i>
           <span class="category-text">أدوار مستقلة</span>
         </div>
       </div>
       <div class="col">
-        <div class="category-card" onclick="filterProperties('أراضي')">
+        <div class="category-card" onclick="filteredList = properties.filter(p => p.category==='أراضي'); renderProperties();">
           <i class="bi bi-geo-alt category-icon"></i>
           <span class="category-text">أراضي</span>
         </div>
@@ -510,458 +868,5 @@
   
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const ADMIN_USERNAME = "ivl511";
-    const ADMIN_PASSWORD = "Wa@055364";
-
-    function showToast(message) {
-      const container = document.getElementById("toastContainer");
-      const toast = document.createElement("div");
-      toast.className = "alert alert-success";
-      toast.textContent = message;
-      container.appendChild(toast);
-      setTimeout(() => { toast.remove(); }, 3000);
-    }
-
-    function toggleLoginPanel() {
-      if(localStorage.getItem("adminLoggedIn") === "true"){
-        performLogout();
-      } else {
-        document.getElementById("loginPanel").style.display = "block";
-        window.scrollTo(0,0);
-      }
-    }
-
-    function performLogin() {
-      const user = document.getElementById("usernameInput").value.trim();
-      const pass = document.getElementById("passwordInput").value.trim();
-      if(user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
-        localStorage.setItem("adminLoggedIn", "true");
-        document.getElementById("loginPanel").style.display = "none";
-        showAdminPanel();
-      } else {
-        alert("بيانات الدخول غير صحيحة!");
-      }
-    }
-    function performLogout() {
-      localStorage.removeItem("adminLoggedIn");
-      location.reload();
-    }
-    function showAdminPanel() {
-      document.getElementById("adminPanel").style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    let properties = [];
-    let filteredList = [];
-    function loadProperties() {
-      document.getElementById("loadingProperties").style.display = "block";
-      // استخدام once لجلب كل العقارات دون تحديد حد
-      propertiesRef.once("value")
-        .then(snapshot => {
-          const data = snapshot.val();
-          properties = data ? Object.values(data) : [];
-          filteredList = [...properties];
-          updateAdminTable();
-          generatePropertyCards(filteredList);
-          document.getElementById("loadingProperties").style.display = "none";
-        })
-        .catch(err => {
-          console.error("Error loading properties:", err);
-          document.getElementById("loadingProperties").style.display = "none";
-        });
-    }
-
-    async function getNextId() {
-      const result = await nextIdRef.transaction(currentValue => (currentValue || 0) + 1);
-      if(result.committed) {
-        return result.snapshot.val();
-      } else {
-        throw new Error("Transaction not committed");
-      }
-    }
-
-    function numberToArabicWords(num) {
-      if (num === 0) return "صفر";
-      const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
-      const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
-      const teens = ["عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
-      const hundreds = ["", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
-      let result = "";
-      if (num >= 1000000) {
-        let millions = Math.floor(num / 1000000);
-        result += numberToArabicWords(millions) + " مليون";
-        num %= 1000000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 1000) {
-        let thousands = Math.floor(num / 1000);
-        if (thousands === 1) result += "ألف";
-        else if (thousands === 2) result += "ألفان";
-        else if (thousands < 11) result += numberToArabicWords(thousands) + " آلاف";
-        else result += numberToArabicWords(thousands) + " ألف";
-        num %= 1000;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 100) {
-        let h = Math.floor(num / 100);
-        result += hundreds[h];
-        num %= 100;
-        if (num > 0) result += " و ";
-      }
-      if (num >= 20) {
-        let t = Math.floor(num / 10);
-        result += tens[t];
-        num %= 10;
-        if (num > 0) result += " و " + ones[num];
-      } else if (num >= 10) {
-        result += teens[num - 10];
-      } else if (num > 0) {
-        result += ones[num];
-      }
-      return result;
-    }
-
-    function debounce(func, delay) {
-      let timer;
-      return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => func.apply(this, args), delay);
-      };
-    }
-
-    function lazyLoadImages() {
-      const images = document.querySelectorAll('img[loading="lazy"][data-src]');
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            observer.unobserve(img);
-          }
-        });
-      });
-      images.forEach(img => observer.observe(img));
-    }
-
-    function generatePropertyCards(list = filteredList) {
-      const container = document.getElementById("propertiesContainer");
-      container.innerHTML = "";
-      if(list.length === 0) {
-        container.innerHTML = '<p class="text-center py-3">لا توجد عقارات متاحة</p>';
-        return;
-      }
-      list.forEach(prop => {
-        const numericPrice = parseInt(prop.price);
-        const priceDisplay = numericPrice.toLocaleString() + " ريال";
-        const mainSrc = prop.mainImage ? prop.mainImage : "https://via.placeholder.com/500x280?text=No+Image";
-        const col = document.createElement("div");
-        col.className = "col-md-4 mb-4";
-        col.innerHTML = `
-          <div class="property-card">
-            <span class="badge-category">${prop.category}</span>
-            <img data-src="${mainSrc}" loading="lazy" alt="العقار ${prop.id}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
-            <div class="card-body">
-              <h5 style="color: var(--accent-color);">${prop.title}</h5>
-              <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location}</p>
-              <p style="font-size:1.1rem; font-weight:700; color: var(--primary-color);">السعر: ${priceDisplay}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-outline-danger" onclick="showPropertyDetail('${prop.id}')">تفاصيل العقار</button>
-                <span class="badge bg-secondary">${prop.viewCount || 0} مشاهدة</span>
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(col);
-      });
-      lazyLoadImages();
-    }
-
-    function incrementViewCount(propertyId) {
-      const viewCountRef = firebase.database().ref(`properties/${propertyId}/viewCount`);
-      viewCountRef.transaction(current => (current || 0) + 1)
-        .catch(err => console.error("Error updating view count:", err));
-    }
-
-    function showPropertyDetail(id) {
-      const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      incrementViewCount(id);
-      document.getElementById("publicContent").style.display = "none";
-      document.getElementById("propertyDetailPage").style.display = "block";
-      const detail = document.getElementById("detailContent");
-      
-      let allImages = [];
-      if(prop.mainImage) allImages.push(prop.mainImage);
-      if(prop.images && prop.images.length) allImages.push(...prop.images);
-      
-      let indicators = "";
-      let items = "";
-      allImages.forEach((img, index) => {
-        indicators += `<button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="${index}" ${index===0?'class="active" aria-current="true"':''} aria-label="Slide ${index+1}"></button>`;
-        items += `<div class="carousel-item ${index===0?'active':''}">
-                    <img src="${img}" alt="Slide ${index+1}" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x280?text=No+Image';">
-                  </div>`;
-      });
-      if(allImages.length === 0) {
-        indicators = "";
-        items = `<div class="carousel-item active">
-                   <img src="https://via.placeholder.com/500x280?text=No+Image" alt="No Image">
-                 </div>`;
-      }
-      const numericPrice = parseInt(prop.price);
-      const numericPriceDisplay = numericPrice.toLocaleString() + " ريال";
-      detail.innerHTML = `
-        <div id="propertyCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
-          <div class="carousel-indicators">${indicators}</div>
-          <div class="carousel-inner">${items}</div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">السابق</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">التالي</span>
-          </button>
-        </div>
-        <div class="d-flex justify-content-end mb-2">
-          <a href="https://wa.me/966535342404?text=${encodeURIComponent('مرحبًا، أود الاستفسار عن هذا العقار:\nالعنوان: ' + prop.title + '\nالموقع: ' + prop.location + '\nالسعر: ' + numericPriceDisplay)}" target="_blank" class="btn btn-success fw-bold btn-whatsapp">
-            <i class="bi bi-whatsapp"></i> واتساب
-          </a>
-        </div>
-        <h3 class="mb-1 text-primary fw-bold">${prop.title}</h3>
-        <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> ${prop.location} | <span class="fw-bold">${numericPriceDisplay}</span></p>
-        <p class="description-text">${prop.description}</p>
-      `;
-    }
-    function backToListing() {
-      document.getElementById("propertyDetailPage").style.display = "none";
-      document.getElementById("publicContent").style.display = "block";
-    }
-
-    function filterProperties(category) {
-      if(category === 'all') {
-        filteredList = [...properties];
-      } else {
-        filteredList = properties.filter(p => p.category === category);
-      }
-      generatePropertyCards(filteredList);
-    }
-
-    var searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("input", debounce(function() {
-        const query = this.value.trim().toLowerCase();
-        if(query === "") {
-          filteredList = [...properties];
-        } else {
-          filteredList = properties.filter(p => {
-            const searchable = `${p.title || ""} ${p.location || ""} ${p.price || ""} ${p.description || ""} ${p.category || ""}`.toLowerCase();
-            return searchable.includes(query);
-          });
-        }
-        generatePropertyCards(filteredList);
-      }, 300));
-    }
-
-    function scrollToProperties() {
-      document.getElementById("publicContent").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function updateAdminTable() {
-      const tbody = document.getElementById("adminTableBody");
-      tbody.innerHTML = "";
-      const sortedProps = [...properties].sort((a, b) => a.id - b.id);
-      sortedProps.forEach((prop, index) => {
-        const numericPrice = parseInt(prop.price);
-        const priceDisplay = numericPrice.toLocaleString() + " ريال";
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${prop.title}</td>
-          <td>${prop.location}</td>
-          <td>${priceDisplay}</td>
-          <td>${prop.category}</td>
-          <td>
-            <span class="action-badge edit" onclick="editProperty('${prop.id}')">تعديل</span>
-            <span class="action-badge delete" onclick="deleteProperty('${prop.id}')">حذف</span>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function saveProperty(propertyData) {
-      return propertiesRef.child(propertyData.id).set(propertyData)
-      .then(() => {
-        const index = properties.findIndex(p => p.id == propertyData.id);
-        if(index >= 0) {
-          properties[index] = propertyData;
-        } else {
-          properties.push(propertyData);
-        }
-        filteredList = [...properties];
-        updateAdminTable();
-        generatePropertyCards(filteredList);
-      })
-      .catch(err => {
-        console.error("Error saving property:", err);
-      });
-    }
-
-    document.getElementById("propertyForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = 'جارٍ الحفظ... <i class="bi bi-arrow-repeat spin"></i>';
-      try {
-        const idField = document.getElementById("propertyId").value;
-        let propertyId;
-        if(!idField) {
-          propertyId = await getNextId();
-        } else {
-          propertyId = parseInt(idField, 10);
-        }
-        const title = document.getElementById("title").value;
-        const location = document.getElementById("location").value;
-        const price = document.getElementById("price").value;
-        const category = document.getElementById("category").value;
-        const description = document.getElementById("description").value;
-        let mainImageURL = "";
-        const mainFile = document.getElementById("mainImageFile").files[0];
-        if(mainFile) {
-          mainImageURL = await getFileDataURL(mainFile);
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) mainImageURL = existing.mainImage;
-        }
-        let additionalImagesURL = [];
-        const additionalFiles = document.getElementById("additionalImages").files;
-        if(additionalFiles.length) {
-          additionalImagesURL = await Promise.all([...additionalFiles].map(file => getFileDataURL(file)));
-        } else if(idField) {
-          const existing = properties.find(p => p.id == idField);
-          if(existing) additionalImagesURL = existing.images || [];
-        }
-        const numericPrice = parseInt(price.toString().replace(/,/g, ''));
-        const propertyData = {
-          id: propertyId,
-          title,
-          location,
-          price: numericPrice,
-          priceText: "",
-          category,
-          mainImage: mainImageURL,
-          images: additionalImagesURL,
-          description,
-          updatedAt: Date.now()
-        };
-        await saveProperty(propertyData);
-        showToast("تم حفظ التعديلات بنجاح");
-        document.getElementById("propertyForm").reset();
-        document.getElementById("propertyId").value = "";
-        document.getElementById("additionalImagesPreview").innerHTML = "";
-        localStorage.removeItem("propertyDraft");
-      } catch (error) {
-        console.error("خطأ في الحفظ:", error);
-        alert("حدث خطأ أثناء حفظ البيانات، حاول مرة أخرى.");
-      }
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = 'حفظ التعديلات';
-    });
-
-    function getFileDataURL(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) { resolve(e.target.result); };
-        reader.onerror = function(e) { reject(e); };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    document.getElementById("propertyForm").addEventListener("input", function() {
-      const draft = {
-        propertyId: document.getElementById("propertyId").value,
-        title: document.getElementById("title").value,
-        location: document.getElementById("location").value,
-        price: document.getElementById("price").value,
-        category: document.getElementById("category").value,
-        description: document.getElementById("description").value
-      };
-      localStorage.setItem("propertyDraft", JSON.stringify(draft));
-    });
-
-    document.getElementById("newPropertyBtn").addEventListener("click", function() {
-      document.getElementById("propertyForm").reset();
-      document.getElementById("propertyId").value = "";
-      document.getElementById("additionalImagesPreview").innerHTML = "";
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    });
-
-    function editProperty(id) {
-      const prop = properties.find(p => p.id == id);
-      if(!prop) return;
-      document.getElementById("propertyId").value = prop.id;
-      document.getElementById("title").value = prop.title;
-      document.getElementById("location").value = prop.location;
-      document.getElementById("price").value = prop.price;
-      document.getElementById("category").value = prop.category;
-      document.getElementById("description").value = prop.description;
-      const previewContainer = document.getElementById("additionalImagesPreview");
-      previewContainer.innerHTML = "";
-      if(prop.images && prop.images.length) {
-        prop.images.forEach(img => {
-          const imageElem = document.createElement("img");
-          imageElem.src = img;
-          imageElem.alt = "صورة العقار";
-          previewContainer.appendChild(imageElem);
-        });
-      }
-      window.scrollTo(0, document.getElementById("adminPanel").offsetTop);
-    }
-
-    function deleteProperty(id) {
-      if(confirm("هل أنت متأكد من حذف هذا العقار؟")) {
-        propertiesRef.child(id).remove()
-        .then(() => {
-          showToast("تم حذف العقار بنجاح");
-          properties = properties.filter(p => p.id != id);
-          filteredList = [...properties];
-          updateAdminTable();
-          generatePropertyCards(filteredList);
-        })
-        .catch(err => { console.error("Error deleting property:", err); });
-      }
-    }
-
-    function updateVisitorCount() {
-      const visitorCountRef = firebase.database().ref("visitorCount");
-      visitorCountRef.transaction(current => (current || 0) + 1)
-        .then(result => {
-          const count = result.snapshot.val();
-          document.getElementById("visitorCount").textContent = `عدد الزائرين: ${count}`;
-        })
-        .catch(err => console.error("Error updating visitor count:", err));
-    }
-
-    document.addEventListener("DOMContentLoaded", function(){
-      if(localStorage.getItem("adminLoggedIn") === "true"){
-        document.getElementById("loginPanel").style.display = "none";
-        showAdminPanel();
-      }
-      updateVisitorCount();
-      loadProperties();
-      const savedDraft = localStorage.getItem("propertyDraft");
-      if (savedDraft) {
-        const draft = JSON.parse(savedDraft);
-        document.getElementById("propertyId").value = draft.propertyId || "";
-        document.getElementById("title").value = draft.title || "";
-        document.getElementById("location").value = draft.location || "";
-        document.getElementById("price").value = draft.price || "";
-        document.getElementById("category").value = draft.category || "";
-        document.getElementById("description").value = draft.description || "";
-      }
-    });
-  </script>
 </body>
 </html>
