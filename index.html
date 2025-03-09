@@ -23,7 +23,6 @@
     html {
       scroll-behavior: smooth;
     }
-    /* التأكد من عدم تغطية المحتوى بواسطة الهيدر الثابت */
     body {
       font-family: var(--font-family);
       background-color: var(--secondary-color);
@@ -31,7 +30,6 @@
       padding-top: 100px;
       color: var(--primary-color);
     }
-    /* الهيدر الثابت */
     .header {
       position: fixed;
       top: 0;
@@ -67,14 +65,12 @@
     .login-btn:hover {
       background-color: rgba(255,255,255,0.2);
     }
-    /* عداد الزائرين */
     #visitorCount {
       font-size: 0.9rem;
       opacity: 0.8;
       margin-right: auto;
       margin-left: 15px;
     }
-    /* نموذج تسجيل الدخول */
     #loginPanel {
       display: none;
       position: fixed;
@@ -94,7 +90,6 @@
       margin-bottom: 15px;
       text-align: center;
     }
-    /* لوحة الإدارة */
     #adminPanel {
       display: none;
       background: #fff;
@@ -123,7 +118,6 @@
       background-color: #dc3545;
       color: #fff;
     }
-    /* قسم Hero */
     .hero-section {
       background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
       position: relative;
@@ -172,7 +166,6 @@
       background-color: #fff;
       color: var(--accent-color);
     }
-    /* أقسام العقارات */
     .category-title {
       color: var(--accent-color);
       font-size: 1.8rem;
@@ -210,7 +203,6 @@
       color: var(--primary-color);
       margin: 0;
     }
-    /* قائمة العقارات */
     .property-list-title {
       font-size: 1.6rem;
       font-weight: 700;
@@ -218,14 +210,12 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    /* مؤشر تحميل العقارات */
     #loadingProperties {
       text-align: center;
       margin: 20px 0;
       font-size: 1.2rem;
       color: var(--primary-color);
     }
-    /* بطاقة العقار */
     .property-card {
       border: none;
       border-radius: var(--radius);
@@ -249,7 +239,6 @@
       object-fit: cover;
       width: 100%;
     }
-    /* شريط التصنيف في بطاقة العقار */
     .badge-category {
       position: absolute;
       top: 10px;
@@ -273,7 +262,6 @@
       font-weight: 700;
       font-size: 1rem;
     }
-    /* صفحة تفاصيل العقار */
     #propertyDetailPage {
       display: none;
       padding: 20px;
@@ -568,8 +556,8 @@
     let filteredList = [];
     function loadProperties() {
       document.getElementById("loadingProperties").style.display = "block";
-      // استرجاع أول 10 سجلات لتقليل التأخير
-      propertiesRef.limitToFirst(10).once("value")
+      // استخدام once لجلب كل العقارات دون تحديد حد
+      propertiesRef.once("value")
         .then(snapshot => {
           const data = snapshot.val();
           properties = data ? Object.values(data) : [];
