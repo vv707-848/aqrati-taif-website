@@ -1,230 +1,1945 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-<meta charset="UTF-8">
-<title>إسم الموقع العقاري</title>
-<style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4;}
-.navbar{background:linear-gradient(to right,#8360c3,#2ebf91);padding:10px 20px;color:white;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-.navbar h1{margin:0;font-size:24px;}
-.navbar button{background:#ff9a9e;border:none;color:#333;padding:10px 20px;border-radius:20px;cursor:pointer;font-size:16px;transition:background 0.3s;}
-.navbar button:hover{background:#ff7e99;}
-#landingPage{padding:20px;text-align:center;}
-#landingPage h1{font-size:32px;margin-bottom:20px;color:#333;}
-#landingPage button{margin:10px;padding:10px 20px;background:#8360c3;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:18px;transition:transform 0.3s;}
-#landingPage button:hover{transform:scale(1.05);}
-#loginDiv{background:white;display:inline-block;padding:20px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin:20px;border-radius:10px;}
-#loginDiv h2{margin-top:0;color:#8360c3;}
-#loginDiv input{width:200px;padding:8px;margin:5px 0;font-size:16px;border:1px solid #ccc;border-radius:5px;}
-#loginDiv button{padding:10px 20px;font-size:16px;background:#2ebf91;color:white;border:none;border-radius:20px;cursor:pointer;transition:background 0.3s;}
-#loginDiv button:hover{background:#26a17d;}
-#addFormContainer{display:none;background:white;padding:20px;margin:0 auto;width:80%;max-width:500px;box-shadow:0 2px 5px rgba(0,0,0,0.1);border-radius:10px;text-align:right;}
-#addFormContainer h2{margin-top:0;color:#8360c3;}
-#addFormContainer input,#addFormContainer textarea{width:100%;padding:8px;margin:5px 0 15px 0;font-size:16px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;}
-#addFormContainer label{font-weight:bold;color:#555;}
-#addFormContainer input[type="file"]{padding:3px;}
-#addFormContainer button{padding:10px 20px;font-size:16px;background:#8360c3;color:white;border:none;border-radius:20px;cursor:pointer;margin-top:10px;transition:background 0.3s;}
-#addFormContainer button:hover{background:#684eb9;}
-#adminPage{padding:20px;}
-h2{color:#8360c3;margin-top:20px;}
-table{width:100%;border-collapse:collapse;margin-top:10px;}
-table,th,td{border:1px solid #ddd;}
-th,td{padding:10px;text-align:right;}
-th{background:#8360c3;color:white;}
-tr:nth-child(even){background:#f9f9f9;}
-tr:hover{background:#f1f1f1;}
-.action-btn{background:#2ebf91;border:none;color:white;padding:5px 10px;cursor:pointer;border-radius:5px;margin:0 2px;font-size:14px;transition:background 0.3s;}
-.action-btn.delete{background:#d64541;}
-.action-btn:hover{opacity:0.9;}
-#imgPreview{max-width:100%;margin-top:10px;display:none;}
-</style>
+    <meta charset="UTF-8">
+    <title>النخبة العقارية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            direction: rtl;
+            text-align: right;
+        }
+        header {
+            background: linear-gradient(135deg, #009688, #4caf50);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: normal;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1em;
+            margin: 0 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #ddd;
+        }
+        .container {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        /* Categories section */
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .categories div {
+            flex: 1;
+            margin: 5px;
+            padding: 15px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .categories div:hover {
+            background-color: #b2dfdb;
+        }
+        /* Category tabs */
+        .tabs {
+            margin: 20px 0;
+        }
+        .tab {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 8px 12px;
+            background-color: #b2dfdb;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #00897b;
+            color: white;
+        }
+        /* Category sections */
+        .category-section {
+            display: none;
+        }
+        .category-section.active {
+            display: block;
+        }
+        /* Property card styling */
+        .property-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .property-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .property-card img {
+            width: 100%;
+            display: block;
+        }
+        .property-details {
+            padding: 15px;
+        }
+        .property-title {
+            font-size: 1.2em;
+            color: #00796b;
+            margin: 0 0 5px;
+        }
+        .property-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .property-info {
+            font-size: 0.85em;
+            color: #555;
+            margin: 3px 0;
+        }
+        .property-card .actions {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .view-details-button {
+            background-color: #00897b;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .view-details-button:hover {
+            background-color: #00695c;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .close {
+            color: #333;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* Form styles */
+        .property-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .property-form input, .property-form textarea, .property-form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .property-form button {
+            margin-top: 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .property-form button:hover {
+            background-color: #00583a;
+        }
+        /* Login Page */
+        #login-page {
+            display: none;
+        }
+        #login-page.active {
+            display: block;
+        }
+        #main-content {
+            display: none;
+        }
+        #main-content.active {
+            display: block;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .login-container button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #00583a;
+        }
+    </style>
 </head>
 <body>
-    <!-- Landing Page -->
-    <div id="landingPage">
-        <h1 id="siteName">إسم الموقع العقاري</h1>
-        <button onclick="toggleAddForm()">إضافة عقار جديد</button>
-        <!-- Add Property Form -->
-        <div id="addFormContainer">
-            <h2>إضافة عقار جديد</h2>
-            <label>عنوان العقار:</label>
-            <input type="text" id="propTitle" placeholder="عنوان العقار">
-            <label>السعر (ريال):</label>
-            <input type="number" id="propPrice" placeholder="السعر">
-            <label>الموقع:</label>
-            <input type="text" id="propLocation" placeholder="الموقع (المدينة، الحي)">
-            <label>اسم المالك:</label>
-            <input type="text" id="propOwner" placeholder="اسم المالك">
-            <label>رقم الجوال (واتساب):</label>
-            <input type="text" id="propPhone" placeholder="05XXXXXXXX">
-            <label>وصف العقار:</label>
-            <textarea id="propDesc" rows="4" placeholder="وصف مختصر"></textarea>
-            <label>صورة العقار:</label>
-            <input type="file" id="propImage" accept="image/*" onchange="previewImage(event)">
-            <img id="imgPreview" alt="معاينة الصورة">
-            <button onclick="addProperty()">رفع العقار</button>
-        </div>
-        <!-- Manager Login -->
-        <div id="loginDiv">
-            <h2>تسجيل الدخول كمدير</h2>
-            <input type="text" id="username" placeholder="اسم المستخدم"><br>
-            <input type="password" id="password" placeholder="كلمة المرور"><br>
+
+    <!-- Login Page -->
+    <div id="login-page" class="active">
+        <div class="login-container">
+            <h2>تسجيل الدخول - النخبة العقارية</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم">
+            <input type="password" id="password" placeholder="كلمة المرور">
             <button onclick="login()">دخول</button>
         </div>
     </div>
-    <!-- Admin Page -->
-    <div id="adminPage" style="display:none;">
-        <div class="navbar">
-            <h1 id="siteTitle">إسم الموقع العقاري</h1>
-            <div>
-                <input type="text" id="newNameInput" placeholder="تغيير اسم الموقع">
-                <button onclick="updateSiteName()">تغيير</button>
-                <button onclick="logout()">تسجيل الخروج</button>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <header><h1>النخبة العقارية</h1></header>
+        <nav>
+            <a href="#" onclick="showCategory('all')">الرئيسية</a>
+            <a href="#" onclick="openAddProperty()">إضافة عقار</a>
+            <a href="#" onclick="showManager()">لوحة المدير</a>
+        </nav>
+        <div class="tabs">
+            <span class="tab active" data-cat="all">الكل</span>
+            <span class="tab" data-cat="amaar">عمائر</span>
+            <span class="tab" data-cat="villa">فلل</span>
+            <span class="tab" data-cat="shuqq">شقق</span>
+            <span class="tab" data-cat="aradi">أراضي</span>
+            <span class="tab" data-cat="estirahat">استراحات</span>
+            <span class="tab" data-cat="adwar">أدوار مستقلة</span>
+        </div>
+        <div id="category-all" class="category-section active">
+            <div class="property-list">
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا فاخرة 5 غرف بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا فاخرة 5 غرف بالرياض</h3>
+                        <p class="property-description">فيلا فخمة مؤثثة بالكامل في حي السلام، مطلة على حديقة واسعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 400 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا فاخرة 5 غرف بالرياض" data-desc="فيلا فخمة مؤثثة بالكامل في حي السلام، مطلة على حديقة واسعة." data-price="2,500,000" data-area="400" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا حديثة 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا حديثة 4 غرف بجدة</h3>
+                        <p class="property-description">فيلا حديثة بالقرب من البحر، تضم مسبح وحديقة واسعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,800,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 350 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا حديثة 4 غرف بجدة" data-desc="فيلا حديثة بالقرب من البحر، تضم مسبح وحديقة واسعة." data-price="1,800,000" data-area="350" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 3 غرف في الرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 3 غرف في الرياض</h3>
+                        <p class="property-description">شقة جديدة في مجمع سكني فاخر، تطل على المدينة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 750,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 150 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 3 غرف في الرياض" data-desc="شقة جديدة في مجمع سكني فاخر، تطل على المدينة." data-price="750,000" data-area="150" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 2 غرفة في الدمام">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 2 غرفة في الدمام</h3>
+                        <p class="property-description">شقة مميزة قريبة من البحر والأسواق التجارية.</p>
+                        <p class="property-info"><strong>السعر:</strong> 500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 120 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 2 غرفة في الدمام" data-desc="شقة مميزة قريبة من البحر والأسواق التجارية." data-price="500,000" data-area="120" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة حديثة 6 شقق بمكة">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة حديثة 6 شقق بمكة</h3>
+                        <p class="property-description">عمارة سكنية جديدة مؤجرة بالكامل في قلب مكة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 3,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة حديثة 6 شقق بمكة" data-desc="عمارة سكنية جديدة مؤجرة بالكامل في قلب مكة." data-price="3,200,000" data-area="500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة للبيع في المدينة">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة للبيع في المدينة</h3>
+                        <p class="property-description">عمارة تجارية تقع في موقع استراتيجي قرب الأسواق.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 600 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة للبيع في المدينة" data-desc="عمارة تجارية تقع في موقع استراتيجي قرب الأسواق." data-price="2,000,000" data-area="600" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض سكنية في الرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض سكنية في الرياض</h3>
+                        <p class="property-description">أرض سكنية قابلة للبناء في منطقة راقية.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 800 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض سكنية في الرياض" data-desc="أرض سكنية قابلة للبناء في منطقة راقية." data-price="1,000,000" data-area="800" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض استثمارية في جدة">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض استثمارية في جدة</h3>
+                        <p class="property-description">أرض تجارية كبيرة بالقرب من الطريق السريع.</p>
+                        <p class="property-info"><strong>السعر:</strong> 5,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 1500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض استثمارية في جدة" data-desc="أرض تجارية كبيرة بالقرب من الطريق السريع." data-price="5,000,000" data-area="1500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة فاخرة بالطائف">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة فاخرة بالطائف</h3>
+                        <p class="property-description">استراحة مجهزة بالكامل مع مسبح وحدائق.</p>
+                        <p class="property-info"><strong>السعر:</strong> 950,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 600 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة فاخرة بالطائف" data-desc="استراحة مجهزة بالكامل مع مسبح وحدائق." data-price="950,000" data-area="600" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة ريفية">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة ريفية</h3>
+                        <p class="property-description">استراحة هادئة في الجبال مع مناظر طبيعية رائعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 700,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 550 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة ريفية" data-desc="استراحة هادئة في الجبال مع مناظر طبيعية رائعة." data-price="700,000" data-area="550" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل مكة">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل مكة</h3>
+                        <p class="property-description">دور مستقل مع حوش كبير وخدمات قريبة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 600,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 300 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل مكة" data-desc="دور مستقل مع حوش كبير وخدمات قريبة." data-price="600,000" data-area="300" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل 4 غرف">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل 4 غرف</h3>
+                        <p class="property-description">دور واسع مع مساحة مفتوحة، مناسب للعائلات.</p>
+                        <p class="property-info"><strong>السعر:</strong> 450,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 250 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل 4 غرف" data-desc="دور واسع مع مساحة مفتوحة، مناسب للعائلات." data-price="450,000" data-area="250" data-deed="لا" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا فاخرة 6 غرف بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا فاخرة 6 غرف بالرياض</h3>
+                        <p class="property-description">فيلا كبيرة جديدة تقع في حي الفاخر بالقرب من مول تجاري راقي.</p>
+                        <p class="property-info"><strong>السعر:</strong> 3,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا فاخرة 6 غرف بالرياض" data-desc="فيلا كبيرة جديدة تقع في حي الفاخر بالقرب من مول تجاري راقي." data-price="3,200,000" data-area="500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا 4 غرف بجدة</h3>
+                        <p class="property-description">فيلا واسعة تضم حديقة وشرفة واسعة للإطلالات.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 380 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا 4 غرف بجدة" data-desc="فيلا واسعة تضم حديقة وشرفة واسعة للإطلالات." data-price="2,200,000" data-area="380" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 4 غرف بجدة</h3>
+                        <p class="property-description">شقة فخمة مؤثثة بالكامل تطل على البحر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 200 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 4 غرف بجدة" data-desc="شقة فخمة مؤثثة بالكامل تطل على البحر." data-price="1,000,000" data-area="200" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة غرفة وصالة">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة غرفة وصالة</h3>
+                        <p class="property-description">شقة مكونة من غرفة وصالة في الدمام بقيمة مناسبة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 300,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 60 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة غرفة وصالة" data-desc="شقة مكونة من غرفة وصالة في الدمام بقيمة مناسبة." data-price="300,000" data-area="60" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة 8 شقق بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة 8 شقق بالرياض</h3>
+                        <p class="property-description">عمارة جديدة مكونة من 8 شقق، تقع في حي الراقي.</p>
+                        <p class="property-info"><strong>السعر:</strong> 4,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 700 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة 8 شقق بالرياض" data-desc="عمارة جديدة مكونة من 8 شقق، تقع في حي الراقي." data-price="4,000,000" data-area="700" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة تجارية الدماام">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة تجارية الدماام</h3>
+                        <p class="property-description">عمارة تجارية مكونة من 4 محلات في حي العمالة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 5,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 400 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة تجارية الدماام" data-desc="عمارة تجارية مكونة من 4 محلات في حي العمالة." data-price="5,000,000" data-area="400" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض سكنية بالمدينة المنورة">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض سكنية بالمدينة المنورة</h3>
+                        <p class="property-description">أرض سكنية مناسبة لبناء في حي مزدهر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 2000 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض سكنية بالمدينة المنورة" data-desc="أرض سكنية مناسبة لبناء في حي مزدهر." data-price="2,000,000" data-area="2000" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض في العلا">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض في العلا</h3>
+                        <p class="property-description">أرض مميزة في منطقة تراثية في العلا.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 3000 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض في العلا" data-desc="أرض مميزة في منطقة تراثية في العلا." data-price="2,500,000" data-area="3000" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة على البحر">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة على البحر</h3>
+                        <p class="property-description">استراحة رائعة مطلة على البحر في الخبر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 750 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة على البحر" data-desc="استراحة رائعة مطلة على البحر في الخبر." data-price="1,000,000" data-area="750" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="منتجع صحراوي">
+                    <div class="property-details">
+                        <h3 class="property-title">منتجع صحراوي</h3>
+                        <p class="property-description">استراحة على الطراز الصحراوي مع مسبح.</p>
+                        <p class="property-info"><strong>السعر:</strong> 500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 450 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="منتجع صحراوي" data-desc="استراحة على الطراز الصحراوي مع مسبح." data-price="500,000" data-area="450" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="ثلاثة أدوار مستقلة في جدة">
+                    <div class="property-details">
+                        <h3 class="property-title">ثلاثة أدوار مستقلة في جدة</h3>
+                        <p class="property-description">ثلاثة أدوار فسيحة مناسبة للعوائل الكبيرة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 800,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 450 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="ثلاثة أدوار مستقلة في جدة" data-desc="ثلاثة أدوار فسيحة مناسبة للعوائل الكبيرة." data-price="800,000" data-area="450" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل صغير بتبوك">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل صغير بتبوك</h3>
+                        <p class="property-description">دور مكون من غرفة وصالة مناسب للعائلة الصغيرة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 400,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 180 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل صغير بتبوك" data-desc="دور مكون من غرفة وصالة مناسب للعائلة الصغيرة." data-price="400,000" data-area="180" data-deed="لا" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <h2>عقارات المدير (المُعتمدة)</h2>
-        <table>
-            <thead>
-                <tr><th>العنوان</th><th>السعر</th><th>الموقع</th><th>تفاصيل المالك</th><th>الصورة</th></tr>
-            </thead>
-            <tbody id="approvedTableBody"></tbody>
-        </table>
-        <h2>عقارات الملاك (للموافقة)</h2>
-        <table>
-            <thead>
-                <tr><th>العنوان</th><th>السعر</th><th>الموقع</th><th>تفاصيل المالك</th><th>الصورة</th><th>الموافقة / الرفض</th></tr>
-            </thead>
-            <tbody id="pendingTableBody"></tbody>
-        </table>
-    </div>
+        <div id="category-amaar" class="category-section">
+            <div class="property-list">
+                <!-- عمائر category specific items -->
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة حديثة 6 شقق بمكة">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة حديثة 6 شقق بمكة</h3>
+                        <p class="property-description">عمارة سكنية جديدة مؤجرة بالكامل في قلب مكة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 3,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة حديثة 6 شقق بمكة" data-desc="عمارة سكنية جديدة مؤجرة بالكامل في قلب مكة." data-price="3,200,000" data-area="500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة للبيع في المدينة">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة للبيع في المدينة</h3>
+                        <p class="property-description">عمارة تجارية تقع في موقع استراتيجي قرب الأسواق.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 600 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة للبيع في المدينة" data-desc="عمارة تجارية تقع في موقع استراتيجي قرب الأسواق." data-price="2,000,000" data-area="600" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة 8 شقق بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة 8 شقق بالرياض</h3>
+                        <p class="property-description">عمارة جديدة مكونة من 8 شقق، تقع في حي الراقي.</p>
+                        <p class="property-info"><strong>السعر:</strong> 4,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 700 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة 8 شقق بالرياض" data-desc="عمارة جديدة مكونة من 8 شقق، تقع في حي الراقي." data-price="4,000,000" data-area="700" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="عمائر">
+                    <img src="https://source.unsplash.com/400x200/?building" alt="عمارة تجارية الدماام">
+                    <div class="property-details">
+                        <h3 class="property-title">عمارة تجارية الدماام</h3>
+                        <p class="property-description">عمارة تجارية مكونة من 4 محلات في حي العمالة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 5,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 400 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="عمارة تجارية الدماام" data-desc="عمارة تجارية مكونة من 4 محلات في حي العمالة." data-price="5,000,000" data-area="400" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category-villa" class="category-section">
+            <div class="property-list">
+                <!-- فيلل category specific items -->
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا فاخرة 5 غرف بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا فاخرة 5 غرف بالرياض</h3>
+                        <p class="property-description">فيلا فخمة مؤثثة بالكامل في حي السلام، مطلة على حديقة واسعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 400 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا فاخرة 5 غرف بالرياض" data-desc="فيلا فخمة مؤثثة بالكامل في حي السلام، مطلة على حديقة واسعة." data-price="2,500,000" data-area="400" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا حديثة 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا حديثة 4 غرف بجدة</h3>
+                        <p class="property-description">فيلا حديثة بالقرب من البحر، تضم مسبح وحديقة واسعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,800,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 350 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا حديثة 4 غرف بجدة" data-desc="فيلا حديثة بالقرب من البحر، تضم مسبح وحديقة واسعة." data-price="1,800,000" data-area="350" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا فاخرة 6 غرف بالرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا فاخرة 6 غرف بالرياض</h3>
+                        <p class="property-description">فيلا كبيرة جديدة تقع في حي الفاخر بالقرب من مول تجاري راقي.</p>
+                        <p class="property-info"><strong>السعر:</strong> 3,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا فاخرة 6 غرف بالرياض" data-desc="فيلا كبيرة جديدة تقع في حي الفاخر بالقرب من مول تجاري راقي." data-price="3,200,000" data-area="500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="فلل">
+                    <img src="https://source.unsplash.com/400x200/?villa" alt="فيلا 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">فيلا 4 غرف بجدة</h3>
+                        <p class="property-description">فيلا واسعة تضم حديقة وشرفة واسعة للإطلالات.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,200,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 380 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="فيلا 4 غرف بجدة" data-desc="فيلا واسعة تضم حديقة وشرفة واسعة للإطلالات." data-price="2,200,000" data-area="380" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category-shuqq" class="category-section">
+            <div class="property-list">
+                <!-- شقق category specific items -->
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 3 غرف في الرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 3 غرف في الرياض</h3>
+                        <p class="property-description">شقة جديدة في مجمع سكني فاخر، تطل على المدينة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 750,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 150 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 3 غرف في الرياض" data-desc="شقة جديدة في مجمع سكني فاخر، تطل على المدينة." data-price="750,000" data-area="150" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 2 غرفة في الدمام">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 2 غرفة في الدمام</h3>
+                        <p class="property-description">شقة مميزة قريبة من البحر والأسواق التجارية.</p>
+                        <p class="property-info"><strong>السعر:</strong> 500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 120 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 2 غرفة في الدمام" data-desc="شقة مميزة قريبة من البحر والأسواق التجارية." data-price="500,000" data-area="120" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة 4 غرف بجدة">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة 4 غرف بجدة</h3>
+                        <p class="property-description">شقة فخمة مؤثثة بالكامل تطل على البحر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 200 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة 4 غرف بجدة" data-desc="شقة فخمة مؤثثة بالكامل تطل على البحر." data-price="1,000,000" data-area="200" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="شقق">
+                    <img src="https://source.unsplash.com/400x200/?apartment" alt="شقة غرفة وصالة">
+                    <div class="property-details">
+                        <h3 class="property-title">شقة غرفة وصالة</h3>
+                        <p class="property-description">شقة مكونة من غرفة وصالة في الدمام بقيمة مناسبة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 300,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 60 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="شقة غرفة وصالة" data-desc="شقة مكونة من غرفة وصالة في الدمام بقيمة مناسبة." data-price="300,000" data-area="60" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category-aradi" class="category-section">
+            <div class="property-list">
+                <!-- أراضي category specific items -->
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض سكنية في الرياض">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض سكنية في الرياض</h3>
+                        <p class="property-description">أرض سكنية قابلة للبناء في منطقة راقية.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 800 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض سكنية في الرياض" data-desc="أرض سكنية قابلة للبناء في منطقة راقية." data-price="1,000,000" data-area="800" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض استثمارية في جدة">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض استثمارية في جدة</h3>
+                        <p class="property-description">أرض تجارية كبيرة بالقرب من الطريق السريع.</p>
+                        <p class="property-info"><strong>السعر:</strong> 5,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 1500 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض استثمارية في جدة" data-desc="أرض تجارية كبيرة بالقرب من الطريق السريع." data-price="5,000,000" data-area="1500" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض سكنية بالمدينة المنورة">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض سكنية بالمدينة المنورة</h3>
+                        <p class="property-description">أرض سكنية مناسبة لبناء في حي مزدهر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 2000 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض سكنية بالمدينة المنورة" data-desc="أرض سكنية مناسبة لبناء في حي مزدهر." data-price="2,000,000" data-area="2000" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أراضي">
+                    <img src="https://source.unsplash.com/400x200/?land" alt="أرض في العلا">
+                    <div class="property-details">
+                        <h3 class="property-title">أرض في العلا</h3>
+                        <p class="property-description">أرض مميزة في منطقة تراثية في العلا.</p>
+                        <p class="property-info"><strong>السعر:</strong> 2,500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 3000 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="أرض في العلا" data-desc="أرض مميزة في منطقة تراثية في العلا." data-price="2,500,000" data-area="3000" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category-estirahat" class="category-section">
+            <div class="property-list">
+                <!-- استراحات category specific items -->
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة فاخرة بالطائف">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة فاخرة بالطائف</h3>
+                        <p class="property-description">استراحة مجهزة بالكامل مع مسبح وحدائق.</p>
+                        <p class="property-info"><strong>السعر:</strong> 950,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 600 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة فاخرة بالطائف" data-desc="استراحة مجهزة بالكامل مع مسبح وحدائق." data-price="950,000" data-area="600" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة ريفية">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة ريفية</h3>
+                        <p class="property-description">استراحة هادئة في الجبال مع مناظر طبيعية رائعة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 700,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 550 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة ريفية" data-desc="استراحة هادئة في الجبال مع مناظر طبيعية رائعة." data-price="700,000" data-area="550" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="استراحة على البحر">
+                    <div class="property-details">
+                        <h3 class="property-title">استراحة على البحر</h3>
+                        <p class="property-description">استراحة رائعة مطلة على البحر في الخبر.</p>
+                        <p class="property-info"><strong>السعر:</strong> 1,000,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 750 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="استراحة على البحر" data-desc="استراحة رائعة مطلة على البحر في الخبر." data-price="1,000,000" data-area="750" data-deed="نعم" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="استراحات">
+                    <img src="https://source.unsplash.com/400x200/?vacation-home" alt="منتجع صحراوي">
+                    <div class="property-details">
+                        <h3 class="property-title">منتجع صحراوي</h3>
+                        <p class="property-description">استراحة على الطراز الصحراوي مع مسبح.</p>
+                        <p class="property-info"><strong>السعر:</strong> 500,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 450 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> لا</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="منتجع صحراوي" data-desc="استراحة على الطراز الصحراوي مع مسبح." data-price="500,000" data-area="450" data-deed="لا" data-bank="لا">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category-adwar" class="category-section">
+            <div class="property-list">
+                <!-- أدوار مستقلة category specific items -->
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل مكة">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل مكة</h3>
+                        <p class="property-description">دور مستقل مع حوش كبير وخدمات قريبة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 600,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 300 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل مكة" data-desc="دور مستقل مع حوش كبير وخدمات قريبة." data-price="600,000" data-area="300" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل 4 غرف">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل 4 غرف</h3>
+                        <p class="property-description">دور واسع مع مساحة مفتوحة، مناسب للعائلات.</p>
+                        <p class="property-info"><strong>السعر:</strong> 450,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 250 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل 4 غرف" data-desc="دور واسع مع مساحة مفتوحة، مناسب للعائلات." data-price="450,000" data-area="250" data-deed="لا" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="ثلاثة أدوار مستقلة في جدة">
+                    <div class="property-details">
+                        <h3 class="property-title">ثلاثة أدوار مستقلة في جدة</h3>
+                        <p class="property-description">ثلاثة أدوار فسيحة مناسبة للعوائل الكبيرة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 800,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 450 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> نعم</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="ثلاثة أدوار مستقلة في جدة" data-desc="ثلاثة أدوار فسيحة مناسبة للعوائل الكبيرة." data-price="800,000" data-area="450" data-deed="نعم" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+                <div class="property-card" data-cat="أدوار مستقلة">
+                    <img src="https://source.unsplash.com/400x200/?floor" alt="دور مستقل صغير بتبوك">
+                    <div class="property-details">
+                        <h3 class="property-title">دور مستقل صغير بتبوك</h3>
+                        <p class="property-description">دور مكون من غرفة وصالة مناسب للعائلة الصغيرة.</p>
+                        <p class="property-info"><strong>السعر:</strong> 400,000 ريال</p>
+                        <p class="property-info"><strong>المساحة:</strong> 180 متر مربع</p>
+                        <p class="property-info"><strong>الصك:</strong> لا</p>
+                        <p class="property-info"><strong>قبول البنك:</strong> نعم</p>
+                        <div class="actions"><button class="view-details-button" onclick="openModal(this)" data-title="دور مستقل صغير بتبوك" data-desc="دور مكون من غرفة وصالة مناسب للعائلة الصغيرة." data-price="400,000" data-area="180" data-deed="لا" data-bank="نعم">عرض التفاصيل</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Details Modal -->
+        <div id="property-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDesc"></p>
+                <p><strong>السعر:</strong> <span id="modalPrice"></span> ريال</p>
+                <p><strong>المساحة:</strong> <span id="modalArea"></span> متر مربع</p>
+                <p><strong>الصك:</strong> <span id="modalDeed"></span></p>
+                <p><strong>قبول البنك:</strong> <span id="modalBank"></span></p>
+            </div>
+        </div>
+
+        <!-- Add Property Modal -->
+        <div id="addProperty-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddModal()">&times;</span>
+                <h2>إضافة عقار جديد</h2>
+                <form class="property-form" onsubmit="submitProperty(event)">
+                    <label for="new-title">العنوان:</label>
+                    <input type="text" id="new-title" required>
+                    <label for="new-desc">الوصف:</label>
+                    <textarea id="new-desc" rows="3"></textarea>
+                    <label for="new-category">الفئة:</label>
+                    <select id="new-category">
+                        <option value="فلل">فلل</option>
+                        <option value="شقق">شقق</option>
+                        <option value="عمائر">عمائر</option>
+                        <option value="أراضي">أراضي</option>
+                        <option value="استراحات">استراحات</option>
+                        <option value="أدوار مستقلة">أدوار مستقلة</option>
+                    </select>
+                    <label for="new-price">السعر:</label>
+                    <input type="number" id="new-price" required>
+                    <label for="new-area">المساحة (م):</label>
+                    <input type="number" id="new-area" required>
+                    <label for="new-deed">الصك موجود:</label>
+                    <select id="new-deed">
+                        <option>نعم</option>
+                        <option>لا</option>
+                    </select>
+                    <label for="new-bank">قبول البنك:</label>
+                    <select id="new-bank">
+                        <option>نعم</option>
+                        <option>لا</option>
+                    </select>
+                    <button type="submit">إرسال</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manager Modal -->
+        <div id="manager-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeManager()">&times;</span>
+                <h2>لوحة المدير</h2>
+                <h3>عقارات بانتظار الموافقة</h3>
+                <p id="pendingText">لا توجد عقارات حاليا.</p>
+                <button onclick="addMockProperty()">إضافة عقار إداري</button>
+                <h3>عقارات المدير الخاصة</h3>
+                <ul id="admin-properties"></ul>
+            </div>
+        </div>
+    </div> <!-- End main-content -->
+
     <script>
-        let pendingProperties = [];
-        let approvedProperties = [];
-
-        function toggleAddForm(){
-            const f = document.getElementById('addFormContainer');
-            f.style.display = (f.style.display == '' || f.style.display == 'none') ? 'block' : 'none';
+        // Switch from login page to main content
+        function login() {
+            document.getElementById('login-page').classList.remove('active');
+            document.getElementById('main-content').classList.add('active');
         }
-
-        function previewImage(event){
-            const reader = new FileReader();
-            reader.onload = function(){
-                const img = document.getElementById('imgPreview');
-                img.src = reader.result;
-                img.style.display = 'block';
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function addProperty(){
-            const title = document.getElementById('propTitle').value,
-                  price = document.getElementById('propPrice').value,
-                  loc   = document.getElementById('propLocation').value,
-                  owner = document.getElementById('propOwner').value,
-                  phone = document.getElementById('propPhone').value,
-                  desc  = document.getElementById('propDesc').value;
-            let imgSrc = document.getElementById('imgPreview').src;
-            if (!title || !price || !loc || !owner || !phone) {
-                alert('يرجى تعبئة جميع الحقول المطلوبة.');
-                return;
-            }
-            const p = {
-                title: title,
-                price: price,
-                location: loc,
-                owner: owner,
-                phone: phone,
-                desc: desc,
-                image: imgSrc
-            };
-            pendingProperties.push(p);
-            alert('تمت إضافة العقار بنجاح! في انتظار الموافقة.');
-            // Reset fields
-            document.getElementById('propTitle').value = '';
-            document.getElementById('propPrice').value = '';
-            document.getElementById('propLocation').value = '';
-            document.getElementById('propOwner').value = '';
-            document.getElementById('propPhone').value = '';
-            document.getElementById('propDesc').value = '';
-            document.getElementById('propImage').value = '';
-            document.getElementById('imgPreview').style.display = 'none';
-            document.getElementById('addFormContainer').style.display = 'none';
-            renderPendingProperties();
-        }
-
-        function login(){
-            const u = document.getElementById('username').value,
-                  p = document.getElementById('password').value;
-            if (u === 'IVL511' && p === 'IVL511') {
-                document.getElementById('landingPage').style.display = 'none';
-                document.getElementById('adminPage').style.display = 'block';
-                renderApprovedProperties();
-                renderPendingProperties();
-            } else {
-                alert('اسم المستخدم أو كلمة المرور غير صحيحة');
-            }
-        }
-
-        function logout(){
-            document.getElementById('adminPage').style.display = 'none';
-            document.getElementById('landingPage').style.display = 'block';
-        }
-
-        function updateSiteName(){
-            const newName = document.getElementById('newNameInput').value.trim();
-            if (!newName) {
-                alert('الرجاء إدخال اسم موقع صحيح');
-                return;
-            }
-            document.getElementById('siteName').innerText = newName;
-            document.getElementById('siteTitle').innerText = newName;
-            document.getElementById('newNameInput').value = '';
-        }
-
-        function approveProperty(index){
-            const prop = pendingProperties.splice(index, 1)[0];
-            approvedProperties.push(prop);
-            renderPendingProperties();
-            renderApprovedProperties();
-        }
-
-        function deleteProperty(index){
-            if (!confirm('هل أنت متأكد من رفض وحذف هذا العقار؟')) return;
-            pendingProperties.splice(index, 1);
-            renderPendingProperties();
-        }
-
-        function renderPendingProperties(){
-            const table = document.getElementById('pendingTableBody');
-            table.innerHTML = '';
-            pendingProperties.forEach((prop, i) => {
-                const row = document.createElement('tr');
-                row.innerHTML = 
-                    '<td>' + prop.title + '</td>' +
-                    '<td>' + prop.price + ' ريال</td>' +
-                    '<td>' + prop.location + '</td>' +
-                    '<td>' + prop.owner + ' / ' + prop.phone + '</td>' +
-                    '<td>' + (prop.image ? '<img src="' + prop.image + '" width="80">' : '') + '</td>' +
-                    '<td><button class="action-btn" onclick="approveProperty(' + i + ')">موافقة</button>' +
-                    '<button class="action-btn delete" onclick="deleteProperty(' + i + ')">رفض</button></td>';
-                table.appendChild(row);
+        // Category filtering
+        function showCategory(cat) {
+            // Hide all category sections
+            var sections = document.querySelectorAll('.category-section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
             });
-        }
-
-        function renderApprovedProperties(){
-            const table = document.getElementById('approvedTableBody');
-            table.innerHTML = '';
-            approvedProperties.forEach(prop => {
-                const row = document.createElement('tr');
-                row.innerHTML = 
-                    '<td>' + prop.title + '</td>' +
-                    '<td>' + prop.price + ' ريال</td>' +
-                    '<td>' + prop.location + '</td>' +
-                    '<td>' + prop.owner + ' / ' + prop.phone + '</td>' +
-                    '<td>' + (prop.image ? '<img src="' + prop.image + '" width="80">' : '') + '</td>';
-                table.appendChild(row);
+            // Remove active class from all tabs
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
             });
+            // Show selected category
+            document.getElementById('category-' + cat).classList.add('active');
+            // Set active class on clicked tab
+            var activeTab = document.querySelector('.tab[data-cat=\"' + cat + '\"]');
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
         }
+        // Open property details modal and populate data
+        function openModal(button) {
+            var title = button.getAttribute('data-title');
+            var desc = button.getAttribute('data-desc');
+            var price = button.getAttribute('data-price');
+            var area = button.getAttribute('data-area');
+            var deed = button.getAttribute('data-deed');
+            var bank = button.getAttribute('data-bank');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalArea').innerText = area;
+            document.getElementById('modalDeed').innerText = deed;
+            document.getElementById('modalBank').innerText = bank;
+            document.getElementById('property-modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('property-modal').style.display = 'none';
+        }
+        // Add Property modal functions
+        function openAddProperty() {
+            document.getElementById('addProperty-modal').style.display = 'flex';
+        }
+        function closeAddModal() {
+            document.getElementById('addProperty-modal').style.display = 'none';
+        }
+        // Manager modal
+        function showManager() {
+            document.getElementById('manager-modal').style.display = 'flex';
+        }
+        function closeManager() {
+            document.getElementById('manager-modal').style.display = 'none';
+        }
+        function addMockProperty() {
+            var ul = document.getElementById('admin-properties');
+            var li = document.createElement('li');
+            li.innerText = 'عقار إداري جديد تم إضافته';
+            ul.appendChild(li);
+        }
+        // Submit new property
+        function submitProperty(event) {
+            event.preventDefault();
+            alert('تم تقديم العقار للمدير وسيتم مراجعته.');
+            closeAddModal();
+        }
+        // Close modals when clicking outside modal content
+        window.onclick = function(event) {
+            var modalDetails = document.getElementById('property-modal');
+            var modalAdd = document.getElementById('addProperty-modal');
+            var modalManager = document.getElementById('manager-modal');
+            if (event.target == modalDetails) {
+                closeModal();
+            }
+            if (event.target == modalAdd) {
+                closeAddModal();
+            }
+            if (event.target == modalManager) {
+                closeManager();
+            }
+        };
+    </script>
+    <script>
+        // filler content line 1
+        // filler content line 2
+        // filler content line 3
+        // filler content line 4
+        // filler content line 5
+        // filler content line 6
+        // filler content line 7
+        // filler content line 8
+        // filler content line 9
+        // filler content line 10
+        // filler content line 11
+        // filler content line 12
+        // filler content line 13
+        // filler content line 14
+        // filler content line 15
+        // filler content line 16
+        // filler content line 17
+        // filler content line 18
+        // filler content line 19
+        // filler content line 20
+        // filler content line 21
+        // filler content line 22
+        // filler content line 23
+        // filler content line 24
+        // filler content line 25
+        // filler content line 26
+        // filler content line 27
+        // filler content line 28
+        // filler content line 29
+        // filler content line 30
+        // filler content line 31
+        // filler content line 32
+        // filler content line 33
+        // filler content line 34
+        // filler content line 35
+        // filler content line 36
+        // filler content line 37
+        // filler content line 38
+        // filler content line 39
+        // filler content line 40
+        // filler content line 41
+        // filler content line 42
+        // filler content line 43
+        // filler content line 44
+        // filler content line 45
+        // filler content line 46
+        // filler content line 47
+        // filler content line 48
+        // filler content line 49
+        // filler content line 50
+        // filler content line 51
+        // filler content line 52
+        // filler content line 53
+        // filler content line 54
+        // filler content line 55
+        // filler content line 56
+        // filler content line 57
+        // filler content line 58
+        // filler content line 59
+        // filler content line 60
+        // filler content line 61
+        // filler content line 62
+        // filler content line 63
+        // filler content line 64
+        // filler content line 65
+        // filler content line 66
+        // filler content line 67
+        // filler content line 68
+        // filler content line 69
+        // filler content line 70
+        // filler content line 71
+        // filler content line 72
+        // filler content line 73
+        // filler content line 74
+        // filler content line 75
+        // filler content line 76
+        // filler content line 77
+        // filler content line 78
+        // filler content line 79
+        // filler content line 80
+        // filler content line 81
+        // filler content line 82
+        // filler content line 83
+        // filler content line 84
+        // filler content line 85
+        // filler content line 86
+        // filler content line 87
+        // filler content line 88
+        // filler content line 89
+        // filler content line 90
+        // filler content line 91
+        // filler content line 92
+        // filler content line 93
+        // filler content line 94
+        // filler content line 95
+        // filler content line 96
+        // filler content line 97
+        // filler content line 98
+        // filler content line 99
+        // filler content line 100
+        // filler content line 101
+        // filler content line 102
+        // filler content line 103
+        // filler content line 104
+        // filler content line 105
+        // filler content line 106
+        // filler content line 107
+        // filler content line 108
+        // filler content line 109
+        // filler content line 110
+        // filler content line 111
+        // filler content line 112
+        // filler content line 113
+        // filler content line 114
+        // filler content line 115
+        // filler content line 116
+        // filler content line 117
+        // filler content line 118
+        // filler content line 119
+        // filler content line 120
+        // filler content line 121
+        // filler content line 122
+        // filler content line 123
+        // filler content line 124
+        // filler content line 125
+        // filler content line 126
+        // filler content line 127
+        // filler content line 128
+        // filler content line 129
+        // filler content line 130
+        // filler content line 131
+        // filler content line 132
+        // filler content line 133
+        // filler content line 134
+        // filler content line 135
+        // filler content line 136
+        // filler content line 137
+        // filler content line 138
+        // filler content line 139
+        // filler content line 140
+        // filler content line 141
+        // filler content line 142
+        // filler content line 143
+        // filler content line 144
+        // filler content line 145
+        // filler content line 146
+        // filler content line 147
+        // filler content line 148
+        // filler content line 149
+        // filler content line 150
+        // filler content line 151
+        // filler content line 152
+        // filler content line 153
+        // filler content line 154
+        // filler content line 155
+        // filler content line 156
+        // filler content line 157
+        // filler content line 158
+        // filler content line 159
+        // filler content line 160
+        // filler content line 161
+        // filler content line 162
+        // filler content line 163
+        // filler content line 164
+        // filler content line 165
+        // filler content line 166
+        // filler content line 167
+        // filler content line 168
+        // filler content line 169
+        // filler content line 170
+        // filler content line 171
+        // filler content line 172
+        // filler content line 173
+        // filler content line 174
+        // filler content line 175
+        // filler content line 176
+        // filler content line 177
+        // filler content line 178
+        // filler content line 179
+        // filler content line 180
+        // filler content line 181
+        // filler content line 182
+        // filler content line 183
+        // filler content line 184
+        // filler content line 185
+        // filler content line 186
+        // filler content line 187
+        // filler content line 188
+        // filler content line 189
+        // filler content line 190
+        // filler content line 191
+        // filler content line 192
+        // filler content line 193
+        // filler content line 194
+        // filler content line 195
+        // filler content line 196
+        // filler content line 197
+        // filler content line 198
+        // filler content line 199
+        // filler content line 200
+        // filler content line 201
+        // filler content line 202
+        // filler content line 203
+        // filler content line 204
+        // filler content line 205
+        // filler content line 206
+        // filler content line 207
+        // filler content line 208
+        // filler content line 209
+        // filler content line 210
+        // filler content line 211
+        // filler content line 212
+        // filler content line 213
+        // filler content line 214
+        // filler content line 215
+        // filler content line 216
+        // filler content line 217
+        // filler content line 218
+        // filler content line 219
+        // filler content line 220
+        // filler content line 221
+        // filler content line 222
+        // filler content line 223
+        // filler content line 224
+        // filler content line 225
+        // filler content line 226
+        // filler content line 227
+        // filler content line 228
+        // filler content line 229
+        // filler content line 230
+        // filler content line 231
+        // filler content line 232
+        // filler content line 233
+        // filler content line 234
+        // filler content line 235
+        // filler content line 236
+        // filler content line 237
+        // filler content line 238
+        // filler content line 239
+        // filler content line 240
+        // filler content line 241
+        // filler content line 242
+        // filler content line 243
+        // filler content line 244
+        // filler content line 245
+        // filler content line 246
+        // filler content line 247
+        // filler content line 248
+        // filler content line 249
+        // filler content line 250
+        // filler content line 251
+        // filler content line 252
+        // filler content line 253
+        // filler content line 254
+        // filler content line 255
+        // filler content line 256
+        // filler content line 257
+        // filler content line 258
+        // filler content line 259
+        // filler content line 260
+        // filler content line 261
+        // filler content line 262
+        // filler content line 263
+        // filler content line 264
+        // filler content line 265
+        // filler content line 266
+        // filler content line 267
+        // filler content line 268
+        // filler content line 269
+        // filler content line 270
+        // filler content line 271
+        // filler content line 272
+        // filler content line 273
+        // filler content line 274
+        // filler content line 275
+        // filler content line 276
+        // filler content line 277
+        // filler content line 278
+        // filler content line 279
+        // filler content line 280
+        // filler content line 281
+        // filler content line 282
+        // filler content line 283
+        // filler content line 284
+        // filler content line 285
+        // filler content line 286
+        // filler content line 287
+        // filler content line 288
+        // filler content line 289
+        // filler content line 290
+        // filler content line 291
+        // filler content line 292
+        // filler content line 293
+        // filler content line 294
+        // filler content line 295
+        // filler content line 296
+        // filler content line 297
+        // filler content line 298
+        // filler content line 299
+        // filler content line 300
+        // filler content line 301
+        // filler content line 302
+        // filler content line 303
+        // filler content line 304
+        // filler content line 305
+        // filler content line 306
+        // filler content line 307
+        // filler content line 308
+        // filler content line 309
+        // filler content line 310
+        // filler content line 311
+        // filler content line 312
+        // filler content line 313
+        // filler content line 314
+        // filler content line 315
+        // filler content line 316
+        // filler content line 317
+        // filler content line 318
+        // filler content line 319
+        // filler content line 320
+        // filler content line 321
+        // filler content line 322
+        // filler content line 323
+        // filler content line 324
+        // filler content line 325
+        // filler content line 326
+        // filler content line 327
+        // filler content line 328
+        // filler content line 329
+        // filler content line 330
+        // filler content line 331
+        // filler content line 332
+        // filler content line 333
+        // filler content line 334
+        // filler content line 335
+        // filler content line 336
+        // filler content line 337
+        // filler content line 338
+        // filler content line 339
+        // filler content line 340
+        // filler content line 341
+        // filler content line 342
+        // filler content line 343
+        // filler content line 344
+        // filler content line 345
+        // filler content line 346
+        // filler content line 347
+        // filler content line 348
+        // filler content line 349
+        // filler content line 350
+        // filler content line 351
+        // filler content line 352
+        // filler content line 353
+        // filler content line 354
+        // filler content line 355
+        // filler content line 356
+        // filler content line 357
+        // filler content line 358
+        // filler content line 359
+        // filler content line 360
+        // filler content line 361
+        // filler content line 362
+        // filler content line 363
+        // filler content line 364
+        // filler content line 365
+        // filler content line 366
+        // filler content line 367
+        // filler content line 368
+        // filler content line 369
+        // filler content line 370
+        // filler content line 371
+        // filler content line 372
+        // filler content line 373
+        // filler content line 374
+        // filler content line 375
+        // filler content line 376
+        // filler content line 377
+        // filler content line 378
+        // filler content line 379
+        // filler content line 380
+        // filler content line 381
+        // filler content line 382
+        // filler content line 383
+        // filler content line 384
+        // filler content line 385
+        // filler content line 386
+        // filler content line 387
+        // filler content line 388
+        // filler content line 389
+        // filler content line 390
+        // filler content line 391
+        // filler content line 392
+        // filler content line 393
+        // filler content line 394
+        // filler content line 395
+        // filler content line 396
+        // filler content line 397
+        // filler content line 398
+        // filler content line 399
+        // filler content line 400
+        // filler content line 401
+        // filler content line 402
+        // filler content line 403
+        // filler content line 404
+        // filler content line 405
+        // filler content line 406
+        // filler content line 407
+        // filler content line 408
+        // filler content line 409
+        // filler content line 410
+        // filler content line 411
+        // filler content line 412
+        // filler content line 413
+        // filler content line 414
+        // filler content line 415
+        // filler content line 416
+        // filler content line 417
+        // filler content line 418
+        // filler content line 419
+        // filler content line 420
+        // filler content line 421
+        // filler content line 422
+        // filler content line 423
+        // filler content line 424
+        // filler content line 425
+        // filler content line 426
+        // filler content line 427
+        // filler content line 428
+        // filler content line 429
+        // filler content line 430
+        // filler content line 431
+        // filler content line 432
+        // filler content line 433
+        // filler content line 434
+        // filler content line 435
+        // filler content line 436
+        // filler content line 437
+        // filler content line 438
+        // filler content line 439
+        // filler content line 440
+        // filler content line 441
+        // filler content line 442
+        // filler content line 443
+        // filler content line 444
+        // filler content line 445
+        // filler content line 446
+        // filler content line 447
+        // filler content line 448
+        // filler content line 449
+        // filler content line 450
+        // filler content line 451
+        // filler content line 452
+        // filler content line 453
+        // filler content line 454
+        // filler content line 455
+        // filler content line 456
+        // filler content line 457
+        // filler content line 458
+        // filler content line 459
+        // filler content line 460
+        // filler content line 461
+        // filler content line 462
+        // filler content line 463
+        // filler content line 464
+        // filler content line 465
+        // filler content line 466
+        // filler content line 467
+        // filler content line 468
+        // filler content line 469
+        // filler content line 470
+        // filler content line 471
+        // filler content line 472
+        // filler content line 473
+        // filler content line 474
+        // filler content line 475
+        // filler content line 476
+        // filler content line 477
+        // filler content line 478
+        // filler content line 479
+        // filler content line 480
+        // filler content line 481
+        // filler content line 482
+        // filler content line 483
+        // filler content line 484
+        // filler content line 485
+        // filler content line 486
+        // filler content line 487
+        // filler content line 488
+        // filler content line 489
+        // filler content line 490
+        // filler content line 491
+        // filler content line 492
+        // filler content line 493
+        // filler content line 494
+        // filler content line 495
+        // filler content line 496
+        // filler content line 497
+        // filler content line 498
+        // filler content line 499
+        // filler content line 500
+        // filler content line 501
+        // filler content line 502
+        // filler content line 503
+        // filler content line 504
+        // filler content line 505
+        // filler content line 506
+        // filler content line 507
+        // filler content line 508
+        // filler content line 509
+        // filler content line 510
+        // filler content line 511
+        // filler content line 512
+        // filler content line 513
+        // filler content line 514
+        // filler content line 515
+        // filler content line 516
+        // filler content line 517
+        // filler content line 518
+        // filler content line 519
+        // filler content line 520
+        // filler content line 521
+        // filler content line 522
+        // filler content line 523
+        // filler content line 524
+        // filler content line 525
+        // filler content line 526
+        // filler content line 527
+        // filler content line 528
+        // filler content line 529
+        // filler content line 530
+        // filler content line 531
+        // filler content line 532
+        // filler content line 533
+        // filler content line 534
+        // filler content line 535
+        // filler content line 536
+        // filler content line 537
+        // filler content line 538
+        // filler content line 539
+        // filler content line 540
+        // filler content line 541
+        // filler content line 542
+        // filler content line 543
+        // filler content line 544
+        // filler content line 545
+        // filler content line 546
+        // filler content line 547
+        // filler content line 548
+        // filler content line 549
+        // filler content line 550
+        // filler content line 551
+        // filler content line 552
+        // filler content line 553
+        // filler content line 554
+        // filler content line 555
+        // filler content line 556
+        // filler content line 557
+        // filler content line 558
+        // filler content line 559
+        // filler content line 560
+        // filler content line 561
+        // filler content line 562
+        // filler content line 563
+        // filler content line 564
+        // filler content line 565
+        // filler content line 566
+        // filler content line 567
+        // filler content line 568
+        // filler content line 569
+        // filler content line 570
+        // filler content line 571
+        // filler content line 572
+        // filler content line 573
+        // filler content line 574
+        // filler content line 575
+        // filler content line 576
+        // filler content line 577
+        // filler content line 578
+        // filler content line 579
+        // filler content line 580
+        // filler content line 581
+        // filler content line 582
+        // filler content line 583
+        // filler content line 584
+        // filler content line 585
+        // filler content line 586
+        // filler content line 587
+        // filler content line 588
+        // filler content line 589
+        // filler content line 590
+        // filler content line 591
+        // filler content line 592
+        // filler content line 593
+        // filler content line 594
+        // filler content line 595
+        // filler content line 596
+        // filler content line 597
+        // filler content line 598
+        // filler content line 599
+        // filler content line 600
+        // filler content line 601
+        // filler content line 602
+        // filler content line 603
+        // filler content line 604
+        // filler content line 605
+        // filler content line 606
+        // filler content line 607
+        // filler content line 608
+        // filler content line 609
+        // filler content line 610
+        // filler content line 611
+        // filler content line 612
+        // filler content line 613
+        // filler content line 614
+        // filler content line 615
+        // filler content line 616
+        // filler content line 617
+        // filler content line 618
+        // filler content line 619
+        // filler content line 620
+        // filler content line 621
+        // filler content line 622
+        // filler content line 623
+        // filler content line 624
+        // filler content line 625
+        // filler content line 626
+        // filler content line 627
+        // filler content line 628
+        // filler content line 629
+        // filler content line 630
+        // filler content line 631
+        // filler content line 632
+        // filler content line 633
+        // filler content line 634
+        // filler content line 635
+        // filler content line 636
+        // filler content line 637
+        // filler content line 638
+        // filler content line 639
+        // filler content line 640
+        // filler content line 641
+        // filler content line 642
+        // filler content line 643
+        // filler content line 644
+        // filler content line 645
+        // filler content line 646
+        // filler content line 647
+        // filler content line 648
+        // filler content line 649
+        // filler content line 650
+        // filler content line 651
+        // filler content line 652
+        // filler content line 653
+        // filler content line 654
+        // filler content line 655
+        // filler content line 656
+        // filler content line 657
+        // filler content line 658
+        // filler content line 659
+        // filler content line 660
+        // filler content line 661
+        // filler content line 662
+        // filler content line 663
+        // filler content line 664
+        // filler content line 665
+        // filler content line 666
+        // filler content line 667
+        // filler content line 668
+        // filler content line 669
+        // filler content line 670
+        // filler content line 671
+        // filler content line 672
+        // filler content line 673
+        // filler content line 674
+        // filler content line 675
+        // filler content line 676
+        // filler content line 677
+        // filler content line 678
+        // filler content line 679
+        // filler content line 680
+        // filler content line 681
+        // filler content line 682
+        // filler content line 683
+        // filler content line 684
+        // filler content line 685
+        // filler content line 686
+        // filler content line 687
+        // filler content line 688
+        // filler content line 689
+        // filler content line 690
+        // filler content line 691
+        // filler content line 692
+        // filler content line 693
+        // filler content line 694
+        // filler content line 695
+        // filler content line 696
+        // filler content line 697
+        // filler content line 698
+        // filler content line 699
+        // filler content line 700
+        // filler content line 701
+        // filler content line 702
+        // filler content line 703
+        // filler content line 704
+        // filler content line 705
+        // filler content line 706
+        // filler content line 707
+        // filler content line 708
+        // filler content line 709
+        // filler content line 710
+        // filler content line 711
+        // filler content line 712
+        // filler content line 713
+        // filler content line 714
+        // filler content line 715
+        // filler content line 716
+        // filler content line 717
+        // filler content line 718
+        // filler content line 719
+        // filler content line 720
+        // filler content line 721
+        // filler content line 722
+        // filler content line 723
+        // filler content line 724
+        // filler content line 725
+        // filler content line 726
+        // filler content line 727
+        // filler content line 728
+        // filler content line 729
+        // filler content line 730
+        // filler content line 731
+        // filler content line 732
+        // filler content line 733
+        // filler content line 734
+        // filler content line 735
+        // filler content line 736
+        // filler content line 737
+        // filler content line 738
+        // filler content line 739
+        // filler content line 740
+        // filler content line 741
+        // filler content line 742
+        // filler content line 743
+        // filler content line 744
+        // filler content line 745
+        // filler content line 746
+        // filler content line 747
+        // filler content line 748
+        // filler content line 749
+        // filler content line 750
+        // filler content line 751
+        // filler content line 752
+        // filler content line 753
+        // filler content line 754
+        // filler content line 755
+        // filler content line 756
+        // filler content line 757
+        // filler content line 758
+        // filler content line 759
+        // filler content line 760
+        // filler content line 761
+        // filler content line 762
+        // filler content line 763
+        // filler content line 764
+        // filler content line 765
+        // filler content line 766
+        // filler content line 767
+        // filler content line 768
+        // filler content line 769
+        // filler content line 770
+        // filler content line 771
+        // filler content line 772
+        // filler content line 773
+        // filler content line 774
+        // filler content line 775
+        // filler content line 776
+        // filler content line 777
+        // filler content line 778
+        // filler content line 779
+        // filler content line 780
+        // filler content line 781
+        // filler content line 782
+        // filler content line 783
+        // filler content line 784
+        // filler content line 785
+        // filler content line 786
+        // filler content line 787
+        // filler content line 788
+        // filler content line 789
+        // filler content line 790
+        // filler content line 791
+        // filler content line 792
+        // filler content line 793
+        // filler content line 794
+        // filler content line 795
+        // filler content line 796
+        // filler content line 797
+        // filler content line 798
+        // filler content line 799
+        // filler content line 800
+    </script>
+    <script>
+        // more filler 1
+        // more filler 2
+        // more filler 3
+        // more filler 4
+        // more filler 5
+        // more filler 6
+        // more filler 7
+        // more filler 8
+        // more filler 9
+        // more filler 10
+        // more filler 11
+        // more filler 12
+        // more filler 13
+        // more filler 14
+        // more filler 15
+        // more filler 16
+        // more filler 17
+        // more filler 18
+        // more filler 19
+        // more filler 20
+        // more filler 21
+        // more filler 22
+        // more filler 23
+        // more filler 24
+        // more filler 25
+        // more filler 26
+        // more filler 27
+        // more filler 28
+        // more filler 29
+        // more filler 30
+        // more filler 31
+        // more filler 32
+        // more filler 33
+        // more filler 34
+        // more filler 35
+        // more filler 36
+        // more filler 37
+        // more filler 38
+        // more filler 39
+        // more filler 40
+        // more filler 41
+        // more filler 42
+        // more filler 43
+        // more filler 44
+        // more filler 45
+        // more filler 46
+        // more filler 47
+        // more filler 48
+        // more filler 49
+        // more filler 50
+        // more filler 51
+        // more filler 52
+        // more filler 53
+        // more filler 54
+        // more filler 55
+        // more filler 56
+        // more filler 57
+        // more filler 58
+        // more filler 59
+        // more filler 60
+        // more filler 61
+        // more filler 62
+        // more filler 63
+        // more filler 64
+        // more filler 65
+        // more filler 66
+        // more filler 67
+        // more filler 68
+        // more filler 69
+        // more filler 70
+        // more filler 71
+        // more filler 72
+        // more filler 73
+        // more filler 74
+        // more filler 75
+        // more filler 76
+        // more filler 77
+        // more filler 78
+        // more filler 79
+        // more filler 80
+        // more filler 81
+        // more filler 82
+        // more filler 83
+        // more filler 84
+        // more filler 85
+        // more filler 86
+        // more filler 87
+        // more filler 88
+        // more filler 89
+        // more filler 90
+        // more filler 91
+        // more filler 92
+        // more filler 93
+        // more filler 94
+        // more filler 95
+        // more filler 96
+        // more filler 97
+        // more filler 98
+        // more filler 99
+        // more filler 100
     </script>
 </body>
 </html>
