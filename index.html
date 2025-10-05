@@ -2,332 +2,170 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <title>النخبة العقارية — منصة عقارات احترافية</title>
+  <title>النخبة العقارية — منصة احترافية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="منصة النخبة العقارية - عرض وإدارة العقارات، موافقة إدارية، تواصل عبر واتساب" />
   <style>
-    /* ---------------------------
-       Reset & Base
-       --------------------------- */
+    /* ========== Reset & Base ========== */
     * { box-sizing: border-box; }
     html,body { height:100%; }
     body {
       margin:0;
-      font-family: "Segoe UI", Tahoma, Arial, "Helvetica Neue", sans-serif;
+      font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
       background: linear-gradient(180deg,#f5f7fb 0%, #eef3f8 100%);
-      color:#1b2b34;
+      color:#0f2730;
+      direction: rtl;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      direction: rtl;
-      line-height:1.5;
+      line-height:1.45;
     }
     a { color:inherit; text-decoration:none; }
     button { cursor:pointer; }
 
-    /* ---------------------------
-       Top Navbar / Header
-       --------------------------- */
+    /* ========== Topbar ========== */
     .topbar {
-      position:sticky;
-      top:0;
-      z-index:999;
-      backdrop-filter: blur(6px);
-      background: linear-gradient(90deg, rgba(16,24,32,0.85), rgba(20,110,120,0.85));
-      color:white;
-      padding:12px 20px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      box-shadow: 0 6px 18px rgba(11,30,40,0.18);
+      position:sticky; top:0; z-index:999;
+      display:flex; align-items:center; gap:12px; padding:12px 18px;
+      background: linear-gradient(90deg,#0f4c5ccc,#144d4dcc);
+      color:#fff; box-shadow: 0 8px 22px rgba(8,24,32,0.14);
     }
-    .brand {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-right:auto;
-    }
+    .brand { display:flex; align-items:center; gap:12px; margin-right:auto; }
     .logo {
-      width:48px;
-      height:48px;
-      border-radius:10px;
+      width:52px; height:52px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; color:#112;
       background: linear-gradient(135deg,#ffd166,#ef476f);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:#112;
-      box-shadow:0 6px 14px rgba(0,0,0,0.18);
+      box-shadow:0 10px 30px rgba(14,40,50,0.18);
     }
-    .site-title {
-      font-size:1.15rem;
-      font-weight:700;
-      letter-spacing:0.3px;
-    }
-    .site-tagline { font-size:0.8rem; opacity:0.9; }
+    .site-title { font-weight:900; font-size:1.15rem; }
+    .site-sub { font-size:0.8rem; opacity:0.9; }
 
     .top-actions { display:flex; gap:8px; align-items:center; }
     .btn {
-      border: none;
-      padding:8px 12px;
-      border-radius:8px;
-      font-weight:700;
-      background:rgba(255,255,255,0.12);
-      color:white;
-      transition:transform .15s ease, background .15s ease;
+      border:none; padding:8px 12px; border-radius:8px; font-weight:800; transition:all .12s;
+      background:rgba(255,255,255,0.1); color:white;
     }
-    .btn:hover { transform:translateY(-3px); background:rgba(255,255,255,0.18); }
-    .btn-primary {
-      background:linear-gradient(90deg,#ff7a7a,#ffb36b);
-      color:#142026;
-      box-shadow:0 6px 18px rgba(255,120,120,0.18);
-    }
-    .btn-outline {
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.12);
-    }
-    .search-wrap {
-      display:flex;
-      gap:8px;
-      align-items:center;
-      background:rgba(255,255,255,0.06);
-      padding:6px;
-      border-radius:10px;
-      min-width:280px;
-    }
-    .search-wrap input {
-      background:transparent;
-      border:none;
-      outline:none;
-      color:white;
-      padding:6px;
-      width:220px;
-    }
+    .btn:hover { transform:translateY(-3px); background:rgba(255,255,255,0.12); }
+    .btn-primary { background:linear-gradient(90deg,#ff7a7a,#ffb36b); color:#102; box-shadow:0 8px 22px rgba(255,120,120,0.14); }
+    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:white; }
+    .search-wrap { display:flex; gap:8px; align-items:center; background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:10px; min-width:280px; }
+    .search-wrap input { background:transparent; border:none; outline:none; color:white; width:220px; }
 
-    /* ---------------------------
-       Main Layout
-       --------------------------- */
-    .container {
-      max-width:1200px;
-      margin:28px auto;
-      padding:0 16px;
-    }
+    /* ========== Layout ========== */
+    .container { max-width:1200px; margin:26px auto; padding:0 16px; }
 
     .hero {
-      display:flex;
-      gap:22px;
-      align-items:center;
-      background:linear-gradient(90deg,#ffffff, #f8fbff);
-      border-radius:14px;
-      padding:18px;
-      box-shadow:0 8px 22px rgba(19,43,56,0.06);
-      overflow:hidden;
+      display:flex; gap:22px; align-items:center; background: linear-gradient(180deg,#fff,#f7fbff);
+      border-radius:14px; padding:18px; box-shadow:0 12px 30px rgba(12,28,36,0.06);
     }
-    .hero-left { flex:1; min-width:300px; }
-    .hero-right { width:360px; display:flex; justify-content:center; }
-    .hero h2 { margin:0 0 8px; font-size:1.6rem; color:#113; }
-    .hero p { margin:0 0 12px; color:#456; }
+    .hero-left { flex:1; min-width:280px; }
+    .hero-right { width:380px; display:flex; justify-content:center; }
 
-    .quick-actions { display:flex; gap:10px; flex-wrap:wrap; }
-    .quick-card {
-      background:linear-gradient(180deg,#fff,#f6fdff);
-      border-radius:12px;
-      padding:12px;
-      min-width:160px;
-      box-shadow:0 6px 18px rgba(16,24,32,0.04);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      border:1px solid rgba(10,40,50,0.03);
-    }
-    .quick-icon {
-      width:44px; height:44px; border-radius:8px; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg,#6dd3ff,#87f0d8); color:#042; font-weight:800;
-    }
+    .hero h2 { margin:0 0 8px; font-size:1.6rem; color:#062a2f; }
+    .hero p { margin:0 0 14px; color:#546; }
 
-    /* ---------------------------
-       Filters & Categories
-       --------------------------- */
-    .filters {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin:18px 0;
-      flex-wrap:wrap;
-    }
-    .category-pill {
-      padding:8px 14px;
-      background:linear-gradient(180deg,#fff,#f7fbff);
-      border-radius:999px;
-      box-shadow:0 6px 18px rgba(10,20,30,0.03);
-      border:1px solid rgba(10,20,30,0.04);
-      font-weight:700;
-      cursor:pointer;
-      transition:transform .12s ease, background .12s;
-    }
-    .category-pill.active {
-      background:linear-gradient(90deg,#ffd166,#ff7a7a);
-      color:#152029;
-      transform:translateY(-3px);
-    }
+    .quick-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .quick-card { background:linear-gradient(180deg,#fff,#f6fdff); border-radius:12px; padding:10px; min-width:170px; display:flex; gap:10px; align-items:center; box-shadow:0 8px 18px rgba(10,20,30,0.03); }
+    .quick-icon { width:46px; height:46px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:900; color:#042; background:linear-gradient(135deg,#6dd3ff,#87f0d8); }
 
-    /* ---------------------------
-       Grid of property cards
-       --------------------------- */
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap:16px;
-    }
-    .card {
-      background: linear-gradient(180deg,#ffffff,#fbfeff);
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 10px 25px rgba(12,28,36,0.06);
-      transition: transform .18s ease, box-shadow .18s ease;
-      position:relative;
-      border:1px solid rgba(8,20,28,0.03);
-    }
-    .card:hover { transform: translateY(-6px); box-shadow:0 18px 35px rgba(12,28,36,0.08); }
+    /* ========== Filters ========== */
+    .filters { display:flex; gap:12px; align-items:center; margin:18px 0; flex-wrap:wrap; }
+    .category-pill { padding:8px 14px; background:linear-gradient(180deg,#fff,#f7fbff); border-radius:999px; box-shadow:0 8px 20px rgba(10,20,30,0.03); font-weight:800; cursor:pointer; border:1px solid rgba(10,20,30,0.03); }
+    .category-pill.active { background:linear-gradient(90deg,#ffd166,#ff7a7a); color:#102; transform:translateY(-3px); }
 
-    .card-media {
-      height:180px;
-      background:#ddd;
-      position:relative;
-      overflow:hidden;
-    }
-    .card-media img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transition: transform .6s cubic-bezier(.2,.8,.25,1);
-    }
-    .card:hover .card-media img { transform: scale(1.06); }
-
-    .badge {
-      position:absolute;
-      top:12px;
-      left:12px;
-      background:linear-gradient(90deg,#ff8a65,#ffb86b);
-      color:white;
-      padding:6px 8px;
-      border-radius:8px;
-      font-weight:800;
-      font-size:0.8rem;
-      box-shadow:0 8px 18px rgba(255,120,80,0.12);
-    }
+    /* ========== Grid ========== */
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:16px; }
+    .card { background:linear-gradient(180deg,#fff,#fbfeff); border-radius:12px; overflow:hidden; box-shadow:0 12px 30px rgba(12,28,36,0.06); transition:transform .18s, box-shadow .18s; border:1px solid rgba(8,20,28,0.03); }
+    .card:hover { transform:translateY(-8px); box-shadow:0 20px 44px rgba(12,28,36,0.09); }
+    .card-media { height:200px; overflow:hidden; position:relative; }
+    .card-media img { width:100%; height:100%; object-fit:cover; transition:transform .6s; display:block; }
+    .card:hover .card-media img { transform:scale(1.06); }
+    .badge { position:absolute; top:12px; left:12px; background:linear-gradient(90deg,#ff8a65,#ffb86b); color:white; padding:6px 10px; border-radius:8px; font-weight:900; box-shadow:0 8px 18px rgba(255,120,80,0.12); }
     .card-body { padding:12px 14px; }
-    .card-title { font-weight:800; color:#044; margin:0 0 6px; }
-    .card-loc { color:#568; font-size:0.9rem; margin-bottom:8px; }
-    .card-meta { display:flex; justify-content:space-between; gap:8px; align-items:center; }
-    .price { font-weight:900; color:#ff6b6b; font-size:1rem; }
-    .meta-small { font-size:0.85rem; color:#667; }
-
+    .card-title { font-weight:900; color:#053; margin:0 0 6px; }
+    .card-loc { color:#567; font-size:0.9rem; margin-bottom:8px; }
+    .card-meta { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    .price { font-weight:900; color:#ff6b6b; }
+    .meta-small { color:#667; font-size:0.9rem; }
     .card-actions { margin-top:10px; display:flex; gap:8px; align-items:center; justify-content:space-between; }
-    .btn-small { padding:8px 10px; border-radius:8px; border:none; font-weight:800; }
-    .btn-ghost { background:transparent; border:1px solid rgba(10,20,30,0.06); color:#123; }
+
+    .btn-small { padding:8px 10px; border-radius:8px; font-weight:800; border:none; }
     .btn-ws { background:linear-gradient(90deg,#25d366,#128c7e); color:white; }
 
-    /* ---------------------------
-       Detail view modal
-       --------------------------- */
+    /* ========== Full-screen detail modal (reused for admin page transition) ========== */
     .modal {
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45));
-      z-index:1200;
-      padding:20px;
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background:linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)); z-index:1200; padding:20px;
     }
     .modal.show { display:flex; }
     .detail {
-      width:100%;
-      max-width:1000px;
-      background:white;
-      border-radius:12px;
-      overflow:hidden;
-      display:flex;
-      gap:12px;
-      box-shadow:0 20px 50px rgba(12,28,36,0.25);
-      animation: pop .18s ease;
+      width:100%; max-width:1100px; background:white; border-radius:12px; overflow:hidden;
+      display:flex; gap:12px; box-shadow:0 20px 50px rgba(12,28,36,0.25); animation:pop .18s;
     }
-    @keyframes pop { from { transform:translateY(10px) scale(.99); opacity:0 } to { transform:none; opacity:1 } }
-    .detail-left { flex:1; min-width:300px; background:#fafafa; padding:14px; }
-    .gallery { display:flex; gap:8px; flex-direction:column; align-items:center; }
-    .main-img { width:100%; height:420px; background:#ddd; border-radius:10px; overflow:hidden; }
+    @keyframes pop { from { transform:translateY(12px) scale(.99); opacity:0 } to { transform:none; opacity:1 } }
+    .detail-left { flex:1; padding:14px; background:#fafafa; min-width:300px; }
+    .main-img { width:100%; height:460px; border-radius:10px; overflow:hidden; background:#ddd; }
     .main-img img { width:100%; height:100%; object-fit:cover; display:block; }
     .thumbs { display:flex; gap:8px; margin-top:12px; }
-    .thumbs img { width:84px; height:62px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:border .12s ease; }
+    .thumbs img { width:88px; height:64px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:border .12s; }
     .thumbs img.active { border-color:#00bfa6; }
 
-    .detail-right { width:420px; background:white; padding:18px; display:flex; flex-direction:column; gap:12px; }
+    .detail-right { width:420px; padding:18px; display:flex; flex-direction:column; gap:12px; }
     .detail-right h3 { margin:0; color:#043; font-size:1.25rem; }
-    .detail-row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
     .detail-box { background:linear-gradient(180deg,#fff,#fbfbfe); border-radius:8px; padding:12px; border:1px solid rgba(8,20,28,0.04); }
-    .label { font-weight:800; color:#2b3b3f; margin-bottom:6px; display:block; }
+    .label { font-weight:900; color:#2b3b3f; margin-bottom:6px; display:block; }
     .desc { color:#445; white-space:pre-line; }
 
-    .back-link { margin-top:6px; color:#556; font-weight:700; cursor:pointer; }
+    /* ========== Add (full-screen panel) ========== */
+    /* we will use .fullscreen class to make addModal full screen for comfortable editing */
+    #addModal.fullscreen .detail { width:100%; height:100vh; max-width:none; border-radius:0; display:grid; grid-template-columns: 1fr 380px; }
+    #addModal.fullscreen .detail > div { overflow:auto; padding:20px; }
 
-    /* ---------------------------
-       Add Property Modal (form)
-       --------------------------- */
     .form-grid { display:grid; gap:12px; grid-template-columns: 1fr; }
-    .small-hint { font-size:0.85rem; color:#667; }
-    .input, textarea, select {
-      width:100%;
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #e0e6ea;
-      outline:none;
-      font-size:0.95rem;
-    }
-    textarea { min-height:110px; resize:vertical; }
+    .input, textarea, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e0e6ea; outline:none; font-size:0.95rem; }
+    textarea { min-height:120px; resize:vertical; }
     .images-preview { display:flex; gap:8px; margin-top:6px; }
-    .img-slot { width:100px; height:72px; border-radius:8px; background:#f4f7f9; border:1px dashed #d7e2e8; display:flex; align-items:center; justify-content:center; font-weight:700; color:#99a; overflow:hidden; }
-    .img-slot img { width:100%; height:100%; object-fit:cover; display:block; }
+    .img-slot { width:120px; height:84px; border-radius:8px; background:#f4f7f9; border:1px dashed #d7e2e8; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .img-slot img { width:100%; height:100%; object-fit:cover; }
 
     .form-actions { display:flex; gap:8px; justify-content:flex-start; margin-top:8px; }
 
-    /* ---------------------------
-       Admin panel styles
-       --------------------------- */
-    .admin-panel { margin-top:16px; background:linear-gradient(180deg,#fff,#fbfeff); border-radius:12px; padding:14px; box-shadow:0 10px 24px rgba(12,28,36,0.06); }
-    .admin-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-    .admin-card { flex:1; min-width:200px; background:white; border-radius:8px; padding:12px; border:1px solid rgba(6,20,24,0.03); box-shadow:0 8px 18px rgba(12,28,36,0.03); }
-    .table { width:100%; border-collapse:collapse; margin-top:12px; font-size:0.95rem; }
-    .table th, .table td { padding:8px 10px; border-bottom:1px solid #f0f3f6; text-align:right; }
-    .table thead th { background:#f7fafc; color:#123; font-weight:800; }
-    .tag { padding:6px 8px; border-radius:999px; font-weight:800; font-size:0.85rem; }
+    /* ========== Admin page (full screen view) ========== */
+    #adminPage { display:none; position:fixed; inset:0; z-index:1300; background:#f4f6f8; overflow:auto; padding:28px; }
+    .admin-shell { max-width:1200px; margin:0 auto; background:white; border-radius:12px; padding:18px; box-shadow:0 16px 38px rgba(12,28,36,0.12); }
+    .admin-head { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:12px; }
+    .tabs { display:flex; gap:8px; }
+    .tab { padding:8px 12px; border-radius:8px; background:linear-gradient(180deg,#fff,#fbfeff); border:1px solid #eef3f6; font-weight:800; cursor:pointer; }
+    .tab.active { background:linear-gradient(90deg,#ffd166,#ff7a7a); color:#102; transform:translateY(-3px); }
 
-    /* ---------------------------
-       Footer
-       --------------------------- */
+    .admin-grid { display:grid; gap:16px; grid-template-columns:1fr; }
+    .admin-table { width:100%; border-collapse:collapse; }
+    .admin-table th, .admin-table td { padding:10px; text-align:right; border-bottom:1px solid #f2f6f8; }
+    .admin-actions button { margin-left:8px; }
+
+    /* ========== Footer ========== */
     footer { padding:22px; text-align:center; color:#567; font-size:0.95rem; margin-top:30px; }
 
-    /* ---------------------------
-       Responsive
-       --------------------------- */
+    /* ========== Responsive ========== */
     @media (max-width:980px) {
       .detail { flex-direction:column; max-height:90vh; overflow:auto; }
       .detail-left, .detail-right { width:100%; }
       .hero-right { display:none; }
       .search-wrap input { width:120px; }
-      .topbar { padding:10px; gap:8px; }
+      .topbar { padding:10px; }
+      #addModal.fullscreen .detail { grid-template-columns: 1fr; height:100vh; }
+      .main-img { height:300px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP NAVBAR -->
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="brand">
       <div class="logo" id="logoText">نخ</div>
       <div>
         <div class="site-title" id="siteNameDisplay">النخبة العقارية</div>
-        <div class="site-tagline">منصة عرض وإدارة العقارات</div>
+        <div class="site-sub">منصة عرض وإدارة العقارات</div>
       </div>
     </div>
 
@@ -340,52 +178,33 @@
     </div>
 
     <div class="top-actions">
-      <button class="btn btn-outline" id="btnShowAdd">إضافة عقار</button>
-      <button class="btn btn-outline" id="btnSiteEdit">تعديل اسم الموقع</button>
-      <button class="btn btn-primary" id="btnLogin">دخول المدير</button>
+      <button class="btn" id="btnShowAdd">إضافة عقار</button>
+      <button class="btn" id="btnLogin">دخول المدير</button>
+      <!-- btnSiteEdit يخفيه للعامة ويظهر للمدير فقط -->
+      <button class="btn" id="btnSiteEdit" style="display:none;">تعديل اسم الموقع</button>
     </div>
   </div>
 
   <!-- MAIN CONTAINER -->
-  <div class="container">
+  <div class="container" id="mainContent">
 
-    <!-- HERO -->
     <section class="hero" aria-label="مقدمة">
       <div class="hero-left">
         <h2>أهلاً بك في النخبة العقارية</h2>
-        <p>ابحث عن العقار المناسب أو أضف عرضك بسهولة — سنرعاه حتى يوافق المدير قبل النشر العام.</p>
-
-        <div class="quick-actions" style="margin-top:10px;">
-          <div class="quick-card">
-            <div class="quick-icon">🏠</div>
-            <div>
-              <div style="font-weight:900">عرض متنوع</div>
-              <div class="small-hint">فلل، شقق، أراضي، استراحات والمزيد</div>
-            </div>
-          </div>
-          <div class="quick-card">
-            <div class="quick-icon">🛡️</div>
-            <div>
-              <div style="font-weight:900">موافقة آمنة</div>
-              <div class="small-hint">العقارات تظهر بعد موافقة المدير</div>
-            </div>
-          </div>
-          <div class="quick-card">
-            <div class="quick-icon">✉️</div>
-            <div>
-              <div style="font-weight:900">تواصل بسيط</div>
-              <div class="small-hint">الواتساب يوجه للمدير مع رقم الإعلان</div>
-            </div>
-          </div>
+        <p>ابحث عن العقار المناسب أو أضف عرضك بسهولة — يظهر الإعلان بعد موافقة المدير.</p>
+        <div class="quick-actions">
+          <div class="quick-card"><div class="quick-icon">🏠</div><div><div style="font-weight:900">عرض متنوع</div><div class="small-hint">فلل، شقق، أراضي، استراحات</div></div></div>
+          <div class="quick-card"><div class="quick-icon">🛡️</div><div><div style="font-weight:900">موافقة آمنة</div><div class="small-hint">الإعلانات تظهر بعد الموافقة</div></div></div>
+          <div class="quick-card"><div class="quick-icon">✉️</div><div><div style="font-weight:900">تواصل مباشر</div><div class="small-hint">الواتساب يفتح محادثة للمدير</div></div></div>
         </div>
       </div>
 
       <div class="hero-right">
-        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f1e59f3cf5d74c8b6f6e8b6b8f2d3c1" alt="hero" style="width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:0 10px 28px rgba(12,28,36,0.08)" />
+        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=900&auto=format&fit=crop" alt="hero" style="width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:0 10px 28px rgba(12,28,36,0.08)" />
       </div>
     </section>
 
-    <!-- FILTERS -->
+    <!-- Filters -->
     <div class="filters" role="navigation" aria-label="فئات">
       <div class="category-pill active" data-cat="all">الكل</div>
       <div class="category-pill" data-cat="فلل">فلل</div>
@@ -404,136 +223,55 @@
       </div>
     </div>
 
-    <!-- PROPERTIES GRID -->
+    <!-- Grid -->
     <section>
-      <div id="propertiesCount" style="font-weight:800; margin-bottom:8px; color:#234">العقارات المتاحة: <span id="cntVal">0</span></div>
-      <div class="grid" id="propertiesGrid" aria-live="polite">
-        <!-- بطاقات العقارات تُملأ ديناميكياً -->
-      </div>
-    </section>
-
-    <!-- ADMIN PANEL (collapsed by default) -->
-    <section id="adminSection" style="margin-top:24px; display:none;">
-      <div class="admin-panel">
-        <div style="display:flex; gap:12px; align-items:center; justify-content:space-between;">
-          <h3 style="margin:0">لوحة المدير — عرض وإدارة العقارات</h3>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div style="font-weight:900; color:#045">مرحباً، المدير</div>
-            <button class="btn btn-outline" id="btnLogout">تسجيل خروج</button>
-          </div>
-        </div>
-
-        <div style="margin-top:12px;" class="admin-row">
-          <div class="admin-card">
-            <div style="font-size:0.85rem; color:#567">عقارات بانتظار الموافقة</div>
-            <div id="pendingCount" style="font-weight:900; font-size:1.4rem; margin-top:8px">0</div>
-          </div>
-          <div class="admin-card">
-            <div style="font-size:0.85rem; color:#567">عقارات مُعتمدة</div>
-            <div id="approvedCount" style="font-weight:900; font-size:1.4rem; margin-top:8px">0</div>
-          </div>
-          <div class="admin-card">
-            <div style="font-size:0.85rem; color:#567">إجمالي العقارات</div>
-            <div id="totalCount" style="font-weight:900; font-size:1.4rem; margin-top:8px">0</div>
-          </div>
-        </div>
-
-        <div style="margin-top:16px;">
-          <h4 style="margin-bottom:8px">قائمة العقارات بانتظار الموافقة</h4>
-          <table class="table" id="pendingTable" aria-describedby="pendingCount">
-            <thead>
-              <tr><th>رقم</th><th>العنوان</th><th>القسم</th><th>السعر</th><th>المالك</th><th>إجراءات</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-
-        <div style="margin-top:18px;">
-          <h4 style="margin-bottom:8px">عقارات المدير</h4>
-          <table class="table" id="managerTable">
-            <thead>
-              <tr><th>رقم</th><th>العنوان</th><th>القسم</th><th>السعر</th><th>الحالة</th><th>إجراءات</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-
-      </div>
+      <div id="propertiesCount" style="font-weight:900; margin-bottom:8px; color:#234">العقارات المعروضة: <span id="cntVal">0</span></div>
+      <div class="grid" id="propertiesGrid" aria-live="polite"></div>
     </section>
 
     <footer>
-      © 2025 النخبة العقارية — جميع الحقوق محفوظة. — التصميم احترافي وجاهز للربط بـ Firebase.
+      © 2025 النخبة العقارية — جميع الحقوق محفوظة — جاهز للربط بـ Firebase.
     </footer>
   </div>
 
-  <!-- ===========================
-       MODALS
-       =========================== -->
-
-  <!-- Property Detail Modal -->
+  <!-- ========== DETAIL MODAL ========== -->
   <div id="detailModal" class="modal" aria-hidden="true" aria-label="تفاصيل العقار">
-    <div class="detail" role="dialog" aria-modal="true">
+    <div class="detail" role="dialog">
       <div class="detail-left">
-        <div class="gallery">
-          <div class="main-img" id="detailMainImg">
-            <img src="" alt="صورة العقار الرئيسية" id="detailMainImgImg">
-          </div>
-          <div class="thumbs" id="detailThumbs"></div>
-        </div>
+        <div class="main-img" id="detailMainImg"><img id="detailMainImgImg" src="" alt=""></div>
+        <div class="thumbs" id="detailThumbs"></div>
       </div>
-
       <div class="detail-right">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <h3 id="detailTitle">عنوان العقار</h3>
-          <div style="text-align:left;">
-            <div class="tag" id="detailStatus" style="background:#ffd166;color:#222">موافق</div>
-          </div>
+          <div id="detailStatus" class="tag" style="background:#ffd166;color:#222">حالة</div>
         </div>
 
-        <div class="detail-box">
-          <span class="label">الموقع</span>
-          <div id="detailLocation" class="meta-small">الرياض - حي ...</div>
-        </div>
-
-        <div class="detail-box">
-          <span class="label">المواصفات</span>
-          <div class="detail-row">
-            <div class="meta-small"><strong>السعر:</strong> <span id="detailPrice">0</span> ر.س</div>
-            <div class="meta-small"><strong>المساحة:</strong> <span id="detailArea">0</span> م²</div>
-          </div>
-        </div>
-
-        <div class="detail-box">
-          <span class="label">حالة الصك / البنك</span>
-          <div id="detailDeed" class="meta-small">الصك: نعم — قبول البنك: لا</div>
-        </div>
-
-        <div class="detail-box">
-          <span class="label">الوصف</span>
-          <div id="detailDesc" class="desc">وصف العقار هنا...</div>
-        </div>
+        <div class="detail-box"><span class="label">الموقع</span><div id="detailLocation" class="meta-small">الرياض</div></div>
+        <div class="detail-box"><span class="label">المواصفات</span><div style="display:flex;justify-content:space-between"><div class="meta-small"><strong>السعر:</strong> <span id="detailPrice">0</span> ر.س</div><div class="meta-small"><strong>المساحة:</strong> <span id="detailArea">0</span> م²</div></div></div>
+        <div class="detail-box"><span class="label">حالة الصك / البنك</span><div id="detailDeed" class="meta-small">الصك: - — قبول البنك: -</div></div>
+        <div class="detail-box"><span class="label">الوصف</span><div id="detailDesc" class="desc">وصف كامل...</div></div>
 
         <div style="display:flex; gap:10px; margin-top:6px; align-items:center;">
-          <a id="whatsappBtn" class="btn btn-ws" target="_blank" rel="noopener noreferrer">مراسلة عبر واتساب (للمدير)</a>
+          <a id="whatsappBtn" class="btn btn-ws" target="_blank" rel="noopener noreferrer">مراسلة عبر واتساب (للإدارة)</a>
           <button class="btn btn-ghost" id="backBtn" onclick="closeDetail()">رجوع</button>
         </div>
 
-        <div style="font-size:0.85rem; color:#667; margin-top:6px;">
-          <strong>ملاحظة:</strong> عند الضغط على واتساب سيفتح المحادثة مع رقم المدير مع نص يحتوي رقم العقار لتسهيل المتابعة.
+        <div style="font-size:0.85rem; color:#667; margin-top:8px;">
+          ملاحظة: سيتم فتح المحادثة مع رقم المدير وتحتوي الرسالة على عنوان ورقم العقار لتسهيل المتابعة.
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Add Property Modal -->
+  <!-- ========== ADD PROPERTY (FULLSCREEN PANEL) ========== -->
   <div id="addModal" class="modal" aria-hidden="true" aria-label="إضافة عقار">
-    <div class="detail" role="dialog" style="max-width:820px;">
-      <div style="flex:1; padding:18px;">
+    <div class="detail" role="dialog" style="max-width:1200px;">
+      <div style="flex:1; padding:18px; overflow:auto;">
         <h3>نموذج إضافة عقار</h3>
-        <p class="small-hint">الرجاء رفع حتى 3 صور (يجب أن تكون صورة الواجهة أول صورة). الصور المطلوبة: واجهة خارجية، صورة داخلية، صورة عامة. الحد الأقصى 3 صور.</p>
+        <p class="small-hint">رفع حتى 3 صور (الأولى يجب أن تكون واجهة العقار). الإعلان سيصل للمدير للمراجعة قبل النشر.</p>
 
-        <form id="addPropertyForm" class="property-form" onsubmit="onSubmitAdd(event)">
+        <form id="addPropertyForm" onsubmit="onSubmitAdd(event)">
           <div class="form-grid">
             <label>الصور (حتى 3 صور)</label>
             <input type="file" id="imagesInput" accept="image/*" multiple />
@@ -579,35 +317,36 @@
             </div>
 
             <label>وصف كامل للعقار</label>
-            <textarea id="inputDesc" placeholder="اكتب وصفًا كاملاً ومفصلاً للعقار - الحالة، المرافق، القرب من الخدمات..."></textarea>
+            <textarea id="inputDesc" placeholder="وصف العقار (الحالة، المرافق، القرب من الخدمات، ملاحظات)"></textarea>
 
-            <div style="display:flex; gap:10px; align-items:center;">
-              <button type="submit" class="btn btn-primary">نشر للإدارة (ينتظر موافقة)</button>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">نشر للإدارة (بانتظار الموافقة)</button>
               <button type="button" class="btn btn-ghost" onclick="closeAdd()">إلغاء</button>
             </div>
           </div>
         </form>
 
       </div>
+
+      <!-- side tips -->
       <div style="width:360px; padding:18px; background:linear-gradient(180deg,#f7fafc,#ffffff);">
         <h4 style="margin-top:0">نصائح لتحسين الإعلان</h4>
         <ul style="color:#556; line-height:1.6;">
-          <li>ضع صورة للواجهة الخارجية أولاً.</li>
+          <li>ضع صورة الواجهة أولًا.</li>
           <li>اختر أفضل 3 صور تمثل العقار.</li>
           <li>اكتب السعر بالأرقام الإنجليزية بدون فواصل.</li>
-          <li>أكتب موقعًا واضحًا ليسهل على المشترين العثور عليه.</li>
-          <li>استخدم وصفًا واضحًا ومفصلًا لزيادة فرص البيع.</li>
+          <li>أدخل رقم واتساب صحيح ليتواصل المدير مع المالك.</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- LOGIN Modal -->
+  <!-- ========== LOGIN MODAL (لا تعرض كلمة المرور / المستخدم في الواجهة) ========== -->
   <div id="loginModal" class="modal" aria-hidden="true" aria-label="دخول المدير">
     <div class="detail" role="dialog" style="max-width:420px;">
       <div style="flex:1; padding:18px;">
         <h3>تسجيل دخول المدير</h3>
-        <p class="small-hint">اسم المستخدم وكلمة المرور كلاهما: <strong>IVL511</strong></p>
+        <p class="small-hint">أدخل بياناتك للانتقال إلى لوحة المدير الخاصة.</p>
         <label>اسم المستخدم</label>
         <input id="loginUser" class="input" />
         <label>كلمة المرور</label>
@@ -621,7 +360,7 @@
     </div>
   </div>
 
-  <!-- EDIT Modal (for admin editing) -->
+  <!-- ========== EDIT MODAL (مدير فقط) ========== -->
   <div id="editModal" class="modal" aria-hidden="true" aria-label="تعديل إعلان">
     <div class="detail" role="dialog" style="max-width:820px;">
       <div style="flex:1; padding:18px;">
@@ -630,15 +369,12 @@
           <input type="hidden" id="editId" />
           <label>العنوان</label><input id="editTitle" class="input" required />
           <label>القسم</label>
-          <select id="editCategory" class="input">
-            <option>فلل</option><option>شقق</option><option>عمائر</option><option>أراضي</option><option>استراحات</option><option>أدوار مستقلة</option>
-          </select>
+          <select id="editCategory" class="input"><option>فلل</option><option>شقق</option><option>عمائر</option><option>أراضي</option><option>استراحات</option><option>أدوار مستقلة</option></select>
           <label>السعر</label><input id="editPrice" class="input" required />
           <label>المساحة</label><input id="editArea" class="input" required />
           <label>الموقع</label><input id="editLocation" class="input" required />
-          <label>رقم المالك (لن يظهر للعامة)</label><input id="editOwnerPhone" class="input" />
-          <label>الصك</label>
-          <select id="editDeed" class="input"><option>نعم</option><option>لا</option></select>
+          <label>رقم المالك (يظهر للمدير فقط)</label><input id="editOwnerPhone" class="input" />
+          <label>الصك</label><select id="editDeed" class="input"><option>نعم</option><option>لا</option></select>
           <div id="editBankWrapper" style="display:none;"><label>قبول البنك</label><select id="editBank" class="input"><option>نعم</option><option>لا</option></select></div>
           <label>الوصف</label><textarea id="editDesc" class="input"></textarea>
 
@@ -651,724 +387,362 @@
     </div>
   </div>
 
+  <!-- ========== ADMIN PAGE (صفحة خاصة كاملة) ========== -->
+  <div id="adminPage" aria-hidden="true">
+    <div class="admin-shell">
+      <div class="admin-head">
+        <div>
+          <h2 style="margin:0">لوحة المدير — النخبة العقارية</h2>
+          <div style="color:#556; font-size:0.95rem; margin-top:4px">هنا يمكنك مشاهدة وإدارة العقارات (المعلقة، المالك، والخاص بالمدير).</div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <div id="adminSummary" style="text-align:right;">
+            <div style="font-weight:900; font-size:1.1rem" id="adminTotal">إجمالي: 0</div>
+            <div style="color:#667; font-size:0.9rem">موافقة: <span id="adminApproved">0</span> / بانتظار: <span id="adminPending">0</span></div>
+          </div>
+          <div>
+            <button class="btn btn-ghost" onclick="closeAdmin()">عودة للموقع</button>
+            <button class="btn btn-primary" onclick="adminCreateProperty()">إضافة كمدير</button>
+            <button class="btn" id="btnLogoutAdmin">تسجيل خروج</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+        <div class="tabs">
+          <div class="tab active" data-tab="pending">بانتظار الموافقة</div>
+          <div class="tab" data-tab="owners">عقارات الملاك</div>
+          <div class="tab" data-tab="admin">عقاراتي (المدير)</div>
+        </div>
+        <div style="margin-left:auto;">
+          <input id="adminSearch" class="input" placeholder="بحث ضمن لوحة المدير (عنوان، موقع، رقم)"/>
+        </div>
+      </div>
+
+      <div id="adminContent">
+        <!-- pending -->
+        <div class="admin-grid" id="tab-pending">
+          <h4>قائمة العقارات بانتظار الموافقة</h4>
+          <table class="admin-table" id="pendingTable">
+            <thead><tr><th>رقم</th><th>العنوان</th><th>القسم</th><th>السعر</th><th>مالك</th><th>إجراءات</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- owners -->
+        <div class="admin-grid" id="tab-owners" style="display:none;">
+          <h4>عقارات الملاك</h4>
+          <table class="admin-table" id="ownersTable"><thead><tr><th>رقم</th><th>العنوان</th><th>القسم</th><th>السعر</th><th>مالك (للإدارة)</th><th>إجراءات</th></tr></thead><tbody></tbody></table>
+        </div>
+
+        <!-- admin -->
+        <div class="admin-grid" id="tab-admin" style="display:none;">
+          <h4>عقاراتي (المدير)</h4>
+          <table class="admin-table" id="adminTable"><thead><tr><th>رقم</th><th>العنوان</th><th>القسم</th><th>السعر</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 <script>
-/* ======================================================================================
-   Data model & localStorage keys
-   ====================================================================================== */
-const STORAGE_KEY = 'alqaria_properties_v1';
-const NEXT_ID_KEY = 'alqaria_nextid_v1';
+/* ========================
+   بيانات، مفاتيح، مساعدة
+   ======================== */
+const STORAGE_KEY = 'alq_properties_v2';
+const NEXT_ID_KEY = 'alq_nextid_v2';
 const ADMIN_USERNAME = 'IVL511';
 const ADMIN_PASSWORD = 'IVL511';
-const ADMIN_WHATSAPP = '966535342404'; // رقم المدير المستخدم في روابط الواتساب
+const ADMIN_WHATSAPP = '966535342404';
 
-// load or initialize
 let properties = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || [];
 let nextId = parseInt(localStorage.getItem(NEXT_ID_KEY) || '1', 10);
-
-// Helper: persist
-function persist() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
-  localStorage.setItem(NEXT_ID_KEY, String(nextId));
-}
-
-/* ======================================================================================
-   Utilities
-   ====================================================================================== */
+function persist(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(properties)); localStorage.setItem(NEXT_ID_KEY, String(nextId)); }
 function $(id){ return document.getElementById(id); }
-function el(tag, attrs={}, ...children) {
-  const e = document.createElement(tag);
-  for (let k in attrs) {
-    if (k === 'class') e.className = attrs[k];
-    else if (k === 'text') e.textContent = attrs[k];
-    else e.setAttribute(k, attrs[k]);
-  }
-  children.forEach(c=> { if (typeof c === 'string') e.appendChild(document.createTextNode(c)); else if (c) e.appendChild(c); });
-  return e;
-}
-function formatNumber(n) {
-  return Number(n).toLocaleString('en-US');
-}
+function el(tag, attrs={}, ...children){ const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k, attrs[k]); } children.forEach(c=>{ if(typeof c==='string') e.appendChild(document.createTextNode(c)); else if(c) e.appendChild(c); }); return e; }
+function formatNumber(n){ return Number(n).toLocaleString('en-US'); }
 
-/* ======================================================================================
-   Sample data seeding (10+ properties across categories)
-   ====================================================================================== */
-function seedSampleData() {
-  if (properties.length > 0) return; // don't override existing
+/* ========================
+   تهيئة بيانات نموذجية
+   ======================== */
+function seedSampleData(){
+  if(properties.length) return;
   const samples = [
-    {
-      title: "فيلا فاخرة 5 غرف - حي النخيل",
-      category: "فلل",
-      price: 2500000,
-      area: 450,
-      location: "الرياض - حي النخيل",
-      ownerPhone: "0551234001",
-      deed: "نعم",
-      bank: "نعم",
-      desc: "فيلا فاخرة مؤثثة، مسبح، حديقة كبيرة، بالقرب من الخدمات.",
-      images: [
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "شقة راقية 3 غرف - برج الفجر",
-      category: "شقق",
-      price: 750000,
-      area: 150,
-      location: "جدة - حي البلد",
-      ownerPhone: "0551234002",
-      deed: "نعم",
-      bank: "نعم",
-      desc: "شقة حديثة ضمن مجمع، مصعد، موقف خاص.",
-      images: [
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1560449753-74f0c2b1f16a?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "عمارة سكنية 6 شقق - موقع مميز",
-      category: "عمائر",
-      price: 3200000,
-      area: 600,
-      location: "مكة - شارع الحجاز",
-      ownerPhone: "0551234003",
-      deed: "نعم",
-      bank: "نعم",
-      desc: "عمارة جديدة مؤجرة، عائد استثماري ممتاز.",
-      images: [
-        "https://images.unsplash.com/photo-1549187774-b4e9b0445b6b?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1572120360610-d971b9b3f5a3?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "أرض استثمارية قرب الطريق السريع",
-      category: "أراضي",
-      price: 5000000,
-      area: 1800,
-      location: "جدة - الصناعية",
-      ownerPhone: "0551234004",
-      deed: "نعم",
-      bank: "نعم",
-      desc: "أرض تجارية بموقع استراتيجي، مناسبة لمشروع تجاري.",
-      images: [
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1470123808288-8a75b7f9d4b0?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "استراحة فاخرة مع مسبح",
-      category: "استراحات",
-      price: 950000,
-      area: 650,
-      location: "الطائف - الخمرة",
-      ownerPhone: "0551234005",
-      deed: "نعم",
-      bank: "لا",
-      desc: "استراحة مجهزة لقضاء العطل مع عائلتك، مساحة واسعة.",
-      images: [
-        "https://images.unsplash.com/photo-1505691723518-36a3b7b1a5c5?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "دور مستقل واسع للعائلات",
-      category: "أدوار مستقلة",
-      price: 600000,
-      area: 300,
-      location: "الدمام - الشاطئ",
-      ownerPhone: "0551234006",
-      deed: "نعم",
-      bank: "نعم",
-      desc: "دور مستقل مع حوش وموقع قريب من الخدمات.",
-      images: [
-        "https://images.unsplash.com/photo-1475855581690-80acc9d18e0a?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1505692794409-7bd2f3c6f3e6?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "approved",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    // Pending sample entries
-    {
-      title: "شقة للإيجار بعد التجديد",
-      category: "شقق",
-      price: 320000,
-      area: 95,
-      location: "تبوك - السويقة",
-      ownerPhone: "0551234007",
-      deed: "لا",
-      bank: "لا",
-      desc: "شقة بعد التجديد، جاهزة للسكن، موقف ومصعد.",
-      images: [
-        "https://images.unsplash.com/photo-1560449753-74f0c2b1f16a?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "pending",
-      ownerType: "owner",
-      createdAt: Date.now()
-    },
-    {
-      title: "عمارة للترميم - فرصة استثمارية",
-      category: "عمائر",
-      price: 1450000,
-      area: 520,
-      location: "المدينة - الصناعية",
-      ownerPhone: "0551234008",
-      deed: "نعم",
-      bank: "لا",
-      desc: "عمارة تحتاج ترميمات بسيطة، سعر مناسب للاستثمار.",
-      images: [
-        "https://images.unsplash.com/photo-1549187774-b4e9b0445b6b?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1572120360610-d971b9b3f5a3?q=80&w=1400&auto=format&fit=crop"
-      ],
-      status: "pending",
-      ownerType: "owner",
-      createdAt: Date.now()
-    }
+    { title:"فيلا فاخرة 5 غرف - حي النخيل", category:"فلل", price:2500000, area:450, location:"الرياض - النخيل", ownerPhone:"0551234001", deed:"نعم", bank:"نعم", desc:"فيلا فاخرة مع مسبح وحديقة.", images:["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop","https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1400&auto=format&fit=crop"], status:"approved", ownerType:"owner", createdAt:Date.now()},
+    { title:"شقة راقية 3 غرف - برج الفجر", category:"شقق", price:750000, area:150, location:"جدة - البلد", ownerPhone:"0551234002", deed:"نعم", bank:"نعم", desc:"شقة حديثة، موقع ممتاز.", images:["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1400&auto=format&fit=crop"], status:"approved", ownerType:"owner", createdAt:Date.now()},
+    { title:"استراحة فاخرة مع مسبح", category:"استراحات", price:950000, area:650, location:"الطائف - الخمرة", ownerPhone:"0551234005", deed:"نعم", bank:"لا", desc:"استراحة مجهزة لقضاء العطل.", images:["https://images.unsplash.com/photo-1505691723518-36a3b7b1a5c5?q=80&w=1400&auto=format&fit=crop"], status:"approved", ownerType:"owner", createdAt:Date.now()},
+    { title:"أرض استثمارية قرب الطريق", category:"أراضي", price:5000000, area:1800, location:"جدة - الصناعية", ownerPhone:"0551234004", deed:"نعم", bank:"نعم", desc:"أرض تجارية بموقع استراتيجي.", images:["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop"], status:"approved", ownerType:"owner", createdAt:Date.now()},
+    { title:"دور مستقل واسع للعائلات", category:"أدوار مستقلة", price:600000, area:300, location:"الدمام - الشاطئ", ownerPhone:"0551234006", deed:"نعم", bank:"نعم", desc:"دور مستقل مع حوش.", images:["https://images.unsplash.com/photo-1475855581690-80acc9d18e0a?q=80&w=1400&auto=format&fit=crop"], status:"approved", ownerType:"owner", createdAt:Date.now()},
+    // Pending
+    { title:"شقة للإيجار بعد التجديد", category:"شقق", price:320000, area:95, location:"تبوك - السويقة", ownerPhone:"0551234007", deed:"لا", bank:"لا", desc:"شقة بعد التجديد.", images:["https://images.unsplash.com/photo-1560449753-74f0c2b1f16a?q=80&w=1400&auto=format&fit=crop"], status:"pending", ownerType:"owner", createdAt:Date.now()},
+    { title:"عمارة للترميم - فرصة", category:"عمائر", price:1450000, area:520, location:"المدينة - الصناعية", ownerPhone:"0551234008", deed:"نعم", bank:"لا", desc:"عمارة تحتاج ترميم.", images:["https://images.unsplash.com/photo-1549187774-b4e9b0445b6b?q=80&w=1400&auto=format&fit=crop"], status:"pending", ownerType:"owner", createdAt:Date.now()}
   ];
-
-  samples.forEach(s => {
-    s.id = nextId++;
-    properties.push(s);
-  });
+  samples.forEach(s=>{ s.id = nextId++; properties.push(s); });
   persist();
 }
 seedSampleData();
 
-/* ======================================================================================
-   Render functions: grid, pending table, manager table, counts
-   ====================================================================================== */
-
-function renderCounts() {
-  const approved = properties.filter(p => p.status === 'approved').length;
-  const pending = properties.filter(p => p.status === 'pending').length;
-  $('cntVal').textContent = approved;
-  $('approvedCount').textContent = approved;
-  $('pendingCount').textContent = pending;
-  $('totalCount').textContent = properties.length;
-}
-
-function createCardHTML(prop) {
-  // Build element
-  const card = el('article', { class: 'card', 'data-id': prop.id });
-  const media = el('div', { class: 'card-media' });
-  const img = el('img'); img.src = (prop.images && prop.images.length) ? prop.images[0] : '';
+/* ========================
+   رسم البطاقات والقوائم
+   ======================== */
+function createCard(prop){
+  const card = el('article',{class:'card','data-id':prop.id});
+  const media = el('div',{class:'card-media'});
+  const img = el('img'); img.src = (prop.images && prop.images.length) ? prop.images[0] : placeholderImage();
   media.appendChild(img);
-
-  const badge = el('div', { class: 'badge' }, prop.category);
+  const badge = el('div',{class:'badge'}, prop.category);
   media.appendChild(badge);
-
-  const body = el('div', { class: 'card-body' });
-  const title = el('h4', { class: 'card-title' }, prop.title);
-  const loc = el('div', { class: 'card-loc' }, prop.location);
-  const meta = el('div', { class: 'card-meta' });
-  const price = el('div', { class: 'price' }, formatNumber(prop.price) + ' ر.س');
-  const small = el('div', { class: 'meta-small' }, prop.area + ' م²');
-
+  const body = el('div',{class:'card-body'});
+  const title = el('h4',{class:'card-title'}, prop.title);
+  const loc = el('div',{class:'card-loc'}, prop.location);
+  const meta = el('div',{class:'card-meta'});
+  const price = el('div',{class:'price'}, formatNumber(prop.price) + ' ر.س');
+  const small = el('div',{class:'meta-small'}, (prop.area || '-') + ' م²');
   meta.appendChild(price); meta.appendChild(small);
-
-  const actions = el('div', { class: 'card-actions' });
-  const btnView = el('button', { class: 'btn-small btn-ghost' }, 'عرض العقار');
-  btnView.onclick = ()=> openDetail(prop.id);
-  const btnWhats = el('a', { class: 'btn-small btn-ws', href:'#', target:'_blank' }, 'واتساب');
-  // WhatsApp should open chat with admin and include property id/title
-  btnWhats.onclick = (e)=> {
-    e.preventDefault();
+  const actions = el('div',{class:'card-actions'});
+  const btnView = el('button',{class:'btn-small btn-ghost'}, 'عرض العقار'); btnView.onclick = ()=> openDetail(prop.id);
+  const btnWhats = el('button',{class:'btn-small btn-ws'}, 'واتساب'); btnWhats.onclick = ()=> {
     const text = `مرحبًا، أعجبني العقار: ${prop.title} (رقم ${prop.id})\nأود معرفة المزيد.`;
     window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank');
   };
-
-  actions.appendChild(btnView);
-  actions.appendChild(btnWhats);
-
-  body.appendChild(title);
-  body.appendChild(loc);
-  body.appendChild(meta);
-  body.appendChild(actions);
-
-  card.appendChild(media);
-  card.appendChild(body);
-
+  actions.appendChild(btnView); actions.appendChild(btnWhats);
+  body.appendChild(title); body.appendChild(loc); body.appendChild(meta); body.appendChild(actions);
+  card.appendChild(media); card.appendChild(body);
   return card;
 }
 
-function renderGrid(filter = 'all', query = '', sortBy='recent') {
-  const grid = $('propertiesGrid');
-  grid.innerHTML = '';
+function renderGrid(filter='all', query='', sortBy='recent'){
+  const grid = $('propertiesGrid'); grid.innerHTML = '';
   let list = properties.filter(p => p.status === 'approved');
-
-  if (filter !== 'all') list = list.filter(p => p.category === filter);
-
-  if (query && query.trim() !== '') {
+  if(filter !== 'all') list = list.filter(p => p.category === filter);
+  if(query && query.trim() !== '') {
     const q = query.trim().toLowerCase();
-    list = list.filter(p => (
-      (p.title||'').toLowerCase().includes(q) ||
-      (p.location||'').toLowerCase().includes(q) ||
-      (String(p.price)||'').toLowerCase().includes(q) ||
-      (p.desc||'').toLowerCase().includes(q)
-    ));
+    list = list.filter(p => ((p.title||'')+ ' ' + (p.location||'') + ' ' + (p.desc||'')).toLowerCase().includes(q));
   }
-
-  if (sortBy === 'price-asc') list.sort((a,b)=>a.price-b.price);
-  else if (sortBy === 'price-desc') list.sort((a,b)=>b.price-a.price);
+  if(sortBy === 'price-asc') list.sort((a,b)=>a.price-b.price);
+  else if(sortBy === 'price-desc') list.sort((a,b)=>b.price-a.price);
   else list.sort((a,b)=>b.createdAt - a.createdAt);
 
-  $('propertiesCount').style.display = 'block';
   $('cntVal').textContent = list.length;
-
-  if (list.length === 0) {
-    grid.appendChild(el('div', { style: 'padding:20px;color:#556' }, 'لا توجد عقارات حالياً في هذا القسم.'));
-    return;
-  }
-
-  list.forEach(p => {
-    grid.appendChild(createCardHTML(p));
-  });
+  if(list.length === 0) { grid.appendChild(el('div', {style:'padding:20px;color:#556'}, 'لا توجد عقارات في الوقت الحالي.')); return; }
+  list.forEach(p => grid.appendChild(createCard(p)));
 }
 
-/* ======================================================================================
-   Detail view
-   ====================================================================================== */
-function openDetail(id) {
-  const prop = properties.find(x => x.id == id);
-  if (!prop) return;
-  // fill modal
+/* ========================
+   تفاصيل العقار
+   ======================== */
+function openDetail(id){
+  const prop = properties.find(x=>x.id==id); if(!prop) return;
   $('detailTitle').textContent = prop.title;
   $('detailLocation').textContent = prop.location;
   $('detailPrice').textContent = formatNumber(prop.price);
   $('detailArea').textContent = prop.area || '-';
   $('detailDesc').textContent = prop.desc || '';
-  $('detailDeed').textContent = `الصك: ${prop.deed || 'لا'} — قبول البنك: ${prop.bank || 'لا'}`;
-  $('detailStatus').textContent = prop.status === 'approved' ? 'مفعل' : 'بانتظار الموافقة';
-  // images
-  const mainImg = $('detailMainImgImg');
-  const thumbs = $('detailThumbs');
-  thumbs.innerHTML = '';
+  $('detailDeed').textContent = `الصك: ${prop.deed||'لا'} — قبول البنك: ${prop.bank||'لا'}`;
+  $('detailStatus').textContent = prop.status === 'approved' ? 'مفعل' : 'بانتظار';
+  const mainImg = $('detailMainImgImg'); const thumbs = $('detailThumbs'); thumbs.innerHTML = '';
   const imgs = (prop.images && prop.images.length) ? prop.images : [placeholderImage()];
   mainImg.src = imgs[0];
-  imgs.forEach((src,i)=>{
-    const t = document.createElement('img');
-    t.src = src;
-    if (i===0) t.classList.add('active');
-    t.onclick = ()=> {
-      mainImg.src = src;
-      thumbs.querySelectorAll('img').forEach(imgEl=>imgEl.classList.remove('active'));
-      t.classList.add('active');
-    };
-    thumbs.appendChild(t);
-  });
-  // whatsapp link to admin
+  imgs.forEach((src,i)=>{ const t = document.createElement('img'); t.src = src; if(i===0) t.classList.add('active'); t.onclick = ()=>{ mainImg.src = src; thumbs.querySelectorAll('img').forEach(im=>im.classList.remove('active')); t.classList.add('active'); }; thumbs.appendChild(t); });
   const text = `مرحبًا، أعجبني العقار: ${prop.title} (رقم ${prop.id})\nالموقع: ${prop.location}\nالسعر: ${formatNumber(prop.price)} ر.س`;
   $('whatsappBtn').href = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(text)}`;
-  // show modal
-  const modal = $('detailModal');
-  modal.classList.add('show');
-  modal.setAttribute('aria-hidden','false');
+  const modal = $('detailModal'); modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
 }
+function closeDetail(){ const modal=$('detailModal'); modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
 
-/* close detail modal */
-function closeDetail() {
-  const modal = $('detailModal');
-  modal.classList.remove('show');
-  modal.setAttribute('aria-hidden','true');
-}
-
-/* ======================================================================================
-   Add property: UI handlers
-   ====================================================================================== */
-
-function openAdd() {
-  $('addModal').classList.add('show');
-  $('addModal').setAttribute('aria-hidden','false');
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-function closeAdd() {
-  $('addModal').classList.remove('show');
-  $('addModal').setAttribute('aria-hidden','true');
-  // reset form
-  $('addPropertyForm').reset();
-  $('imagesPreview').innerHTML = '';
-  selectedImages = [];
-}
+/* ========================
+   إضافة عقار (عام) - full screen panel
+   ======================== */
+let selectedImages = [];
 $('btnShowAdd').addEventListener('click', openAdd);
-
-/* images preview handling */
-let selectedImages = []; // store dataURLs
+function openAdd(){ const m = $('addModal'); m.classList.add('show'); m.classList.add('fullscreen'); m.setAttribute('aria-hidden','false'); window.scrollTo({top:0, behavior:'smooth'}); }
+function closeAdd(){ const m = $('addModal'); m.classList.remove('show'); m.classList.remove('fullscreen'); m.setAttribute('aria-hidden','true'); $('addPropertyForm').reset(); $('imagesPreview').innerHTML=''; selectedImages=[]; }
 $('imagesInput').addEventListener('change', function(e){
-  const files = Array.from(e.target.files).slice(0,3); // limit to 3
-  selectedImages = [];
-  $('imagesPreview').innerHTML = '';
-  if (!files.length) return;
-  files.forEach((file, idx)=>{
-    const reader = new FileReader();
-    reader.onload = function(ev){
-      selectedImages.push(ev.target.result);
-      const slot = el('div', { class: 'img-slot' });
-      const img = el('img'); img.src = ev.target.result;
-      slot.appendChild(img);
-      $('imagesPreview').appendChild(slot);
-    };
-    reader.readAsDataURL(file);
-  });
+  const files = Array.from(e.target.files).slice(0,3); selectedImages=[]; $('imagesPreview').innerHTML='';
+  files.forEach(file=>{ const r=new FileReader(); r.onload=function(ev){ selectedImages.push(ev.target.result); const slot = el('div',{class:'img-slot'}); const img=el('img'); img.src=ev.target.result; slot.appendChild(img); $('imagesPreview').appendChild(slot); }; r.readAsDataURL(file); });
 });
+$('inputDeed').addEventListener('change', function(){ $('bankWrapper').style.display = (this.value === 'نعم') ? 'block' : 'none'; });
 
-/* show/hide bank field depending on deed */
-$('inputDeed').addEventListener('change', function(){ 
-  $('bankWrapper').style.display = (this.value === 'نعم') ? 'block' : 'none';
-});
-
-/* submission: add property (status='pending') */
-function onSubmitAdd(e) {
+function onSubmitAdd(e){
   e.preventDefault();
-  // validation
-  if (selectedImages.length < 1) {
-    alert('الرجاء رفع صورة واحدة على الأقل (يفضل أن تكون صورة الواجهة أولاً).');
-    return;
-  }
-  if (selectedImages.length > 3) {
-    alert('الحد الأقصى للصور هو 3 صور.');
-    return;
-  }
-  const title = $('inputTitle').value.trim();
-  const category = $('inputCategory').value;
-  const price = Number($('inputPrice').value);
-  const area = Number($('inputArea').value);
-  const location = $('inputLocation').value.trim();
-  const ownerPhone = $('inputOwnerPhone').value.trim();
-  const deed = $('inputDeed').value;
-  const bank = $('inputBank').value || 'لا';
-  const desc = $('inputDesc').value.trim();
-
-  if (!title || !category || !price || !location || !ownerPhone) {
-    alert('الرجاء تعبئة الحقول المطلوبة بشكل صحيح.');
-    return;
-  }
-
-  // create object
-  const prop = {
-    id: nextId++,
-    title,
-    category,
-    price,
-    area,
-    location,
-    ownerPhone,
-    deed,
-    bank,
-    desc,
-    images: selectedImages.slice(0,3),
-    status: 'pending',
-    ownerType: 'owner',
-    createdAt: Date.now()
-  };
-  properties.push(prop);
-  persist();
-
-  // reset & close & show message
-  closeAdd();
-  alert('تم إرسال عقارك إلى الإدارة لمراجعته والموافقة عليه. ستتلقى إشعارًا عند الموافقة.');
-  renderAll();
+  if(selectedImages.length < 1){ alert('الرجاء رفع صورة واحدة على الأقل (الواجهة أولاً).'); return; }
+  if(selectedImages.length > 3){ alert('الحد الأقصى 3 صور.'); return; }
+  const title = $('inputTitle').value.trim(); const category = $('inputCategory').value; const price = Number($('inputPrice').value);
+  const area = Number($('inputArea').value); const location = $('inputLocation').value.trim(); const ownerPhone = $('inputOwnerPhone').value.trim();
+  const deed = $('inputDeed').value; const bank = $('inputBank').value || 'لا'; const desc = $('inputDesc').value.trim();
+  if(!title || !category || !price || !location || !ownerPhone){ alert('الرجاء تعبئة الحقول المطلوبة.'); return; }
+  const prop = { id: nextId++, title, category, price, area, location, ownerPhone, deed, bank, desc, images: selectedImages.slice(0,3), status:'pending', ownerType:'owner', createdAt:Date.now() };
+  properties.push(prop); persist();
+  closeAdd(); alert('تم إرسال العقار لانتظار موافقة المدير.');
+  renderAll(); if(isAdminLogged()) renderAdminTables();
 }
 
-/* ======================================================================================
-   Login & Admin actions
-   ====================================================================================== */
+/* ========================
+   تسجيل دخول المدير (لا نعرض الاعتماديات)
+   ======================== */
+$('btnLogin').addEventListener('click', ()=>{ $('loginModal').classList.add('show'); $('loginModal').setAttribute('aria-hidden','false'); });
 
-$('btnLogin').addEventListener('click', ()=> {
-  $('loginModal').classList.add('show');
-  $('loginModal').setAttribute('aria-hidden','false');
-});
-function closeLogin() {
-  $('loginModal').classList.remove('show');
-  $('loginModal').setAttribute('aria-hidden','true');
-  $('loginError').style.display = 'none';
-}
-function doLogin() {
-  const u = $('loginUser').value.trim();
-  const p = $('loginPass').value.trim();
-  if (u === ADMIN_USERNAME && p === ADMIN_PASSWORD) {
+function closeLogin(){ $('loginModal').classList.remove('show'); $('loginModal').setAttribute('aria-hidden','true'); $('loginError').style.display='none'; $('loginUser').value=''; $('loginPass').value=''; }
+
+function doLogin(){
+  const u = $('loginUser').value.trim(); const p = $('loginPass').value.trim();
+  if(u === ADMIN_USERNAME && p === ADMIN_PASSWORD){
     closeLogin();
-    // reveal admin section
-    $('adminSection').style.display = 'block';
-    $('btnLogin').style.display = 'none';
-    $('btnShowAdd').style.display = 'inline-block';
-    $('btnSiteEdit').style.display = 'inline-block';
-    // persist admin session in sessionStorage
-    sessionStorage.setItem('alq_admin_logged', 'true');
-    renderAdminTables();
-    alert('تم تسجيل الدخول كمدير.');
+    sessionStorage.setItem('alq_admin_logged','true');
+    openAdmin(); alert('تم تسجيل الدخول كمدير.');
   } else {
-    $('loginError').textContent = 'بيانات الدخول غير صحيحة';
-    $('loginError').style.display = 'block';
+    $('loginError').textContent = 'بيانات الدخول غير صحيحة'; $('loginError').style.display='block';
   }
 }
-function logoutAdmin() {
-  sessionStorage.removeItem('alq_admin_logged');
-  $('adminSection').style.display = 'none';
-  $('btnLogin').style.display = 'inline-block';
-  alert('تم تسجيل الخروج.');
-  // hide edit/delete buttons from UI by re-render
-  renderAll();
-}
-$('btnLogout').addEventListener('click', logoutAdmin);
 
-/* adminTable render */
-function renderAdminTables(){
+function isAdminLogged(){ return sessionStorage.getItem('alq_admin_logged') === 'true'; }
+
+/* ========== ADMIN: صفحة خاصة كاملة ========== */
+function openAdmin(){
+  // hide main content
+  $('mainContent').style.display = 'none';
+  $('adminPage').style.display = 'block'; $('adminPage').setAttribute('aria-hidden','false');
+  $('btnSiteEdit').style.display = 'inline-block';
+  // hide login button
+  document.getElementById('btnLogin').style.display = 'none';
+  renderAdminTables();
+}
+function closeAdmin(){
+  $('adminPage').style.display = 'none'; $('adminPage').setAttribute('aria-hidden','true');
+  $('mainContent').style.display = 'block';
+  $('btnSiteEdit').style.display = 'none';
+  document.getElementById('btnLogin').style.display = 'inline-block';
+  sessionStorage.removeItem('alq_admin_page'); // optional
+}
+$('btnLogoutAdmin').addEventListener('click', function(){ if(confirm('هل تريد تسجيل الخروج؟')){ sessionStorage.removeItem('alq_admin_logged'); closeAdmin(); alert('تم تسجيل الخروج.'); renderAll(); } });
+
+/* admin tabs */
+document.querySelectorAll('.tab').forEach(t=> t.addEventListener('click', function(){ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); this.classList.add('active'); const tab = this.getAttribute('data-tab'); document.querySelectorAll('#adminContent > div').forEach(d=>d.style.display='none'); if(tab==='pending') document.getElementById('tab-pending').style.display='block'; if(tab==='owners') document.getElementById('tab-owners').style.display='block'; if(tab==='admin') document.getElementById('tab-admin').style.display='block'; }));
+
+/* admin search */
+$('adminSearch').addEventListener('input', function(){ renderAdminTables(this.value.trim().toLowerCase()); });
+
+/* Render admin tables */
+function renderAdminTables(filter=''){
+  const pendings = properties.filter(p=>p.status==='pending');
+  const owners = properties.filter(p=>p.ownerType==='owner' && p.status!=='pending'); // owner's approved
+  const adminProps = properties.filter(p=>p.ownerType==='admin');
+
+  // counts
+  $('adminTotal').textContent = 'إجمالي: ' + properties.length;
+  $('adminApproved').textContent = properties.filter(p=>p.status==='approved').length;
+  $('adminPending').textContent = pendings.length;
+
   // pending table
-  const pendingTbody = document.querySelector('#pendingTable tbody');
-  pendingTbody.innerHTML = '';
-  const pendings = properties.filter(p => p.status === 'pending');
-  pendings.forEach((p, idx) => {
+  const pendingTbody = document.querySelector('#pendingTable tbody'); pendingTbody.innerHTML = '';
+  pendings.filter(p=> matchesFilter(p, filter)).forEach(p=>{
     const tr = el('tr');
-    tr.appendChild(el('td', {}, p.id));
-    tr.appendChild(el('td', {}, p.title));
-    tr.appendChild(el('td', {}, p.category));
-    tr.appendChild(el('td', {}, formatNumber(p.price) + ' ر.س'));
-    tr.appendChild(el('td', {}, p.ownerPhone));
-    const actionsTd = el('td');
-    const btnApprove = el('button', { class:'btn btn-primary' }, 'موافقة');
-    btnApprove.onclick = ()=> { approveProperty(p.id); };
-    const btnReject = el('button', { class:'btn btn-ghost' }, 'رفض');
-    btnReject.style.marginLeft = '8px';
-    btnReject.onclick = ()=> { if(confirm('هل تريد رفض وحذف هذا الإعلان؟')) { deletePropertyById(p.id); } };
-    const btnView = el('button', { class:'btn btn-ghost' }, 'عرض');
-    btnView.style.marginLeft = '8px';
-    btnView.onclick = ()=> openDetail(p.id);
-    const btnEdit = el('button', { class:'btn btn-ghost' }, 'تعديل');
-    btnEdit.style.marginLeft = '8px';
-    btnEdit.onclick = ()=> openEdit(p.id);
-    actionsTd.appendChild(btnApprove);
-    actionsTd.appendChild(btnReject);
-    actionsTd.appendChild(btnEdit);
-    actionsTd.appendChild(btnView);
-    tr.appendChild(actionsTd);
-    pendingTbody.appendChild(tr);
+    tr.appendChild(el('td',{},p.id));
+    tr.appendChild(el('td',{},p.title));
+    tr.appendChild(el('td',{},p.category));
+    tr.appendChild(el('td',{},formatNumber(p.price) + ' ر.س'));
+    tr.appendChild(el('td',{}, p.ownerPhone));
+    const actionsTd = el('td'); actionsTd.className='admin-actions';
+    const btnApprove = el('button',{class:'btn btn-primary'}, 'موافقة'); btnApprove.onclick = ()=> { approveProperty(p.id); };
+    const btnReject = el('button',{class:'btn btn-ghost'}, 'رفض'); btnReject.onclick = ()=> { if(confirm('رفض وحذف الإعلان؟')) deletePropertyById(p.id); };
+    const btnEdit = el('button',{class:'btn btn-ghost'}, 'تعديل'); btnEdit.onclick = ()=> openEdit(p.id);
+    const btnView = el('button',{class:'btn btn-ghost'}, 'عرض'); btnView.onclick = ()=> openDetail(p.id);
+    actionsTd.appendChild(btnApprove); actionsTd.appendChild(btnReject); actionsTd.appendChild(btnEdit); actionsTd.appendChild(btnView);
+    tr.appendChild(actionsTd); pendingTbody.appendChild(tr);
   });
 
-  // manager table (show all but mark status)
-  const managerTbody = document.querySelector('#managerTable tbody');
-  managerTbody.innerHTML = '';
-  properties.forEach(p => {
+  // owners table
+  const ownersTbody = document.querySelector('#ownersTable tbody'); ownersTbody.innerHTML = '';
+  owners.filter(p=> matchesFilter(p, filter)).forEach(p=>{
     const tr = el('tr');
-    tr.appendChild(el('td', {}, p.id));
-    tr.appendChild(el('td', {}, p.title));
-    tr.appendChild(el('td', {}, p.category));
-    tr.appendChild(el('td', {}, formatNumber(p.price) + ' ر.س'));
-    tr.appendChild(el('td', {}, p.status === 'approved' ? 'مفعل' : 'بانتظار'));
-    const actionsTd = el('td');
-    const btnToggle = el('button', { class:'btn btn-primary' }, p.status === 'approved' ? 'تعطيل' : 'تفعيل');
-    btnToggle.onclick = ()=> {
-      if (p.status === 'approved') {
-        if (!confirm('هل تريد تعطيل هذا الإعلان؟')) return;
-        p.status = 'pending';
-      } else {
-        p.status = 'approved';
-      }
-      persist();
-      renderAll();
-      renderAdminTables();
-    };
-    const btnEdit = el('button', { class:'btn btn-ghost' }, 'تعديل');
-    btnEdit.style.marginLeft = '8px';
-    btnEdit.onclick = ()=> openEdit(p.id);
-    const btnDelete = el('button', { class:'btn btn-ghost' }, 'حذف');
-    btnDelete.style.marginLeft = '8px';
-    btnDelete.onclick = ()=> {
-      if (confirm('هل أنت متأكد من حذف هذا الإعلان نهائياً؟')) {
-        deletePropertyById(p.id);
-      }
-    };
+    tr.appendChild(el('td',{},p.id)); tr.appendChild(el('td',{},p.title)); tr.appendChild(el('td',{},p.category));
+    tr.appendChild(el('td',{},formatNumber(p.price)+' ر.س')); tr.appendChild(el('td',{},p.ownerPhone));
+    const actionsTd = el('td'); actionsTd.className='admin-actions';
+    const btnToggle = el('button',{class:'btn btn-primary'}, p.status==='approved'?'تعطيل':'تفعيل'); btnToggle.onclick = ()=> { p.status = (p.status==='approved'?'pending':'approved'); persist(); renderAll(); renderAdminTables(); };
+    const btnEdit = el('button',{class:'btn btn-ghost'}, 'تعديل'); btnEdit.onclick = ()=> openEdit(p.id);
+    const btnDelete = el('button',{class:'btn btn-ghost'}, 'حذف'); btnDelete.onclick = ()=> { if(confirm('حذف نهائي؟')) deletePropertyById(p.id); };
     actionsTd.appendChild(btnToggle); actionsTd.appendChild(btnEdit); actionsTd.appendChild(btnDelete);
-    tr.appendChild(actionsTd);
-    managerTbody.appendChild(tr);
+    tr.appendChild(actionsTd); ownersTbody.appendChild(tr);
   });
 
-  renderCounts();
+  // admin table
+  const adminTbody = document.querySelector('#adminTable tbody'); adminTbody.innerHTML = '';
+  adminProps.filter(p=> matchesFilter(p, filter)).forEach(p=>{
+    const tr = el('tr'); tr.appendChild(el('td',{},p.id)); tr.appendChild(el('td',{},p.title)); tr.appendChild(el('td',{},p.category)); tr.appendChild(el('td',{},formatNumber(p.price)+' ر.س')); tr.appendChild(el('td',{},p.status));
+    const td=el('td'); td.className='admin-actions';
+    const btnEdit = el('button',{class:'btn btn-ghost'}, 'تعديل'); btnEdit.onclick = ()=> openEdit(p.id);
+    const btnDelete = el('button',{class:'btn btn-ghost'}, 'حذف'); btnDelete.onclick = ()=> { if(confirm('حذف؟')) deletePropertyById(p.id); };
+    td.appendChild(btnEdit); td.appendChild(btnDelete); tr.appendChild(td); adminTbody.appendChild(tr);
+  });
 }
 
-/* approve property */
-function approveProperty(id) {
-  const p = properties.find(x=>x.id==id);
-  if (!p) return;
-  p.status = 'approved';
-  persist();
-  renderAll();
-  renderAdminTables();
-  alert('تمت الموافقة ونشر الإعلان.');
-}
+/* filter helper */
+function matchesFilter(p, q){ if(!q) return true; return (p.title||'').toLowerCase().includes(q) || (p.location||'').toLowerCase().includes(q) || String(p.id)===q || (p.ownerPhone||'').includes(q); }
 
-/* delete property */
-function deletePropertyById(id) {
-  properties = properties.filter(x=>x.id!=id);
-  persist();
-  renderAll();
-  renderAdminTables();
-}
+/* Approve / delete / edit actions */
+function approveProperty(id){ const p = properties.find(x=>x.id==id); if(!p) return; p.status='approved'; persist(); renderAll(); renderAdminTables(); alert('تمت الموافقة ونشر الإعلان.'); }
+function deletePropertyById(id){ properties = properties.filter(x=>x.id!=id); persist(); renderAll(); renderAdminTables(); alert('تم الحذف.'); }
+function openEdit(id){ const p = properties.find(x=>x.id==id); if(!p) return; $('editId').value = p.id; $('editTitle').value = p.title; $('editCategory').value = p.category; $('editPrice').value = p.price; $('editArea').value = p.area; $('editLocation').value = p.location; $('editOwnerPhone').value = p.ownerPhone; $('editDeed').value = p.deed; $('editDesc').value = p.desc; if(p.deed==='نعم') $('editBankWrapper').style.display='block'; else $('editBankWrapper').style.display='none'; $('editBank').value = p.bank || 'لا'; $('editModal').classList.add('show'); $('editModal').setAttribute('aria-hidden','false'); }
+function closeEdit(){ $('editModal').classList.remove('show'); $('editModal').setAttribute('aria-hidden','true'); }
+function onSubmitEdit(e){ e.preventDefault(); const id = Number($('editId').value); const p = properties.find(x=>x.id==id); if(!p) return; p.title = $('editTitle').value.trim(); p.category = $('editCategory').value; p.price = Number($('editPrice').value); p.area = Number($('editArea').value); p.location = $('editLocation').value.trim(); p.ownerPhone = $('editOwnerPhone').value.trim(); p.deed = $('editDeed').value; p.bank = $('editBank').value || 'لا'; p.desc = $('editDesc').value.trim(); persist(); closeEdit(); renderAll(); renderAdminTables(); alert('تم حفظ التعديلات.'); }
 
-/* open edit modal */
-function openEdit(id) {
-  const p = properties.find(x=>x.id==id);
-  if (!p) return;
-  $('editId').value = p.id;
-  $('editTitle').value = p.title;
-  $('editCategory').value = p.category;
-  $('editPrice').value = p.price;
-  $('editArea').value = p.area;
-  $('editLocation').value = p.location;
-  $('editOwnerPhone').value = p.ownerPhone;
-  $('editDeed').value = p.deed;
-  $('editDesc').value = p.desc;
-  if (p.deed === 'نعم') $('editBankWrapper').style.display = 'block'; else $('editBankWrapper').style.display = 'none';
-  $('editBank').value = p.bank || 'لا';
-
-  $('editModal').classList.add('show');
-  $('editModal').setAttribute('aria-hidden','false');
+/* Admin: create property as admin */
+function adminCreateProperty(){
+  // open add modal but mark created by admin
+  openAdd();
+  // once submit, change ownerType to admin inside onSubmitAdd flow by setting a flag
+  adminCreateFlag = true;
 }
-function closeEdit() {
-  $('editModal').classList.remove('show');
-  $('editModal').setAttribute('aria-hidden','true');
-}
-
-/* submit edit */
-function onSubmitEdit(e) {
+let adminCreateFlag = false;
+/* modify onSubmitAdd to support adminCreateFlag */
+const originalOnSubmitAdd = onSubmitAdd;
+onSubmitAdd = function(e){
+  // reuse original validation code but set ownerType based on flag
   e.preventDefault();
-  const id = Number($('editId').value);
-  const p = properties.find(x=>x.id==id);
-  if (!p) return;
-  p.title = $('editTitle').value.trim();
-  p.category = $('editCategory').value;
-  p.price = Number($('editPrice').value);
-  p.area = Number($('editArea').value);
-  p.location = $('editLocation').value.trim();
-  p.ownerPhone = $('editOwnerPhone').value.trim();
-  p.deed = $('editDeed').value;
-  p.bank = $('editBank').value || 'لا';
-  p.desc = $('editDesc').value.trim();
-  persist();
-  closeEdit();
-  renderAll();
-  renderAdminTables();
-  alert('تم حفظ التعديلات.');
-}
+  if(selectedImages.length < 1){ alert('الرجاء رفع صورة واحدة على الأقل (الواجهة أولاً).'); return; }
+  if(selectedImages.length > 3){ alert('الحد الأقصى 3 صور.'); return; }
+  const title = $('inputTitle').value.trim(); const category = $('inputCategory').value; const price = Number($('inputPrice').value);
+  const area = Number($('inputArea').value); const location = $('inputLocation').value.trim(); const ownerPhone = $('inputOwnerPhone').value.trim();
+  const deed = $('inputDeed').value; const bank = $('inputBank').value || 'لا'; const desc = $('inputDesc').value.trim();
+  if(!title || !category || !price || !location || !ownerPhone){ alert('الرجاء تعبئة الحقول المطلوبة.'); return; }
+  const prop = { id: nextId++, title, category, price, area, location, ownerPhone, deed, bank, desc, images: selectedImages.slice(0,3), status:'pending', ownerType: adminCreateFlag ? 'admin' : 'owner', createdAt:Date.now() };
+  properties.push(prop); persist();
+  adminCreateFlag = false;
+  closeAdd(); alert('تم إرسال العقار لانتظار موافقة المدير.');
+  renderAll(); if(isAdminLogged()) renderAdminTables();
+};
 
-/* ======================================================================================
-   Site name edit
-   ====================================================================================== */
+/* ========== لوحة تعديل اسم الموقع (مدير فقط) ========== */
 $('btnSiteEdit').addEventListener('click', ()=> {
   const newName = prompt('أدخل اسم الموقع الجديد', $('siteNameDisplay').textContent);
-  if (newName && newName.trim() !== '') {
-    $('siteNameDisplay').textContent = newName.trim();
-    $('logoText').textContent = newName.trim().split(' ').map(s=>s[0]).slice(0,3).join('');
-  }
+  if(newName && newName.trim()!==''){ $('siteNameDisplay').textContent = newName.trim(); $('logoText').textContent = newName.trim().split(' ').map(s=>s[0]).slice(0,3).join(''); }
 });
 
-/* ======================================================================================
-   Helpers: render everything, search & filters
-   ====================================================================================== */
-function renderAll() {
-  // determine chosen category pills
-  const activePill = document.querySelector('.category-pill.active');
-  const cat = activePill ? activePill.getAttribute('data-cat') : 'all';
-  const q = $('globalSearch').value || '';
-  const sort = $('sortSelect').value || 'recent';
-  renderGrid(cat, q, sort);
-  renderCounts();
-  // admin session? re-render admin tables if logged
-  if (sessionStorage.getItem('alq_admin_logged') === 'true') {
-    $('adminSection').style.display = 'block';
-    $('btnLogin').style.display = 'none';
-    renderAdminTables();
-  } else {
-    $('adminSection').style.display = 'none';
-  }
-}
-
-/* filter clicks */
-document.querySelectorAll('.category-pill').forEach(p=>{
-  p.addEventListener('click', function(){
-    document.querySelectorAll('.category-pill').forEach(x=>x.classList.remove('active'));
-    this.classList.add('active');
-    renderAll();
-  });
-});
-
-/* search handler (debounced) */
-let debounceTimer = null;
-$('globalSearch').addEventListener('input', function(){
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(()=> renderAll(), 250);
-});
+/* ========== بحث وفلترة وتهيئة الواجهة ========== */
+document.querySelectorAll('.category-pill').forEach(p=> p.addEventListener('click', function(){ document.querySelectorAll('.category-pill').forEach(x=>x.classList.remove('active')); this.classList.add('active'); renderAll(); }));
+let debounceTimer = null; $('globalSearch').addEventListener('input', function(){ clearTimeout(debounceTimer); debounceTimer = setTimeout(()=> renderAll(), 250); });
 $('sortSelect').addEventListener('change', renderAll);
 
 /* Close modals on overlay click */
-document.querySelectorAll('.modal').forEach(mod=>{
-  mod.addEventListener('click', function(e){
-    if (e.target === this) {
-      this.classList.remove('show');
-      this.setAttribute('aria-hidden','true');
-    }
-  });
-});
+document.querySelectorAll('.modal').forEach(mod=>{ mod.addEventListener('click', function(e){ if(e.target===this){ this.classList.remove('show'); this.setAttribute('aria-hidden','true'); if(this.id==='addModal'){ this.classList.remove('fullscreen'); adminCreateFlag=false; } } }); });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') document.querySelectorAll('.modal.show').forEach(m=>{ m.classList.remove('show'); m.setAttribute('aria-hidden','true'); m.classList.remove('fullscreen'); adminCreateFlag=false; }); });
 
-/* close detail modal on ESC */
-document.addEventListener('keydown', function(e){
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal.show').forEach(m=>{ m.classList.remove('show'); m.setAttribute('aria-hidden','true'); });
-  }
-});
+/* placeholder image */
+function placeholderImage(){ return 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='800'><rect width='100%' height='100%' fill='#e9f0f5'/><text x='50%' y='50%' font-size='28' text-anchor='middle' fill='#9bb3c9' font-family='Arial' dy='.3em'>لا توجد صورة</text></svg>`); }
 
-/* initial render */
+/* ========================
+   Initial render
+   ======================== */
+function renderAll(){ const active = document.querySelector('.category-pill.active'); const cat = active ? active.getAttribute('data-cat') : 'all'; const q = $('globalSearch').value || ''; const sort = $('sortSelect').value || 'recent'; renderGrid(cat, q, sort); if(isAdminLogged()) openAdmin(); else { $('btnSiteEdit').style.display='none'; } }
 renderAll();
 
-/* For demonstration, expose some functions on window (optional) */
-window.openAdd = openAdd;
-window.openDetail = openDetail;
-window.openEdit = openEdit;
-window.approveProperty = approveProperty;
-window.deletePropertyById = deletePropertyById;
+/* If already logged as admin on reload, open admin view */
+if(isAdminLogged()){ openAdmin(); }
 
-/* ======================================================================================
-   Placeholder image fallback
-   ====================================================================================== */
-function placeholderImage(){
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='800'><rect width='100%' height='100%' fill='#e9f0f5'/><text x='50%' y='50%' font-size='28' text-anchor='middle' fill='#9bb3c9' font-family='Arial' dy='.3em'>لا توجد صورة</text></svg>`
-  );
-}
-
-/* ======================================================================================
-   Extra: ensure admin session persists across reload (if desired)
-   ====================================================================================== */
-if (sessionStorage.getItem('alq_admin_logged') === 'true') {
-  // show admin on load
-  $('adminSection').style.display = 'block';
-  $('btnLogin').style.display = 'none';
-  renderAdminTables();
-}
+/* adminSearch binding (dynamic as user types) */
+$('adminSearch').addEventListener('input', function(){ renderAdminTables(this.value.trim().toLowerCase()); });
 
 </script>
+
 </body>
 </html>
